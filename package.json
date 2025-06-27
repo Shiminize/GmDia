@@ -1,0 +1,9 @@
+{
+  "name": "gmdia",
+  "private": true,
+  "scripts": {
+    "client": "pnpm --filter client",
+    "server": "pnpm --filter server"
+  },
+  "devDependencies": {}
+}
