@@ -204,11 +204,18 @@ Initially, the plan was to use MongoDB. However, due to local environment issues
 **Impact of this change:**
 
 *   **Database Type:** Switched from NoSQL (MongoDB) to Relational (PostgreSQL).
-*   **ORM/Client:** The backend code currently uses `mongoose` for MongoDB interactions. This will need to be replaced with a PostgreSQL client/ORM (e.g., `knex.js` and `pg`).
-*   **Schema Definition:** Database schemas previously defined for MongoDB (in `server/src/api/models/`) will need to be translated into SQL migrations or schema definitions compatible with PostgreSQL.
-*   **API Implementation:** All controller logic that interacts with the database will need to be updated to use the new PostgreSQL client/ORM.
+*   **ORM/Client:** The backend code has been refactored to use `knex.js` and `pg` for PostgreSQL interactions, replacing `mongoose`.
+*   **Schema Definition:** Database schemas have been translated into Knex migrations, and the `users`, `products`, `orders`, and `custom_designs` tables have been successfully migrated to Supabase.
+*   **API Implementation:** All controller logic that interacts with the database has been updated to use Knex.
 
 **Current Status of Database Integration:**
 
-*   The `server/.env` file is expected to be updated with the `DATABASE_URL` for Supabase.
-*   The backend code still contains `mongoose` and MongoDB-specific models and connection logic. These will need to be refactored to use PostgreSQL.
+*   The `server/.env` file has been updated with the `DATABASE_URL` for Supabase (Session Pooler URL).
+*   All Mongoose models (`User`, `Product`, `Order`, `CustomDesign`) have been replaced with Knex-based models.
+*   Corresponding controllers (`userController`, `productController`, `orderController`, `customizationController`) have been updated to use the new Knex models.
+*   The `authMiddleware` has been updated to reflect changes in the `User` model.
+*   The `server/src/config/db.js` has been updated to use Knex, and `server/src/server.js` has been updated to reflect these changes.
+
+**Current Issues:**
+
+*   **Local Server Connection:** The Node.js server is still unable to acquire a connection to the PostgreSQL database when run locally, despite the `DATABASE_URL` being verified as working externally (e.g., via `psql`). The error message is consistently "Error connecting to PostgreSQL: Unable to acquire a connection". This suggests a potential issue with local network configuration, firewall settings, or other environmental factors preventing the Node.js application from reaching the Supabase database.
