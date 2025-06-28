@@ -7,14 +7,12 @@ const CustomDesign = require('../models/CustomDesign');
 const saveCustomDesign = asyncHandler(async (req, res) => {
   const { name, designData, imageUrl } = req.body;
 
-  const customDesign = new CustomDesign({
-    user: req.user._id,
+  const createdDesign = await CustomDesign.create({
+    user_id: req.user.id,
     name,
     designData,
     imageUrl,
   });
-
-  const createdDesign = await customDesign.save();
   res.status(201).json(createdDesign);
 });
 
@@ -22,9 +20,11 @@ const saveCustomDesign = asyncHandler(async (req, res) => {
 // @route   GET /api/customizations/:id
 // @access  Public (can be shared)
 const getCustomDesignById = asyncHandler(async (req, res) => {
-  const design = await CustomDesign.findById(req.params.id).populate('user', 'name email');
+  const design = await CustomDesign.findById(req.params.id);
 
   if (design) {
+    const user = await db('users').select('name', 'email').where({ id: design.user_id }).first();
+    design.user = user;
     res.json(design);
   } else {
     res.status(404);
@@ -36,7 +36,7 @@ const getCustomDesignById = asyncHandler(async (req, res) => {
 // @route   GET /api/customizations/my-designs
 // @access  Private
 const getMyCustomDesigns = asyncHandler(async (req, res) => {
-  const designs = await CustomDesign.find({ user: req.user._id });
+  const designs = await CustomDesign.findByUserId(req.user.id);
   res.json(designs);
 });
 
@@ -47,11 +47,11 @@ const deleteCustomDesign = asyncHandler(async (req, res) => {
   const design = await CustomDesign.findById(req.params.id);
 
   if (design) {
-    if (design.user.toString() !== req.user._id.toString()) {
+    if (design.user_id !== req.user.id) {
       res.status(401);
       throw new Error('Not authorized to delete this design');
     }
-    await design.deleteOne();
+    await CustomDesign.destroy(req.params.id);
     res.json({ message: 'Custom design removed' });
   } else {
     res.status(404);

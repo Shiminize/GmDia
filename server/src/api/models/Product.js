@@ -1,42 +1,68 @@
-const mongoose = require('mongoose');
+const { db } = require('../../config/db');
 
-const ProductSchema = mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    imageUrl: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    metalOptions: [
-      {
-        type: String,
-      },
-    ],
-    diamondShapeOptions: [
-      {
-        type: String,
-      },
-    ],
+const Product = {
+  async create(productData) {
+    const {
+      name,
+      description,
+      price,
+      imageUrl,
+      category,
+      metalOptions,
+      diamondShapeOptions,
+    } = productData;
+
+    const [id] = await db('products')
+      .insert({
+        name,
+        description,
+        price,
+        imageUrl,
+        category,
+        metalOptions: JSON.stringify(metalOptions),
+        diamondShapeOptions: JSON.stringify(diamondShapeOptions),
+      })
+      .returning('id');
+    return this.findById(id);
   },
-  { timestamps: true }
-);
 
-const Product = mongoose.model('Product', ProductSchema);
+  async findAll() {
+    return db('products').select('*');
+  },
+
+  async findById(id) {
+    return db('products').where({ id }).first();
+  },
+
+  async update(id, productData) {
+    const {
+      name,
+      description,
+      price,
+      imageUrl,
+      category,
+      metalOptions,
+      diamondShapeOptions,
+    } = productData;
+
+    await db('products')
+      .where({ id })
+      .update({
+        name,
+        description,
+        price,
+        imageUrl,
+        category,
+        metalOptions: JSON.stringify(metalOptions),
+        diamondShapeOptions: JSON.stringify(diamondShapeOptions),
+        updated_at: db.fn.now(),
+      });
+    return this.findById(id);
+  },
+
+  async destroy(id) {
+    return db('products').where({ id }).del();
+  },
+};
 
 module.exports = Product;
