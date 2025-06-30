@@ -4,7 +4,7 @@ const SustainabilityPage: React.FC = () => {
   return (
     <div className="content-page">
       <h1>Sustainability & Ethical Impact</h1>
-      <p>At [Your Chosen Brand Name Here], sustainability and ethical practices are at the core of everything we do. We believe that beautiful jewelry should not come at the expense of our planet or its people.</p>
+      <p>At GemDia, sustainability and ethical practices are at the core of everything we do. We believe that beautiful jewelry should not come at the expense of our planet or its people.</p>
       <h2>Our Commitment</h2>
       <ul>
         <li><strong>Ethically Sourced Lab Diamonds:</strong> All our diamonds are lab-grown, ensuring they are conflict-free and have a transparent origin.</li>

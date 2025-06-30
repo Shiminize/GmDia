@@ -1,36 +1,27 @@
-const { db } = require('../../config/db');
+const mongoose = require('mongoose');
 
-const CustomDesign = {
-  async create(designData) {
-    const {
-      user_id,
-      name,
-      designData: designJson,
-      imageUrl,
-    } = designData;
-
-    const [id] = await db('custom_designs')
-      .insert({
-        user_id,
-        name,
-        designData: JSON.stringify(designJson),
-        imageUrl,
-      })
-      .returning('id');
-    return this.findById(id);
+const CustomDesignSchema = mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    designData: {
+      type: Object,
+      required: true,
+    },
+    imageUrl: {
+      type: String,
+    },
   },
+  { timestamps: true }
+);
 
-  async findById(id) {
-    return db('custom_designs').where({ id }).first();
-  },
-
-  async findByUserId(userId) {
-    return db('custom_designs').where({ user_id: userId });
-  },
-
-  async destroy(id) {
-    return db('custom_designs').where({ id }).del();
-  },
-};
+const CustomDesign = mongoose.model('CustomDesign', CustomDesignSchema);
 
 module.exports = CustomDesign;

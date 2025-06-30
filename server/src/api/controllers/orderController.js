@@ -11,16 +11,18 @@ const addOrderItems = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('No order items');
   } else {
-    const createdOrder = await Order.create({
-      user_id: req.user.id,
+    const order = new Order({
+      user: req.user._id,
       orderItems,
       shippingAddress,
       paymentMethod,
+      itemsPrice,
       taxPrice,
       shippingPrice,
       totalPrice,
-      paymentResult: req.body.paymentResult || null,
     });
+
+    const createdOrder = await order.save();
 
     res.status(201).json(createdOrder);
   }
@@ -30,11 +32,9 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/:id
 // @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id);
+  const order = await Order.findById(req.params.id).populate('user', 'name email');
 
   if (order) {
-    const user = await db('users').select('name', 'email').where({ id: order.user_id }).first();
-    order.user = user;
     res.json(order);
   } else {
     res.status(404);
@@ -49,12 +49,16 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
 
   if (order) {
-    const updatedOrder = await Order.updateToPaid(req.params.id, {
+    order.isPaid = true;
+    order.paidAt = Date.now();
+    order.paymentResult = {
       id: req.body.id,
       status: req.body.status,
       update_time: req.body.update_time,
       email_address: req.body.email_address,
-    });
+    };
+
+    const updatedOrder = await order.save();
 
     res.json(updatedOrder);
   } else {
@@ -67,7 +71,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 // @route   GET /api/orders/myorders
 // @access  Private
 const getMyOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.findByUserId(req.user.id);
+  const orders = await Order.find({ user: req.user._id });
   res.json(orders);
 });
 

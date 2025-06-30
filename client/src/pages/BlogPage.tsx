@@ -5,7 +5,7 @@ const BlogPage: React.FC = () => {
   const blogPosts = [
     { id: '1', title: 'The Future of Diamonds: Lab-Grown vs. Mined', date: 'June 15, 2025', excerpt: 'Explore the fascinating world of lab-grown diamonds and how they compare to their mined counterparts...' },
     { id: '2', title: 'Choosing the Perfect Engagement Ring: A Comprehensive Guide', date: 'June 10, 2025', excerpt: 'Navigating the world of engagement rings can be daunting. Our guide simplifies the process...' },
-    { id: '3', title: 'Sustainable Luxury: Our Commitment to Ethical Jewelry', date: 'June 01, 2025', excerpt: 'Discover how [Your Chosen Brand Name Here] is leading the way in environmentally conscious jewelry production...' },
+    { id: '3', title: 'Sustainable Luxury: Our Commitment to Ethical Jewelry', date: 'June 01, 2025', excerpt: 'Discover how GemDia is leading the way in environmentally conscious jewelry production...' },
   ];
 
   return (

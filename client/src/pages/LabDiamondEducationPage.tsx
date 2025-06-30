@@ -18,7 +18,7 @@ const LabDiamondEducationPage: React.FC = () => {
         <li><strong>Value:</strong> Often more affordable than mined diamonds of comparable quality and size.</li>
         <li><strong>Identical Properties:</strong> Possess the same brilliance, fire, and sparkle as mined diamonds.</li>
       </ul>
-      <p>At [Your Chosen Brand Name Here], we are proud to offer beautiful, ethically-sourced lab-grown diamonds that align with modern values.</p>
+      <p>At GemDia, we are proud to offer beautiful, ethically-sourced lab-grown diamonds that align with modern values.</p>
     </div>
   );
 };

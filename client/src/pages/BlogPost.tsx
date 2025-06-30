@@ -19,7 +19,7 @@ const BlogPost: React.FC = () => {
         <p>It's crucial to understand that lab-grown diamonds are not imitations; they are real diamonds. They possess the exact same chemical, physical, and optical properties as mined diamonds. This means they have the same brilliance, fire, and sparkle.</p>
         <h3>Value and Affordability</h3>
         <p>Generally, lab-grown diamonds offer a more accessible price point for comparable quality and size. This allows consumers to acquire larger or higher-quality stones within their budget, without compromising on the beauty or authenticity of a diamond.</p>
-        <p>Ultimately, the choice between lab-grown and mined diamonds is a personal one. Both are beautiful, durable, and valuable. At [Your Chosen Brand Name Here], we are proud to offer ethically-sourced lab-grown diamonds, providing a responsible and brilliant choice for your jewelry.</p>
+        <p>Ultimately, the choice between lab-grown and mined diamonds is a personal one. Both are beautiful, durable, and valuable. At GemDia, we are proud to offer ethically-sourced lab-grown diamonds, providing a responsible and brilliant choice for your jewelry.</p>
       `,
     },
     '2': {
@@ -42,7 +42,7 @@ const BlogPost: React.FC = () => {
       title: 'Sustainable Luxury: Our Commitment to Ethical Jewelry',
       date: 'June 01, 2025',
       content: `
-        <p>In an era where conscious consumerism is paramount, the demand for ethically and sustainably produced goods has extended to the luxury market, including fine jewelry. At [Your Chosen Brand Name Here], we are at the forefront of this movement, committed to offering beautiful jewelry that aligns with your values.</p>
+        <p>In an era where conscious consumerism is paramount, the demand for ethically and sustainably produced goods has extended to the luxury market, including fine jewelry. At GemDia, we are at the forefront of this movement, committed to offering beautiful jewelry that aligns with your values.</p>
         <h3>The Ethical Choice: Lab-Grown Diamonds</h3>
         <p>Our core commitment to sustainability begins with our diamonds. We exclusively use lab-grown diamonds, which are chemically, physically, and optically identical to mined diamonds but are created in controlled environments. This eliminates the ethical concerns associated with traditional diamond mining, such as conflict funding and human rights abuses.</p>
         <h3>Minimizing Environmental Impact</h3>
@@ -50,7 +50,7 @@ const BlogPost: React.FC = () => {
         <h3>Transparent Practices</h3>
         <p>Transparency is key to building trust. We are committed to providing clear information about our sourcing, manufacturing processes, and environmental initiatives. We believe you have the right to know where your jewelry comes from and how it's made.</p>
         <h3>A Future of Responsible Luxury</h3>
-        <p>Our dedication to sustainable luxury is an ongoing journey. We continuously research and implement new practices to minimize our impact and contribute positively to the industry and the planet. When you choose [Your Chosen Brand Name Here], you're not just buying a piece of jewelry; you're investing in a future where luxury and responsibility go hand in hand.</p>
+        <p>Our dedication to sustainable luxury is an ongoing journey. We continuously research and implement new practices to minimize our impact and contribute positively to the industry and the planet. When you choose GemDia, you're not just buying a piece of jewelry; you're investing in a future where luxury and responsibility go hand in hand.</p>
       `,
     },
   };

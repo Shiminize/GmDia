@@ -197,25 +197,25 @@ This document summarizes the current state of the GmDia project, including task 
 
 ---
 
-## 4. Database Changes: From MongoDB to Supabase (PostgreSQL)
+## 4. Database Changes: From Supabase (PostgreSQL) to MongoDB
 
-Initially, the plan was to use MongoDB. However, due to local environment issues with MongoDB/Docker, the database choice has been switched to **Supabase**, which uses **PostgreSQL**.
+Initially, the plan was to use MongoDB. We then attempted to migrate to Supabase (PostgreSQL) due to local environment issues with MongoDB/Docker. However, due to persistent connection issues with Supabase, the database choice has been reverted to **MongoDB**.
 
 **Impact of this change:**
 
-*   **Database Type:** Switched from NoSQL (MongoDB) to Relational (PostgreSQL).
-*   **ORM/Client:** The backend code has been refactored to use `knex.js` and `pg` for PostgreSQL interactions, replacing `mongoose`.
-*   **Schema Definition:** Database schemas have been translated into Knex migrations, and the `users`, `products`, `orders`, and `custom_designs` tables have been successfully migrated to Supabase.
-*   **API Implementation:** All controller logic that interacts with the database has been updated to use Knex.
+*   **Database Type:** Switched back to NoSQL (MongoDB).
+*   **ORM/Client:** The backend code has been reverted to use `mongoose` for MongoDB interactions, replacing `knex.js` and `pg`.
+*   **Schema Definition:** Database schemas are now defined using Mongoose models.
+*   **API Implementation:** All controller logic that interacts with the database has been reverted to use Mongoose.
 
 **Current Status of Database Integration:**
 
-*   The `server/.env` file has been updated with the `DATABASE_URL` for Supabase (Session Pooler URL).
-*   All Mongoose models (`User`, `Product`, `Order`, `CustomDesign`) have been replaced with Knex-based models.
-*   Corresponding controllers (`userController`, `productController`, `orderController`, `customizationController`) have been updated to use the new Knex models.
-*   The `authMiddleware` has been updated to reflect changes in the `User` model.
-*   The `server/src/config/db.js` has been updated to use Knex, and `server/src/server.js` has been updated to reflect these changes.
+*   The `server/.env` file is expected to be updated with the `MONGO_URI` for MongoDB.
+*   All Mongoose models (`User`, `Product`, `Order`, `CustomDesign`) have been restored.
+*   Corresponding controllers (`userController`, `productController`, `orderController`, `customizationController`) have been reverted to use the Mongoose models and their methods.
+*   The `authMiddleware` has been reverted to reflect changes in the `User` model.
+*   The `server/src/config/db.js` has been reverted to use Mongoose, and `server/src/server.js` has been updated to reflect these changes.
 
 **Current Issues:**
 
-*   **Local Server Connection:** The Node.js server is still unable to acquire a connection to the PostgreSQL database when run locally, despite the `DATABASE_URL` being verified as working externally (e.g., via `psql`). The error message is consistently "Error connecting to PostgreSQL: Unable to acquire a connection". This suggests a potential issue with local network configuration, firewall settings, or other environmental factors preventing the Node.js application from reaching the Supabase database.
+*   **MongoDB Connection:** The server will require a MongoDB instance to connect to. The `MONGO_URI` in the `.env` file needs to be correctly configured.

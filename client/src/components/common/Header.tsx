@@ -35,7 +35,7 @@ const Header: React.FC = () => {
   return (
     <header className="app-header">
       <nav>
-        <div className="logo">[Your Chosen Brand Name Here]</div>
+        <div className="logo">GemDia</div>
         <ul className="nav-links">
           <li><Link to="/">Home</Link></li>
           <li

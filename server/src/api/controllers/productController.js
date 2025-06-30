@@ -5,7 +5,7 @@ const Product = require('../models/Product');
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.findAll();
+  const products = await Product.find({});
   res.json(products);
 });
 
@@ -29,15 +29,17 @@ const getProductById = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
   const { name, price, description, imageUrl, category, metalOptions, diamondShapeOptions } = req.body;
 
-  const createdProduct = await Product.create({
-    name,
-    price,
-    description,
-    imageUrl,
-    category,
-    metalOptions,
-    diamondShapeOptions,
+  const product = new Product({
+    name: name,
+    price: price,
+    description: description,
+    imageUrl: imageUrl,
+    category: category,
+    metalOptions: metalOptions,
+    diamondShapeOptions: diamondShapeOptions,
   });
+
+  const createdProduct = await product.save();
   res.status(201).json(createdProduct);
 });
 
@@ -50,15 +52,15 @@ const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    const updatedProduct = await Product.update(req.params.id, {
-      name,
-      price,
-      description,
-      imageUrl,
-      category,
-      metalOptions,
-      diamondShapeOptions,
-    });
+    product.name = name;
+    product.price = price;
+    product.description = description;
+    product.imageUrl = imageUrl;
+    product.category = category;
+    product.metalOptions = metalOptions;
+    product.diamondShapeOptions = diamondShapeOptions;
+
+    const updatedProduct = await product.save();
     res.json(updatedProduct);
   } else {
     res.status(404);
@@ -73,7 +75,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    await Product.destroy(req.params.id);
+    await product.deleteOne();
     res.json({ message: 'Product removed' });
   } else {
     res.status(404);

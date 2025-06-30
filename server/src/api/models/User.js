@@ -1,32 +1,45 @@
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const { db } = require('../../config/db');
 
-const User = {
-  async create(userData) {
-    const { name, email, password, isAdmin } = userData;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const [id] = await db('users').insert({
-      name,
-      email,
-      password: hashedPassword,
-      isAdmin: isAdmin || false,
-    }).returning('id');
-    return this.findById(id);
+const UserSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
+  { timestamps: true }
+);
 
-  async findByEmail(email) {
-    return db('users').where({ email }).first();
-  },
+// Encrypt password using bcrypt
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
 
-  async findById(id) {
-    return db('users').where({ id }).first();
-  },
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
-  async comparePassword(enteredPassword, hashedPassword) {
-    return bcrypt.compare(enteredPassword, hashedPassword);
-  },
+// Match user entered password to hashed password in database
+UserSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
 };
+
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;
