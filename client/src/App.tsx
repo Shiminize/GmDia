@@ -12,6 +12,7 @@ import Checkout from './components/cart/Checkout';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import AccountSettings from './pages/AccountSettings';
 import AboutPage from './pages/AboutPage';
 import LabDiamondEducationPage from './pages/LabDiamondEducationPage';
 import SustainabilityPage from './pages/SustainabilityPage';
@@ -209,6 +210,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/account" element={<AccountSettings />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/education" element={<LabDiamondEducationPage />} />
             <Route path="/sustainability" element={<SustainabilityPage />} />
