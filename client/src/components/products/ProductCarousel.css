@@ -1,0 +1,56 @@
+.carousel-section {
+  margin: 60px 0 40px 0;
+  padding: 0 5vw;
+  position: relative;
+  text-align: center;
+}
+
+.carousel-title {
+  font-family: var(--font-primary);
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--graphite-black);
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.carousel-list {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  overflow-x: auto;
+  gap: 2rem;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.carousel-item {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  transition: transform 0.3s;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-item:active {
+  transform: scale(0.98);
+}
+
+.carousel-list::-webkit-scrollbar {
+  height: 8px;
+}
+.carousel-list::-webkit-scrollbar-thumb {
+  background: var(--champagne-beige);
+  border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .carousel-item {
+    flex: 0 0 85vw;
+  }
+  .carousel-title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+} 

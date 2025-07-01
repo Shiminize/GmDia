@@ -1,0 +1,260 @@
+/* Import elegant fonts for luxury feel */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Lato:wght@300;400;500&display=swap');
+
+/* Updated color variables to match the sophisticated palette */
+:root {
+  --ivory-white: #F9F9F9;
+  --pure-white: #FFFFFF;
+  --graphite-black: #1A1A1A;
+  --champagne-beige: #EFE7DD;
+  --muted-blush: #F5DADF;
+  --pale-sage: #DCEDE4;
+  --digital-lavender: #CDB4DB;
+  --luxury-gold: #D4AF37;
+  --deep-navy: #0F1419;
+}
+
+.home-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--ivory-white) 0%, var(--champagne-beige) 100%);
+}
+
+.hero-section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--graphite-black);
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--deep-navy) 0%,
+    var(--graphite-black) 35%,
+    var(--champagne-beige) 100%
+  );
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  animation: subtle-zoom 25s infinite ease-in-out;
+  z-index: 1;
+}
+
+/* Elegant overlay for sophisticated depth */
+.hero-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(26, 26, 26, 0.7) 0%,
+    rgba(15, 20, 25, 0.4) 35%,
+    rgba(239, 231, 221, 0.1) 70%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* More subtle and elegant animation */
+@keyframes subtle-zoom {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.05) rotate(0.5deg);
+  }
+}
+
+.hero-text {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  padding: 60px 40px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.1),
+    0 15px 35px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300;
+  margin: 0 0 1.5rem 0;
+  color: var(--graphite-black);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+}
+
+.hero-text p {
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 300;
+  margin: 0 0 2.5rem 0;
+  color: var(--graphite-black);
+  opacity: 0.8;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.cta-button {
+  font-family: 'Lato', sans-serif;
+  padding: 16px 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, var(--graphite-black) 0%, var(--deep-navy) 100%);
+  color: var(--ivory-white);
+  border: 2px solid transparent;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 8px 25px rgba(26, 26, 26, 0.15),
+    0 3px 12px rgba(26, 26, 26, 0.1);
+  margin: 0 auto;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.cta-button:hover {
+  background: linear-gradient(135deg, var(--muted-blush) 0%, var(--digital-lavender) 100%);
+  color: var(--graphite-black);
+  transform: translateY(-3px);
+  box-shadow: 
+    0 15px 35px rgba(26, 26, 26, 0.2),
+    0 8px 20px rgba(26, 26, 26, 0.15);
+  border-color: var(--digital-lavender);
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+.cta-button:active {
+  transform: translateY(-1px);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .hero-text {
+    padding: 40px 30px;
+    margin: 0 15px;
+  }
+  
+  .hero-text h1 {
+    margin-bottom: 1rem;
+  }
+  
+  .hero-text p {
+    margin-bottom: 2rem;
+  }
+  
+  .cta-button {
+    padding: 14px 32px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text {
+    padding: 30px 20px;
+    margin: 0 10px;
+  }
+  
+  .cta-button {
+    padding: 12px 28px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Additional luxury sections for homepage expansion */
+.luxury-showcase {
+  padding: 120px 0;
+  background: var(--ivory-white);
+  position: relative;
+  text-align: center;
+}
+
+.luxury-showcase::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--champagne-beige), transparent);
+}
+
+/* Elegant scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  color: var(--ivory-white);
+  opacity: 0.7;
+  animation: gentle-bounce 2s infinite ease-in-out;
+  text-align: center;
+}
+
+@keyframes gentle-bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+.scroll-hint::after {
+  content: '↓';
+  display: block;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 5px;
+}

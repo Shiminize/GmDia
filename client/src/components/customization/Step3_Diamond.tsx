@@ -36,7 +36,7 @@ const Step3_Diamond: React.FC<Step3_DiamondProps> = ({ onSelectDiamondShape, sel
       </div>
       {/* Add options for Carat Weight, Cut, Color, Clarity */}
       <Button onClick={() => setShowEducation(!showEducation)} className="learn-more-btn">
-        {showEducation ? 'Hide Details' : 'Learn More About Diamonds (4 C's)'}
+        {showEducation ? "Hide Details" : "Learn More About Diamonds (4 C's)"}
       </Button>
       {showEducation && (
         <div className="education-content">

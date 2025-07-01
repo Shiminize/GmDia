@@ -1,0 +1,66 @@
+.hero-section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align text to the left */
+  text-align: left;
+  color: var(--ivory-white);
+  padding-left: 5%; /* Add some padding */
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3background-image: url('https://images.unsplash.com/photo-1584377334238-4a6a2b5815aa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dbackground-image: url('https://images.unsplash.com/photo-1584377334238-4a6a2b5815aa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');auto=formatbackground-image: url('https://images.unsplash.com/photo-1584377334238-4a6a2b5815aa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');fit=cropbackground-image: url('https://images.unsplash.com/photo-1584377334238-4a6a2b5815aa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');w=2070background-image: url('https://images.unsplash.com/photo-1584377334238-4a6a2b5815aa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');q=80');
+  background-size: cover;
+  background-position: center;
+  animation: ken-burns 20s infinite;
+  z-index: -1;
+}
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.hero-text {
+  max-width: 600px; /* Adjusted max-width */
+}
+
+.hero-text h1 {
+  font-size: 3.5rem; /* Adjusted font size */
+  font-weight: 300; /* Lighter font weight */
+  margin-bottom: 1.5rem;
+}
+
+.hero-text p {
+  font-size: 1.2rem; /* Adjusted font size */
+  margin-bottom: 2.5rem;
+}
+
+.cta-button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background-color: transparent;
+  color: var(--ivory-white);
+  border: 1px solid var(--ivory-white); /* Thinner border */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  letter-spacing: 1px; /* Added letter-spacing */
+}
+
+.cta-button:hover {
+  background-color: var(--ivory-white);
+  color: var(--graphite-black);
+}

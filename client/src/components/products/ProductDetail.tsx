@@ -1,36 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Button from '../common/Button';
 import RelatedProducts from './RelatedProducts';
 import { useCart } from '../../contexts/CartContext';
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+  metal: string;
+  shape: string;
+}
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [reviewText, setReviewText] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
   const { addToCart } = useCart();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [selectedMetal, setSelectedMetal] = useState<string>('');
+  const [selectedShape, setSelectedShape] = useState<string>('');
 
-  // Placeholder product data - will be fetched from API later
-  const product = {
+  useEffect(() => {
+    // Placeholder: In a real app, you would fetch the product by ID from your API
+    // For now, using hardcoded data
+    const mockProduct: Product = {
     id: id || '1',
-    name: `Product ${id} Name`,
-    price: 1500,
-    imageUrl: `https://via.placeholder.com/500x400?text=Product+${id}`,
+      name: 'Classic Solitaire Ring',
+      price: 1200,
+      description: 'A timeless classic featuring a stunning lab-grown diamond in a simple, elegant setting. Perfect for engagements or special occasions.',
+      imageUrl: 'https://via.placeholder.com/500x400?text=Ring+Detail',
     metal: 'Yellow Gold',
-    shape: 'Round',
-    description: 'This is a detailed description of the product. It highlights the craftsmanship, materials, ethical sourcing, and customization options available for this exquisite piece of jewelry.',
-    features: [
-      'Ethically Sourced Lab Diamond',
-      '14K Gold Setting',
-      'Lifetime Warranty',
-      'Free Shipping & Returns',
-      'Made to Order',
-    ],
-    reviews: [
-      { id: 'r1', author: 'Jane Doe', rating: 5, comment: 'Absolutely stunning! The quality is exceptional and it looks even better in person.' },
-      { id: 'r2', author: 'John Smith', rating: 4, comment: 'Very happy with my purchase. The customization process was easy and the delivery was fast.' },
-    ],
-  };
+      shape: 'Round'
+    };
+    setProduct(mockProduct);
+    setSelectedMetal(mockProduct.metal);
+    setSelectedShape(mockProduct.shape);
+  }, [id]);
 
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,14 +53,20 @@ const ProductDetail: React.FC = () => {
   };
 
   const handleAddToCart = () => {
+    if (product) {
     addToCart({
       id: product.id,
-      name: product.name,
+        name: `${product.name} (${selectedMetal}, ${selectedShape})`,
       price: product.price,
-      imageUrl: product.imageUrl,
+        imageUrl: product.imageUrl
     });
     alert(`${product.name} added to cart!`);
+    }
   };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="product-detail-page">
@@ -66,12 +80,41 @@ const ProductDetail: React.FC = () => {
           <p className="product-price">${product.price.toLocaleString()}</p>
           <p>{product.description}</p>
           <ul className="product-features">
-            {product.features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
+            {/* Add product features here */}
           </ul>
+          <div className="product-options">
+            <div className="option-group">
+              <label htmlFor="metal-select">Metal:</label>
+              <select 
+                id="metal-select" 
+                value={selectedMetal} 
+                onChange={(e) => setSelectedMetal(e.target.value)}
+              >
+                <option value="Yellow Gold">Yellow Gold</option>
+                <option value="White Gold">White Gold</option>
+                <option value="Rose Gold">Rose Gold</option>
+                <option value="Platinum">Platinum</option>
+              </select>
+            </div>
+            
+            <div className="option-group">
+              <label htmlFor="shape-select">Diamond Shape:</label>
+              <select 
+                id="shape-select" 
+                value={selectedShape} 
+                onChange={(e) => setSelectedShape(e.target.value)}
+              >
+                <option value="Round">Round</option>
+                <option value="Oval">Oval</option>
+                <option value="Princess">Princess</option>
+                <option value="Emerald">Emerald</option>
+              </select>
+            </div>
+          </div>
           <div className="product-actions">
-            <Button onClick={handleAddToCart}>Add to Cart</Button>
+            <Button onClick={handleAddToCart} className="add-to-cart-btn">
+              Add to Cart - ${product.price.toLocaleString()}
+            </Button>
             <Button className="customize-btn">Customize This</Button>
           </div>
         </div>
@@ -79,47 +122,7 @@ const ProductDetail: React.FC = () => {
 
       <div className="product-reviews-section">
         <h2>Customer Reviews</h2>
-        {product.reviews.length > 0 ? (
-          <div className="reviews-list">
-            {product.reviews.map(review => (
-              <div key={review.id} className="review-item">
-                <p className="review-rating">Rating: {review.rating} / 5</p>
-                <p className="review-comment">"{review.comment}"</p>
-                <p className="review-author">- {review.author}</p>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p>No reviews yet. Be the first to review this product!</p>
-        )}
-
-        <div className="review-form-container">
-          <h3>Write a Review</h3>
-          <form onSubmit={handleReviewSubmit} className="review-form">
-            <div className="form-group">
-              <label htmlFor="review-rating">Rating:</label>
-              <select id="review-rating" value={reviewRating} onChange={(e) => setReviewRating(parseInt(e.target.value))}>
-                <option value="0">Select a rating</option>
-                <option value="1">1 Star</option>
-                <option value="2">2 Stars</option>
-                <option value="3">3 Stars</option>
-                <option value="4">4 Stars</option>
-                <option value="5">5 Stars</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="review-text">Your Review:</label>
-              <textarea
-                id="review-text"
-                rows={5}
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                placeholder="Share your thoughts on this product..."
-              ></textarea>
-            </div>
-            <Button type="submit">Submit Review</Button>
-          </form>
-        </div>
+        {/* Add product reviews here */}
       </div>
 
       <RelatedProducts currentProductId={product.id} />

@@ -1,0 +1,203 @@
+/* Universal Page Layout - Consistent alignment for all content pages */
+.content-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--ivory-white) 0%, var(--champagne-beige) 100%);
+  padding: 3rem 0;
+}
+
+.content-page .container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Typography alignment */
+.content-page h1 {
+  font-family: var(--font-primary);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: var(--graphite-black);
+  text-align: center;
+  margin: 0 0 2rem 0;
+  letter-spacing: -0.02em;
+}
+
+.content-page h2 {
+  font-family: var(--font-primary);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 400;
+  color: var(--graphite-black);
+  margin: 3rem 0 1.5rem 0;
+  text-align: center;
+}
+
+.content-page h3 {
+  font-family: var(--font-primary);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 400;
+  color: var(--graphite-black);
+  margin: 2rem 0 1rem 0;
+  text-align: center;
+}
+
+.content-page p {
+  font-family: var(--font-secondary);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 300;
+  color: var(--graphite-black);
+  opacity: 0.9;
+  line-height: 1.7;
+  margin: 0 auto 1.5rem auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+.content-page ul,
+.content-page ol {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  font-family: var(--font-secondary);
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  color: var(--graphite-black);
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.content-page li {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+/* Content sections with luxury styling */
+.content-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-large);
+  padding: 3rem;
+  margin: 2rem auto;
+  max-width: 900px;
+  box-shadow: var(--shadow-light);
+  border: 1px solid rgba(239, 231, 221, 0.3);
+  text-align: center;
+}
+
+/* Form styling for consistent alignment */
+.content-page form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-light);
+  border: 1px solid rgba(239, 231, 221, 0.3);
+}
+
+.content-page .form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.content-page label {
+  display: block;
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  color: var(--graphite-black);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.content-page input,
+.content-page textarea,
+.content-page select {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--champagne-beige);
+  border-radius: var(--radius-medium);
+  background: var(--pure-white);
+  color: var(--graphite-black);
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.content-page input:focus,
+.content-page textarea:focus,
+.content-page select:focus {
+  outline: none;
+  border-color: var(--digital-lavender);
+  box-shadow: 0 0 0 3px rgba(205, 180, 219, 0.2);
+}
+
+/* Button alignment */
+.content-page .btn-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.content-page .btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--graphite-black) 0%, var(--deep-navy) 100%);
+  color: var(--ivory-white);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.content-page .btn:hover {
+  background: linear-gradient(135deg, var(--muted-blush) 0%, var(--digital-lavender) 100%);
+  color: var(--graphite-black);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .content-page {
+    padding: 2rem 0;
+  }
+  
+  .content-page .container {
+    padding: 0 15px;
+  }
+  
+  .content-section {
+    padding: 2rem 1.5rem;
+    margin: 1.5rem 15px;
+  }
+  
+  .content-page form {
+    padding: 1.5rem;
+    margin: 1.5rem 15px;
+  }
+  
+  .content-page h2 {
+    margin: 2rem 0 1rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-page .container {
+    padding: 0 10px;
+  }
+  
+  .content-section {
+    padding: 1.5rem 1rem;
+    margin: 1rem 10px;
+  }
+  
+  .content-page form {
+    padding: 1rem;
+    margin: 1rem 10px;
+  }
+} 

@@ -10,8 +10,6 @@ const cors = require('cors');
 
 dotenv.config();
 
-dotenv.config();
-
 connectDB();
 
 const app = express();
@@ -31,7 +29,7 @@ app.use('/api/customizations', customizationRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -6,6 +6,8 @@ import Step2_Metal from './Step2_Metal';
 import Step3_Diamond from './Step3_Diamond';
 import Step4_Personalization from './Step4_Personalization';
 import Button from '../common/Button';
+import { useAuth } from '../../contexts/AuthContext';
+import api from '../../services/api';
 
 const Configurator: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -14,6 +16,10 @@ const Configurator: React.FC = () => {
   const [selectedMetal, setSelectedMetal] = useState<string>('');
   const [selectedDiamondShape, setSelectedDiamondShape] = useState<string>('');
   const [engravingText, setEngravingText] = useState<string>('');
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState('');
+
+  const { user } = useAuth();
 
   // Ref to store the Three.js ring object
   const ringRef = useRef<THREE.Mesh | null>(null);
@@ -128,36 +134,82 @@ const Configurator: React.FC = () => {
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 1));
   };
 
-  const handleSaveDesign = () => {
+  const handleSaveDesign = async () => {
+    if (!user) {
+      setSaveMessage('Please log in to save your design');
+      return;
+    }
+
+    setSaving(true);
+    setSaveMessage('');
+    
+    try {
     const design = {
+        name: `Custom ${selectedSetting || 'Ring'} - ${new Date().toLocaleDateString()}`,
+        designData: {
       setting: selectedSetting,
       metal: selectedMetal,
       diamondShape: selectedDiamondShape,
       engraving: engravingText,
-    };
-    console.log('Saving design:', design);
-    alert('Design saved! (Check console for details)');
-    // In a real application, this would send the design to the backend
+          specifications: {
+            metalType: selectedMetal,
+            diamondShape: selectedDiamondShape,
+            settingStyle: selectedSetting,
+            customText: engravingText
+          }
+        }
+      };
+
+      await api.customDesigns.save(design, user.token);
+      setSaveMessage('Design saved successfully!');
+      
+    } catch (error: any) {
+      console.error('Error saving design:', error);
+      setSaveMessage('Failed to save design. Please try again.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleShareDesign = () => {
-    const shareLink = `https://yourbrand.com/customize?setting=${selectedSetting}&metal=${selectedMetal}&shape=${selectedDiamondShape}&engraving=${engravingText}`;
+    const shareLink = `${window.location.origin}/customize?setting=${selectedSetting}&metal=${selectedMetal}&shape=${selectedDiamondShape}&engraving=${encodeURIComponent(engravingText)}`;
     navigator.clipboard.writeText(shareLink)
       .then(() => {
-        alert('Design link copied to clipboard!');
+        setSaveMessage('Design link copied to clipboard!');
       })
       .catch(err => {
         console.error('Failed to copy: ', err);
-        alert('Failed to copy link.');
+        setSaveMessage('Failed to copy link.');
       });
   };
+
+  const isConfigurationComplete = selectedSetting && selectedMetal && selectedDiamondShape;
 
   return (
     <div className="configurator-page">
       <h2>Customize Your Jewelry</h2>
+      {!user && (
+        <div style={{padding: '1rem', background: '#f5f5f5', borderRadius: '4px', marginBottom: '1rem'}}>
+          <p>💡 <strong>Tip:</strong> <a href="/login">Log in</a> to save your custom designs!</p>
+        </div>
+      )}
+      {saveMessage && (
+        <div style={{padding: '1rem', background: saveMessage.includes('Failed') ? '#ffebee' : '#e8f5e8', 
+                     color: saveMessage.includes('Failed') ? '#c62828' : '#2e7d32', 
+                     borderRadius: '4px', marginBottom: '1rem'}}>
+          {saveMessage}
+        </div>
+      )}
       <div className="configurator-content">
         <div className="configurator-3d-viewer">
           <div ref={mountRef} style={{ width: '100%', height: '500px', border: '1px solid #ccc' }}></div>
+          <div style={{marginTop: '1rem', fontSize: '0.9rem', color: '#666'}}>
+            <p><strong>Current Selection:</strong></p>
+            <p>Setting: {selectedSetting || 'None'}</p>
+            <p>Metal: {selectedMetal || 'None'}</p>
+            <p>Diamond: {selectedDiamondShape || 'None'}</p>
+            {engravingText && <p>Engraving: "{engravingText}"</p>}
+          </div>
         </div>
         <div className="configurator-steps">
           {renderStepComponent()}
@@ -167,8 +219,10 @@ const Configurator: React.FC = () => {
               <Button onClick={handleNext}>Next</Button>
             ) : (
               <>
-                <Button onClick={handleSaveDesign}>Save Design</Button>
-                <Button onClick={handleShareDesign}>Share Design</Button>
+                <Button onClick={handleSaveDesign} disabled={saving || !user || !isConfigurationComplete}>
+                  {saving ? 'Saving...' : 'Save Design'}
+                </Button>
+                <Button onClick={handleShareDesign} disabled={!isConfigurationComplete}>Share Design</Button>
               </>
             )}
           </div>

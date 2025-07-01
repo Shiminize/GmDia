@@ -1,0 +1,162 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--ivory-white);
+  position: relative;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure all page content has proper spacing from header */
+.App main > * {
+  width: 100%;
+}
+
+/* Sophisticated Live Chat Button - Fixed positioning */
+.live-chat-button {
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  background: linear-gradient(135deg, var(--graphite-black) 0%, var(--deep-navy) 100%) !important;
+  color: var(--ivory-white) !important;
+  border: none !important;
+  border-radius: var(--radius-pill) !important;
+  padding: 16px 24px !important;
+  cursor: pointer !important;
+  z-index: 1000 !important;
+  box-shadow: 
+    var(--shadow-heavy),
+    0 0 0 0 rgba(26, 26, 26, 0.3) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  font-family: var(--font-secondary) !important;
+  font-weight: 500 !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase !important;
+  backdrop-filter: blur(10px) !important;
+  animation: gentle-pulse 3s infinite ease-in-out;
+  transform: translateZ(0) !important;
+  will-change: transform;
+  /* Override any inherited styles */
+  display: inline-block !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  text-decoration: none !important;
+}
+
+@keyframes gentle-pulse {
+  0%, 100% {
+    box-shadow: 
+      var(--shadow-heavy),
+      0 0 0 0 rgba(26, 26, 26, 0.3);
+  }
+  50% {
+    box-shadow: 
+      var(--shadow-heavy),
+      0 0 0 10px rgba(26, 26, 26, 0.1);
+  }
+}
+
+.live-chat-button:hover {
+  transform: translateY(-5px) scale(1.05) translateZ(0) !important;
+  background: linear-gradient(135deg, var(--muted-blush) 0%, var(--digital-lavender) 100%) !important;
+  color: var(--graphite-black) !important;
+  box-shadow: 
+    0 20px 40px rgba(26, 26, 26, 0.25),
+    0 0 0 0 rgba(205, 180, 219, 0.4) !important;
+  animation: none;
+}
+
+.live-chat-button:active {
+  transform: translateY(-2px) scale(1.02) translateZ(0) !important;
+}
+
+.live-chat-button:focus {
+  outline: none !important;
+  box-shadow: 
+    var(--shadow-heavy),
+    0 0 0 3px rgba(205, 180, 219, 0.3) !important;
+}
+
+/* Enhanced button styles */
+.btn {
+  padding: 12px 24px;
+  border-radius: var(--radius-medium);
+  cursor: pointer;
+  font-weight: 500;
+  font-family: var(--font-secondary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+/* Ensure the home page content takes full height */
+.home-page {
+  min-height: 100vh;
+  flex: 1;
+}
+
+/* Chat window styling to match luxury aesthetic */
+.chat-window {
+  font-family: var(--font-secondary) !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(239, 231, 221, 0.5) !important;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.15),
+    0 15px 35px rgba(0, 0, 0, 0.1) !important;
+}
+
+.chat-window h3 {
+  font-family: var(--font-primary) !important;
+  color: var(--graphite-black) !important;
+  font-weight: 400 !important;
+}
+
+/* Ensure proper stacking and prevent layout shifts */
+.App * {
+  box-sizing: border-box;
+}
+
+/* Mobile responsiveness for live chat */
+@media (max-width: 768px) {
+  .live-chat-button {
+    bottom: 20px;
+    right: 20px;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .live-chat-button {
+    bottom: 15px;
+    right: 15px;
+    padding: 12px 18px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Prevent any overflow issues that might affect chat button positioning */
+body {
+  overflow-x: hidden;
+}
+
+.App {
+  overflow-x: hidden;
+}

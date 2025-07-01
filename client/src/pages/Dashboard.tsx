@@ -6,6 +6,7 @@ import DashboardCard from '../components/dashboard/DashboardCard';
 import DashboardSidebar from '../components/dashboard/DashboardSidebar';
 import MetricCard from '../components/dashboard/MetricCard';
 import StatusBadge, { StatusType } from '../components/dashboard/StatusBadge';
+import OrderTable from '../components/dashboard/OrderTable';
 import './Dashboard.css';
 
 interface SavedDesign {
@@ -173,39 +174,22 @@ const Dashboard: React.FC = () => {
                 </div>
               </DashboardCard>
 
-              {/* Recent Orders */}
+              {/* Order History */}
               <DashboardCard 
-                title="Recent Orders"
+                title="Order History"
                 action={
-                  <Link to="/dashboard/orders" className="card-action">View All</Link>
+                  <Link to="/dashboard/orders" className="card-action">View All Orders</Link>
                 }
               >
-                {recentOrders.length > 0 ? (
-                  <table className="luxury-table">
-                    <thead>
-                      <tr>
-                        <th>Order ID</th>
-                        <th>Date</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {recentOrders.map(order => (
-                        <tr key={order.id}>
-                          <td>{order.id}</td>
-                          <td>{new Date(order.date).toLocaleDateString()}</td>
-                          <td>${order.total.toLocaleString()}</td>
-                          <td><StatusBadge status={order.status} /></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                ) : (
-                  <p style={{ color: 'var(--warm-gray)', textAlign: 'center', padding: '2rem' }}>
-                    No orders yet. Start exploring our collection!
-                  </p>
-                )}
+                <OrderTable
+                  orders={orderHistory}
+                  loading={loadingMetrics}
+                  itemsPerPage={5}
+                  onViewOrder={(orderId) => {
+                    console.log('Viewing order:', orderId);
+                    // Navigate to order detail page
+                  }}
+                />
               </DashboardCard>
             </div>
           </div>
