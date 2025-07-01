@@ -1,0 +1,247 @@
+/* Header Component Styling - Luxury Jewelry Store */
+.app-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--champagne-beige);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+}
+
+.app-header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 80px;
+}
+
+.logo {
+  font-family: var(--font-primary);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--graphite-black);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  color: var(--graphite-black);
+  text-decoration: none;
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.nav-links a:hover {
+  color: var(--digital-lavender);
+}
+
+/* Dropdown styling */
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--champagne-beige);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-medium);
+  list-style: none;
+  margin: 0.5rem 0 0 0;
+  padding: 0.5rem 0;
+  min-width: 200px;
+  z-index: 200;
+}
+
+.dropdown-menu li {
+  margin: 0;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  color: var(--graphite-black);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+
+.dropdown-menu a:hover {
+  background: var(--champagne-beige);
+  color: var(--graphite-black);
+}
+
+/* Search bar styling */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-bar input {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--champagne-beige);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--graphite-black);
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--digital-lavender);
+  box-shadow: 0 0 0 3px rgba(205, 180, 219, 0.2);
+  width: 250px;
+}
+
+.search-bar button {
+  padding: 0.75rem 1.5rem;
+  background: var(--graphite-black);
+  color: var(--ivory-white);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-bar button:hover {
+  background: var(--digital-lavender);
+  color: var(--graphite-black);
+  transform: translateY(-1px);
+}
+
+/* User actions styling */
+.nav-links span {
+  color: var(--graphite-black);
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.nav-links button {
+  background: none;
+  border: none;
+  color: var(--graphite-black);
+  font-family: var(--font-secondary);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.nav-links button:hover {
+  color: var(--digital-lavender);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1024px) {
+  .app-header nav {
+    padding: 0 15px;
+  }
+  
+  .nav-links {
+    gap: 1.5rem;
+  }
+  
+  .search-bar input {
+    width: 150px;
+  }
+  
+  .search-bar input:focus {
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header nav {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 1rem 15px;
+  }
+  
+  .nav-links {
+    gap: 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .search-bar {
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .search-bar input {
+    flex: 1;
+    width: auto;
+  }
+  
+  .dropdown-menu {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .nav-links {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  
+  .nav-links li {
+    margin: 0.25rem 0;
+  }
+}
+
+.header-icon-btn {
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.header-icon-btn:hover {
+  background: rgba(239,231,221,0.85);
+}
+.header-icon-btn:hover .header-icon-svg {
+  color: var(--digital-lavender);
+}
+.header-icon-svg {
+  color: var(--graphite-black);
+  transition: color 0.3s;
+} 
