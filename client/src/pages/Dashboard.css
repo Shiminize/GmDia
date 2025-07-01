@@ -1,0 +1,437 @@
+/* Dashboard CSS Foundation - Luxury Jewelry E-commerce */
+
+.dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--ivory-white) 0%, var(--light-gray) 100%);
+  padding-top: 80px; /* Account for fixed header */
+}
+
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  min-height: calc(100vh - 80px);
+}
+
+/* Sidebar Navigation */
+.dashboard-sidebar {
+  background: var(--pure-white);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-light);
+  padding: 2rem;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dashboard-sidebar:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+.sidebar-profile {
+  text-align: center;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--champagne-beige);
+  margin-bottom: 2rem;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--digital-lavender), var(--muted-blush));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 2rem;
+  color: var(--pure-white);
+  font-family: var(--font-primary);
+  box-shadow: var(--shadow-light);
+}
+
+.profile-name {
+  font-family: var(--font-primary);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--graphite-black);
+}
+
+.profile-email {
+  font-size: 0.9rem;
+  color: var(--warm-gray);
+  margin-bottom: 1rem;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--graphite-black);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--warm-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Navigation Menu */
+.nav-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-bottom: 0.5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: var(--radius-medium);
+  color: var(--graphite-black);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: var(--champagne-beige);
+  color: var(--graphite-black);
+  transform: translateX(4px);
+}
+
+.nav-icon {
+  margin-right: 0.75rem;
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}
+
+/* Main Content Area */
+.dashboard-main {
+  background: transparent;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.dashboard-title {
+  font-family: var(--font-primary);
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--graphite-black);
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+  color: var(--warm-gray);
+  font-size: 1.1rem;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+  background: var(--pure-white);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-light);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(239, 231, 221, 0.3);
+}
+
+.dashboard-card:hover {
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--champagne-beige);
+}
+
+.card-title {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--graphite-black);
+  margin: 0;
+}
+
+.card-action {
+  background: var(--champagne-beige);
+  color: var(--graphite-black);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.card-action:hover {
+  background: var(--digital-lavender);
+  color: var(--pure-white);
+  transform: translateY(-1px);
+}
+
+/* Metric Cards */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background: var(--pure-white);
+  padding: 1.5rem;
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-light);
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(239, 231, 221, 0.3);
+}
+
+.metric-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
+}
+
+.metric-value {
+  font-family: var(--font-primary);
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--graphite-black);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.metric-label {
+  color: var(--warm-gray);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.metric-trend {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.trend-up {
+  color: var(--pale-sage);
+}
+
+.trend-down {
+  color: var(--error-color);
+}
+
+/* Content Sections */
+.content-section {
+  margin-bottom: 2rem;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Table Styles */
+.luxury-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.luxury-table th,
+.luxury-table td {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 1px solid var(--champagne-beige);
+}
+
+.luxury-table th {
+  background: var(--light-gray);
+  font-family: var(--font-primary);
+  font-weight: 500;
+  color: var(--graphite-black);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.luxury-table tr:hover {
+  background: rgba(239, 231, 221, 0.2);
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-completed {
+  background: var(--pale-sage);
+  color: var(--graphite-black);
+}
+
+.status-pending {
+  background: var(--muted-blush);
+  color: var(--graphite-black);
+}
+
+.status-processing {
+  background: var(--digital-lavender);
+  color: var(--pure-white);
+}
+
+.status-cancelled {
+  background: var(--error-color);
+  color: var(--pure-white);
+}
+
+/* Loading States */
+.skeleton {
+  background: linear-gradient(90deg, var(--light-gray) 25%, var(--champagne-beige) 50%, var(--light-gray) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: var(--radius-medium);
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-title {
+  height: 1.5rem;
+  width: 60%;
+  margin-bottom: 1rem;
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .dashboard-sidebar {
+    position: static;
+    order: 2;
+  }
+  
+  .dashboard-main {
+    order: 1;
+  }
+  
+  .dashboard-title {
+    font-size: 2rem;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .section-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .dashboard-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 0.5rem;
+  }
+  
+  .dashboard-title {
+    font-size: 1.75rem;
+  }
+  
+  .dashboard-card {
+    padding: 1rem;
+  }
+  
+  .luxury-table th,
+  .luxury-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
+} 
