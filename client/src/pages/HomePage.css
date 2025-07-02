@@ -1,20 +1,23 @@
 /* Import elegant fonts for luxury feel */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* Updated color variables to match the V0 design */
+/* Soft Precision color scheme */
 :root {
   --ivory-white: #F9F9F9;
   --pure-white: #FFFFFF;
   --graphite-black: #1A1A1A;
-  --light-gray: #E0E0E0;
-  --medium-gray: #A0A0A0;
-  --dark-gray: #333333;
-  --accent-color: #F5DADF; /* Updated pink accent */
-  --champagne-beige: #EFE7DD; /* Updated to new background color */
-  --muted-blush: #F5E6E8;
-  --digital-lavender: #F5DADF; /* Updated pink accent */
-  --digital-lavender-dark: #FF75AE; /* Darker version for hover states */
-  --digital-lavender-light: rgba(255, 144, 188, 0.1); /* Light version for hover states */
+  --champagne-beige: #EFE7DD;
+  --muted-blush: #F5DADF;
+  --pale-sage: #DCEDE4;
+  --digital-lavender: #CDB4DB;
+  
+  /* Functional colors following Soft Precision */
+  --text-color: #1A1A1A;
+  --light-text: #666666;
+  --accent-color: #F5DADF;
+  --link-hover: #CDB4DB;
+  --success-color: #DCEDE4;
+  --highlight-cta: #1A1A1A;
   
   /* Spacing scale */
   --space-1: 0.25rem;
@@ -170,27 +173,28 @@
 }
 
 .cta-button.primary {
-  background: var(--digital-lavender); /* Updated to pink accent */
+  background: var(--highlight-cta); /* Soft Black for CTA buttons */
   color: var(--pure-white);
-  border-color: var(--digital-lavender);
-  box-shadow: 0 4px 12px rgba(255, 144, 188, 0.3);
+  border-color: var(--highlight-cta);
+  box-shadow: 0 4px 12px rgba(26, 26, 26, 0.3);
 }
 
 .cta-button.primary:hover {
-  background: var(--digital-lavender-dark); /* Updated to darker pink */
-  border-color: var(--digital-lavender-dark);
+  background: var(--muted-blush); /* Blush alternative for hover */
+  color: var(--graphite-black);
+  border-color: var(--muted-blush);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(255, 144, 188, 0.4);
+  box-shadow: 0 6px 16px rgba(245, 218, 223, 0.4);
 }
 
 .cta-button.secondary {
   background: var(--pure-white);
   color: var(--graphite-black);
-  border-color: rgba(255, 144, 188, 0.3); /* Light pink border */
+  border-color: rgba(245, 218, 223, 0.3); /* Light blush border */
 }
 
 .cta-button.secondary:hover {
-  background: var(--digital-lavender-light);
+  background: rgba(205, 180, 219, 0.1); /* Light lavender background */
   color: var(--digital-lavender);
   border-color: var(--digital-lavender);
 }
@@ -350,11 +354,11 @@
   transition: all 0.2s ease-in-out;
   background: transparent;
   color: var(--digital-lavender);
-  border: 1px solid rgba(255, 144, 188, 0.3);
+  border: 1px solid rgba(205, 180, 219, 0.3);
 }
 
 .category-button:hover {
-  background-color: var(--digital-lavender-light);
+  background-color: rgba(205, 180, 219, 0.1);
   border-color: var(--digital-lavender);
 }
 
@@ -382,7 +386,7 @@
   width: 64px;
   height: 64px;
   margin: 0 auto var(--space-4) auto;
-  background-color: var(--digital-lavender-light);
+  background-color: rgba(205, 180, 219, 0.1);
   color: var(--digital-lavender);
   border-radius: 50%;
   font-size: var(--text-2xl);
@@ -429,7 +433,7 @@
   width: 64px;
   height: 64px;
   margin: 0 auto var(--space-4) auto;
-  background-color: var(--digital-lavender-light);
+  background-color: rgba(205, 180, 219, 0.1);
   color: var(--digital-lavender);
   border-radius: 50%;
   font-size: var(--text-2xl);

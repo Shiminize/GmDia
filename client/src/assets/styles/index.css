@@ -1,32 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Lato:wght@300;400;500;600&display=swap');
 
 :root {
-  /* Primary Colors */
+  /* Primary Palette - Soft Precision */
+  --ivory-white: #F9F9F9;
+  --pure-white: #FFFFFF;
+  --graphite-black: #1A1A1A;
+  --champagne-beige: #EFE7DD;
+  --background-color: #EFE7DD;
+  
+  /* Accent Colors (Gen Z Appeal) */
+  --muted-blush: #F5DADF;
+  --pale-sage: #DCEDE4;
+  --digital-lavender: #CDB4DB;
+  
+  /* Functional Colors */
+  --highlight-cta: #1A1A1A; /* Soft Black for CTA buttons */
+  --highlight-cta-alt: #F5DADF; /* Blush alternative for CTA */
+  --link-hover: #CDB4DB; /* Lavender for link hover */
+  --success-progress: #DCEDE4; /* Sage Green for success/progress */
+  
+  /* Legacy color mappings for compatibility */
   --primary-color: #1A1A1A;
-  --secondary-color: #333333;
-  --text-color: #333333;
+  --secondary-color: #1A1A1A;
+  --text-color: #1A1A1A;
   --light-text: #666666;
-  
-  /* Background Colors */
-  --champagne-beige: #EFE7DD; /* Updated background color */
-  --background-color: #EFE7DD; /* Updated background color */
-  
-  /* Accent Colors */
-  --muted-blush: #F5DADF; /* Updated pink accent */
-  --gold-accent: #D4AF37;
-  --digital-lavender: #F5DADF; /* Updated pink accent */
-  
-  /* Utility Colors */
-  --error-color: #D32F2F;
-  --success-color: #388E3C;
-  --warning-color: #F57C00;
-  --info-color: #0288D1;
+  --gold-accent: #CDB4DB; /* Replace gold with digital lavender */
+  --error-color: #F5DADF; /* Use muted blush for errors instead of red */
+  --warning-color: #F5DADF; /* Use muted blush for warnings */
+  --info-color: #CDB4DB; /* Use digital lavender for info */
+  --success-color: #DCEDE4; /* Use pale sage for success */
   
   /* Border & Shadow */
-  --border-color: #E0E0E0;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --border-color: rgba(239, 231, 221, 0.3);
+  --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.05);
+  --shadow-md: 0 4px 6px rgba(26, 26, 26, 0.1);
+  --shadow-lg: 0 10px 15px rgba(26, 26, 26, 0.1);
   
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -81,6 +89,10 @@ h1, h2, h3, h4, h5, h6 {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover);
 }
 
 /* Mobile-first media queries */

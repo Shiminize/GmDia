@@ -3,7 +3,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(245, 242, 235, 0.95); /* Beige/cream background */
+  background: rgba(239, 231, 221, 0.95); /* Champagne beige background */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(205, 180, 219, 0.1);
@@ -272,7 +272,7 @@
   padding: 0.75rem 1rem;
   background: none;
   border: none;
-  color: #dc2626;
+  color: #F5DADF;
   text-align: left;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -280,7 +280,7 @@
 }
 
 .profile-logout:hover {
-  background: rgba(220, 38, 38, 0.1);
+  background: rgba(245, 218, 223, 0.1);
 }
 
 /* Mobile Navigation */
@@ -371,8 +371,8 @@
 .mobile-logout-btn {
   width: 100%;
   padding: 1rem;
-  background: rgba(220, 38, 38, 0.1);
-  color: #dc2626;
+  background: rgba(245, 218, 223, 0.1);
+  color: #F5DADF;
   border: none;
   border-radius: 8px;
   font-weight: 500;
@@ -382,7 +382,7 @@
 }
 
 .mobile-logout-btn:hover {
-  background: rgba(220, 38, 38, 0.2);
+  background: rgba(245, 218, 223, 0.2);
 }
 
 /* Search Overlay */
@@ -463,7 +463,7 @@
 }
 
 .search-overlay-input::placeholder {
-  color: #999999; /* Light gray placeholder */
+  color: #666666; /* Light gray placeholder */
 }
 
 .search-overlay-submit-btn {

@@ -204,19 +204,19 @@
 }
 
 .stock-status.in-stock {
-  color: #2ECC71;
-  border-color: rgba(46, 204, 113, 0.3);
-  background: rgba(46, 204, 113, 0.1);
+  color: #DCEDE4;
+      border-color: rgba(220, 237, 228, 0.3);
+    background: rgba(220, 237, 228, 0.1);
 }
 
 .stock-status.low-stock {
-  color: #F39C12;
-  border-color: rgba(243, 156, 18, 0.3);
-  background: rgba(243, 156, 18, 0.1);
+  color: #F5DADF;
+      border-color: rgba(245, 218, 223, 0.3);
+    background: rgba(245, 218, 223, 0.1);
 }
 
 .stock-status.out-of-stock {
-  color: #E74C3C;
+  color: #F5DADF;
   border-color: rgba(231, 76, 60, 0.3);
   background: rgba(231, 76, 60, 0.1);
 }
@@ -427,7 +427,7 @@
 }
 
 .product-card.loading .product-image {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, #F9F9F9 25%, #EFE7DD 50%, #F9F9F9 75%);
   background-size: 200% 100%;
   animation: loading-shimmer 1.5s infinite;
 }
@@ -446,7 +446,7 @@
   position: absolute;
   top: var(--space-3);
   right: var(--space-3);
-  background: #E74C3C;
+  background: #F5DADF;
   color: white;
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-small);
