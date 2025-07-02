@@ -1,7 +1,9 @@
 import React from 'react';
 import './HomePage.css';
 import ProductCarousel from '../components/products/ProductCarousel';
+import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import { Diamond, Sparkles, Leaf, Gem, Hand, Settings } from 'lucide-react';
 
 const trendingProducts = [
   {
@@ -28,25 +30,25 @@ const trendingProducts = [
   },
   {
     id: 't3',
-    name: 'Emerald Cut Necklace',
-    price: 1800,
+    name: 'Halo Engagement Ring',
+    price: 3200,
     imageUrl: '/Ring-3.png',
     metal: 'Rose Gold',
-    shape: 'Emerald',
+    shape: 'Oval',
     brand: 'GemDia',
     inStock: true,
-    stockCount: 7,
+    stockCount: 3,
   },
   {
     id: 't4',
-    name: 'Princess Cut Ring',
-    price: 1500,
+    name: 'Three Stone Ring',
+    price: 4500,
     imageUrl: '/Ring-4.png',
     metal: 'Platinum',
     shape: 'Princess',
     brand: 'GemDia',
     inStock: true,
-    stockCount: 3,
+    stockCount: 1,
   },
 ];
 
@@ -98,6 +100,8 @@ const newInProducts = [
 ];
 
 const HomePage: React.FC = () => {
+  const { user } = useAuth();
+  
   const handleCTAClick = () => {
     // Navigate to customize page
     window.location.href = '/customize';
@@ -105,34 +109,181 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page">
+      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-image"></div>
-        <div className="hero-text">
-          <h1>Your Vision, Our Craftsmanship</h1>
-          <p>Create bespoke lab-grown diamond jewelry that reflects your unique story and style.</p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '2rem' }}>
-            <button className="cta-button" onClick={handleCTAClick}>
-              Design Your Masterpiece
-            </button>
-            <Link to="/products" style={{ textDecoration: 'none' }}>
-              <button className="cta-button collection-btn">
-                Collection
-              </button>
+        <div className="container">
+          <div className="hero-text">
+            <h1>Your Story, Forged in Light</h1>
+            <p>
+              Design your own unique piece of jewelry with ethically sourced, high-quality lab-grown diamonds.
+            </p>
+            <div className="hero-buttons">
+              <Link to="/customization" className="cta-button primary">
+                Create Your Own
+              </Link>
+              <Link to="/products" className="cta-button secondary">
+                Explore Designs
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="scroll-hint">Scroll to discover</div>
+      </section>
+
+      {/* Featured Categories Section */}
+      <section className="featured-categories">
+        <div className="container">
+          <div className="section-header">
+            <h2>Discover Your Style</h2>
+            <p>
+              From timeless rings to elegant necklaces and brilliant tennis bands, start with a style that speaks to you.
+            </p>
+          </div>
+          <div className="categories-grid">
+            <div className="category-card">
+              <div className="category-image">
+                <img src="/Ring-1.png" alt="Custom Rings" />
+              </div>
+              <div className="category-content">
+                <h3>Custom Rings</h3>
+                <p>
+                  Design an engagement ring or personal treasure that's uniquely yours.
+                </p>
+                <Link to="/customization" className="category-button">
+                  Customize a Ring
+                </Link>
+              </div>
+            </div>
+
+            <div className="category-card">
+              <div className="category-image">
+                <img src="/Ring-2.png" alt="Custom Necklaces" />
+              </div>
+              <div className="category-content">
+                <h3>Custom Necklaces</h3>
+                <p>
+                  Create a pendant or necklace that tells your personal story.
+                </p>
+                <Link to="/customization" className="category-button">
+                  Customize a Necklace
+                </Link>
+              </div>
+            </div>
+
+            <div className="category-card">
+              <div className="category-image">
+                <img src="/Ring-3.png" alt="Tennis Bands" />
+              </div>
+              <div className="category-content">
+                <h3>Tennis Bands</h3>
+                <p>
+                  Craft a band of brilliant, seamless light for any occasion.
+                </p>
+                <Link to="/customization" className="category-button">
+                  Customize a Band
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="how-it-works" id="how-it-works">
+        <div className="container">
+          <div className="section-header">
+            <div className="section-badge">How It Works</div>
+            <h2>Create Your Perfect Piece in 3 Steps</h2>
+            <p>
+              Our intuitive customizer makes it simple to bring your vision to life.
+            </p>
+          </div>
+          <div className="steps-grid">
+            <div className="step-item">
+              <div className="step-icon">
+                <Settings />
+              </div>
+              <h3>1. Choose Your Setting</h3>
+              <p>
+                Select your base style and preferred metal—from classic 14k gold to modern platinum.
+              </p>
+            </div>
+
+            <div className="step-item">
+              <div className="step-icon">
+                <Gem />
+              </div>
+              <h3>2. Select Your Diamond</h3>
+              <p>
+                Pick the perfect lab-grown diamond. Choose by shape, carat, and quality.
+              </p>
+            </div>
+
+            <div className="step-item">
+              <div className="step-icon">
+                <Hand />
+              </div>
+              <h3>3. Add a Personal Touch</h3>
+              <p>
+                Make it truly yours with a custom engraving or other personal details.
+              </p>
+            </div>
+          </div>
+          <div className="section-cta">
+            <Link to="/customization" className="cta-button primary">
+              Start Designing Now
             </Link>
           </div>
         </div>
-        <div className="scroll-hint" title="Discover more below"></div>
       </section>
 
-      <ProductCarousel title="Trending" products={trendingProducts} />
-      <ProductCarousel title="New In" products={newInProducts} />
+      {/* Our Story Section */}
+      <section className="our-story" id="our-story">
+        <div className="container">
+          <div className="section-header">
+            <h2>Modern Alchemy, Conscious Choice</h2>
+            <p>
+              We believe in jewelry that not only looks beautiful but feels right. Our commitment is to exceptional quality, ethical practices, and a transparent process.
+            </p>
+          </div>
+          <div className="values-grid">
+            <div className="value-item">
+              <div className="value-icon">
+                <Leaf />
+              </div>
+              <h3>Ethically Sourced</h3>
+              <p>
+                Our lab-grown diamonds are a sustainable choice, free from the environmental and ethical concerns of mining.
+              </p>
+            </div>
 
-      {/* Future sections can be added here */}
-      <section className="luxury-showcase">
-        {/* This section is ready for future content expansion */}
+            <div className="value-item">
+              <div className="value-icon">
+                <Sparkles />
+              </div>
+              <h3>Unmatched Quality</h3>
+              <p>
+                Each diamond is hand-selected for its brilliance and fire, meeting the highest standards of quality and craftsmanship.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trending Products Section */}
+      <section className="trending-products">
+        <div className="container">
+          <div className="section-header">
+            <h2>Trending Designs</h2>
+            <p>Our most popular pieces, loved for their timeless elegance and exceptional craftsmanship.</p>
+          </div>
+          <ProductCarousel title="Trending Designs" products={trendingProducts} />
+        </div>
       </section>
     </div>
   );
 };
 
 export default HomePage;
+

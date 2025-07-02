@@ -22,6 +22,9 @@ import BlogPage from './pages/BlogPage';
 import BlogPost from './pages/BlogPost';
 import Button from './components/common/Button';
 import SizingGuide from './pages/SizingGuide';
+import ShineYourMomentEvent from './pages/ShineYourMomentEvent';
+import TopBanner from './components/common/TopBanner';
+import { useAuth } from './contexts/AuthContext';
 
 interface ChatMessage {
   id: number;
@@ -32,6 +35,7 @@ interface ChatMessage {
 }
 
 function App() {
+  const { user } = useAuth();
   const [showChat, setShowChat] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
@@ -199,6 +203,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <TopBanner isAdmin={user?.isAdmin || false} />
         <Header />
         <main>
           <Routes>
@@ -220,6 +225,7 @@ function App() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/sizing-guide" element={<SizingGuide />} />
+            <Route path="/shineyourmoment" element={<ShineYourMomentEvent />} />
             {/* Add other routes here as needed */}
           </Routes>
         </main>

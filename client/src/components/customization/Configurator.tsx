@@ -8,6 +8,8 @@ import Step4_Personalization from './Step4_Personalization';
 import Button from '../common/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../services/api';
+import './Customization.css';
+import ThreeDViewer from './ThreeDViewer';
 
 const Configurator: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -189,41 +191,116 @@ const Configurator: React.FC = () => {
     <div className="configurator-page">
       <h2>Customize Your Jewelry</h2>
       {!user && (
-        <div style={{padding: '1rem', background: '#f5f5f5', borderRadius: '4px', marginBottom: '1rem'}}>
-          <p>💡 <strong>Tip:</strong> <a href="/login">Log in</a> to save your custom designs!</p>
+        <div className="login-prompt" style={{
+          background: 'var(--pure-white)',
+          borderRadius: 'var(--radius-large)',
+          boxShadow: 'var(--shadow-light)',
+          padding: '2rem',
+          marginBottom: '2rem',
+        }}>
+          <p>Please log in to save your custom design and preview in 3D.</p>
         </div>
       )}
       {saveMessage && (
-        <div style={{padding: '1rem', background: saveMessage.includes('Failed') ? '#ffebee' : '#e8f5e8', 
-                     color: saveMessage.includes('Failed') ? '#c62828' : '#2e7d32', 
-                     borderRadius: '4px', marginBottom: '1rem'}}>
+        <div className={`save-message ${saveMessage.includes('Failed') ? 'error' : 'success'}`} style={{
+          background: saveMessage.includes('Failed') ? 'rgba(231, 76, 60, 0.1)' : 'rgba(46, 204, 113, 0.1)',
+          color: saveMessage.includes('Failed') ? 'var(--error-color)' : 'var(--success-progress)',
+          borderRadius: 'var(--radius-medium)',
+          padding: '1rem',
+          marginBottom: '2rem',
+          textAlign: 'center',
+          border: `1px solid ${saveMessage.includes('Failed') ? 'var(--error-color)' : 'var(--success-progress)'}`,
+        }}>
           {saveMessage}
         </div>
       )}
       <div className="configurator-content">
         <div className="configurator-3d-viewer">
-          <div ref={mountRef} style={{ width: '100%', height: '500px', border: '1px solid #ccc' }}></div>
-          <div style={{marginTop: '1rem', fontSize: '0.9rem', color: '#666'}}>
-            <p><strong>Current Selection:</strong></p>
-            <p>Setting: {selectedSetting || 'None'}</p>
-            <p>Metal: {selectedMetal || 'None'}</p>
-            <p>Diamond: {selectedDiamondShape || 'None'}</p>
-            {engravingText && <p>Engraving: "{engravingText}"</p>}
-          </div>
+          <ThreeDViewer />
         </div>
         <div className="configurator-steps">
+          <div className="step-progress" style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginBottom: '2rem',
+            position: 'relative'
+          }}>
+            {[1, 2, 3, 4].map((step) => (
+              <div
+                key={step}
+                className={`step-indicator ${currentStep >= step ? 'active' : ''}`}
+                style={{
+                  width: '3rem',
+                  height: '3rem',
+                  borderRadius: '50%',
+                  background: currentStep >= step ? 'var(--digital-lavender)' : 'var(--light-gray)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: currentStep >= step ? 'var(--pure-white)' : 'var(--warm-gray)',
+                  fontWeight: '500',
+                  position: 'relative',
+                  zIndex: 1
+                }}
+              >
+                {step}
+              </div>
+            ))}
+            <div
+              className="step-progress-bar"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '10%',
+                right: '10%',
+                height: '2px',
+                background: 'var(--light-gray)',
+                transform: 'translateY(-50%)',
+                zIndex: 0
+              }}
+            >
+              <div
+                style={{
+                  width: `${((currentStep - 1) / 3) * 100}%`,
+                  height: '100%',
+                  background: 'var(--digital-lavender)',
+                  transition: 'width 0.3s ease'
+                }}
+              />
+            </div>
+          </div>
           {renderStepComponent()}
           <div className="navigation-buttons">
-            <Button onClick={handlePrevious} disabled={currentStep === 1}>Previous</Button>
+            <Button onClick={handlePrevious} disabled={currentStep === 1}>
+              Previous
+            </Button>
             {currentStep < 4 ? (
-              <Button onClick={handleNext}>Next</Button>
+              <Button onClick={handleNext}>
+                Next
+              </Button>
             ) : (
-              <>
-                <Button onClick={handleSaveDesign} disabled={saving || !user || !isConfigurationComplete}>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <Button
+                  onClick={handleSaveDesign}
+                  disabled={saving || !user || !isConfigurationComplete}
+                  style={{
+                    background: 'linear-gradient(135deg, var(--digital-lavender) 0%, var(--muted-blush) 100%)',
+                    color: 'var(--graphite-black)'
+                  }}
+                >
                   {saving ? 'Saving...' : 'Save Design'}
                 </Button>
-                <Button onClick={handleShareDesign} disabled={!isConfigurationComplete}>Share Design</Button>
-              </>
+                <Button
+                  onClick={handleShareDesign}
+                  disabled={!isConfigurationComplete}
+                  style={{
+                    background: 'var(--graphite-black)',
+                    color: 'var(--pure-white)'
+                  }}
+                >
+                  Share Design
+                </Button>
+              </div>
             )}
           </div>
         </div>

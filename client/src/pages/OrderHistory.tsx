@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import DashboardCard from '../components/dashboard/DashboardCard';
 import OrderTable from '../components/dashboard/OrderTable';
 import StatusBadge from '../components/dashboard/StatusBadge';
-import { FaSearch, FaCalendar, FaFilter } from 'react-icons/fa';
+import { FaMagnifyingGlass, FaCalendar, FaFilter } from 'react-icons/fa6';
 import './Dashboard.css';
 
 import { StatusType } from '../components/dashboard/StatusBadge';
@@ -159,7 +159,7 @@ const OrderHistory: React.FC = () => {
       <DashboardCard>
         <div className="filters-section">
           <div className="search-box">
-            <FaSearch className="search-icon" />
+            <FaMagnifyingGlass className="search-icon" />
             <input
               type="text"
               placeholder="Search orders by ID or item name..."

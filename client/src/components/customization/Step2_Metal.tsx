@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../common/Button';
+import { FaCircleInfo } from 'react-icons/fa6';
 
 interface Step2_MetalProps {
   onSelectMetal?: (metal: string) => void;
@@ -7,47 +7,114 @@ interface Step2_MetalProps {
 }
 
 const Step2_Metal: React.FC<Step2_MetalProps> = ({ onSelectMetal, selectedMetal }) => {
-  const [showEducation, setShowEducation] = useState(false);
+  const [showInfo, setShowInfo] = useState<string | null>(null);
 
   const metals = [
-    { id: 'yellow-gold', name: '14K Yellow Gold', color: '#FFD700' },
-    { id: 'white-gold', name: '14K White Gold', color: '#F0F8FF' },
-    { id: 'rose-gold', name: '14K Rose Gold', color: '#B76E79' },
-    { id: 'platinum', name: 'Platinum', color: '#E5E4E2' },
+    {
+      id: 'platinum',
+      name: 'Platinum',
+      karat: '950',
+      color: '#E5E4E2',
+      description: 'The most precious of all metals, platinum is known for its purity, rarity, and strength. Its naturally white color will never fade or change.',
+      benefits: [
+        'Extremely durable and naturally hypoallergenic',
+        'Maintains its white color forever',
+        'Holds diamonds more securely than other metals',
+        'Develops a beautiful patina over time'
+      ]
+    },
+    {
+      id: 'white-gold',
+      name: 'White Gold',
+      karat: '18K',
+      color: '#F4F7F8',
+      description: 'A modern classic, 18K white gold is an alloy of pure gold and white metals like palladium, creating a bright white color.',
+      benefits: [
+        'More affordable than platinum',
+        'Excellent durability',
+        'Classic bright white appearance',
+        'Can be rhodium plated for extra shine'
+      ]
+    },
+    {
+      id: 'yellow-gold',
+      name: 'Yellow Gold',
+      karat: '18K',
+      color: '#FFD700',
+      description: 'Traditional and timeless, 18K yellow gold offers the purest gold color while maintaining excellent durability.',
+      benefits: [
+        'Traditional and timeless appearance',
+        'Never needs plating',
+        'Complements warm skin tones',
+        'Becomes more beautiful with age'
+      ]
+    },
+    {
+      id: 'rose-gold',
+      name: 'Rose Gold',
+      karat: '18K',
+      color: '#B76E79',
+      description: 'Romantic and modern, rose gold gets its warm pink hue from copper added to pure gold.',
+      benefits: [
+        'Unique and romantic appearance',
+        'Very durable due to copper content',
+        'Complements all skin tones',
+        'Growing in popularity'
+      ]
+    }
   ];
 
   return (
     <div className="customization-step">
-      <h3>Step 2: Select Metal</h3>
-      <p>Choose the metal for your jewelry.</p>
+      <h3>Step 2: Select Your Metal</h3>
+      <p>Choose from our selection of premium metals, each carefully selected for both beauty and durability.</p>
+      
       <div className="metal-options">
         {metals.map((metal) => (
           <div
             key={metal.id}
             className={`metal-option ${selectedMetal === metal.id ? 'selected' : ''}`}
             onClick={() => onSelectMetal && onSelectMetal(metal.id)}
+            onMouseEnter={() => setShowInfo(metal.id)}
+            onMouseLeave={() => setShowInfo(null)}
           >
-            <div className="metal-color-swatch" style={{ backgroundColor: metal.color }}></div>
-            <h4>{metal.name}</h4>
+            <div className="metal-preview" style={{ background: metal.color }}>
+              <span className="metal-karat">{metal.karat}</span>
+            </div>
+            <div className="metal-info">
+              <h4>{metal.name}</h4>
+              <div className="metal-details">
+                <FaCircleInfo className="info-icon" />
+                <span>View Details</span>
+              </div>
+            </div>
+            {showInfo === metal.id && (
+              <div className="metal-tooltip">
+                <p>{metal.description}</p>
+                <ul>
+                  {metal.benefits.map((benefit, index) => (
+                    <li key={index}>{benefit}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         ))}
       </div>
-      <Button onClick={() => setShowEducation(!showEducation)} className="learn-more-btn">
-        {showEducation ? 'Hide Details' : 'Learn More About Metals'}
-      </Button>
-      {showEducation && (
-        <div className="education-content">
-          <h4>Understanding Jewelry Metals</h4>
-          <p>The metal you choose for your jewelry not only affects its appearance but also its durability and value. Here are some common options:</p>
+
+      <div className="metal-education">
+        <h4>About Our Metals</h4>
+        <p>All our metals are sourced from responsible suppliers and crafted to the highest standards. Each piece is stamped with its purity mark and comes with a certificate of authenticity.</p>
+        <div className="metal-care">
+          <h5>Care Instructions</h5>
           <ul>
-            <li><strong>Yellow Gold:</strong> A classic and timeless choice, known for its warm luster. Often alloyed with silver and copper.</li>
-            <li><strong>White Gold:</strong> A popular alternative to platinum, offering a bright, silvery-white appearance. It's typically an alloy of gold with white metals like palladium or nickel, and often rhodium-plated for extra brilliance.</li>
-            <li><strong>Rose Gold:</strong> A romantic and modern choice, gaining popularity for its distinctive pinkish hue. It's an alloy of gold with a higher proportion of copper.</li>
-            <li><strong>Platinum:</strong> A naturally white and extremely durable metal, known for its rarity and hypoallergenic properties. It's denser than gold, making it feel more substantial.</li>
+            <li>Store your jewelry separately to prevent scratching</li>
+            <li>Clean regularly with a soft, lint-free cloth</li>
+            <li>Remove jewelry before swimming or using chemicals</li>
+            <li>Have your pieces professionally cleaned annually</li>
           </ul>
-          <p>Consider your skin tone, lifestyle, and personal preference when selecting your metal.</p>
         </div>
-      )}
+      </div>
     </div>
   );
 };

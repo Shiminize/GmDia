@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 97.5%; /* Ivory White */
+    --foreground: 0 0% 10.2%; /* Graphite Black */
+
+    --card: 40 33% 97.5%;
+    --card-foreground: 0 0% 10.2%;
+
+    --popover: 40 33% 97.5%;
+    --popover-foreground: 0 0% 10.2%;
+
+    --primary: 0 0% 10.2%; /* Graphite Black */
+    --primary-foreground: 40 33% 97.5%; /* Ivory White */
+
+    --secondary: 350 68% 91.2%; /* Muted Blush */
+    --secondary-foreground: 0 0% 10.2%; /* Graphite Black */
+
+    --muted: 37 41% 89.8%; /* Champagne Beige */
+    --muted-foreground: 0 0% 30%;
+
+    --accent: 275 47% 84.9%; /* Digital Lavender */
+    --accent-foreground: 0 0% 10.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 37 41% 85.8%; /* Lighter Champagne Beige */
+    --input: 37 41% 85.8%;
+    --ring: 275 47% 84.9%; /* Digital Lavender */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Define dark mode colors here if needed in the future */
+  }
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

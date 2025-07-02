@@ -1,212 +1,308 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
+import { Diamond, Search, User, ShoppingCart, Menu, X } from 'lucide-react';
 import './Header.css';
-import * as FaIcons from 'react-icons/fa';
-
-const FaShoppingCart = FaIcons.FaShoppingCart as unknown as React.FC<React.ComponentProps<'svg'>>;
-const FaUserAlt = FaIcons.FaUserAlt as unknown as React.FC<React.ComponentProps<'svg'>>;
 
 const Header: React.FC = () => {
-  const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
-  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isCartSliderOpen, setIsCartSliderOpen] = useState(false);
+
   const { user, logout } = useAuth();
-  const { cartItemCount } = useCart();
+  const { cartItems } = useCart();
+  const location = useLocation();
 
-  const handleProductsHover = () => {
-    setIsProductsDropdownOpen(true);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleProductsLeave = () => {
-    setIsProductsDropdownOpen(false);
+  const openSearchOverlay = () => {
+    setIsSearchOverlayOpen(true);
   };
 
-  const handleAboutHover = () => {
-    setIsAboutDropdownOpen(true);
+  const closeSearchOverlay = () => {
+    setIsSearchOverlayOpen(false);
   };
 
-  const handleAboutLeave = () => {
-    setIsAboutDropdownOpen(false);
+  const toggleProfileDropdown = () => {
+    setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSearchSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log('Search term:', searchTerm);
-    // In a real application, you would navigate to a search results page
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      console.log('Search query:', searchQuery);
+      closeSearchOverlay();
+      setSearchQuery('');
+    }
   };
 
   const handleLogout = () => {
     logout();
-    alert('Logged out successfully!');
+    setIsProfileDropdownOpen(false);
+    setIsMobileMenuOpen(false);
   };
 
+  const openCartSlider = () => {
+    setIsCartSliderOpen(true);
+  };
+
+  const isActivePath = (path: string) => {
+    return location.pathname === path;
+  };
+
+  useEffect(() => {
+    if (isMobileMenuOpen || isSearchOverlayOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isMobileMenuOpen, isSearchOverlayOpen]);
+
+  const cartItemCount = cartItems.reduce((total: number, item: any) => total + item.quantity, 0);
+
   return (
-    <header className="app-header">
-      <nav style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        maxWidth: '1400px',
-        margin: '0 auto',
-        padding: '0 20px',
-        height: '80px',
-        position: 'relative',
-      }}>
-        <div className="logo" style={{ flex: '0 0 auto' }}>GemDia</div>
-        <ul className="nav-links" style={{
-          flex: '1 1 0',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          margin: 0,
-          padding: 0,
-          listStyle: 'none',
-          gap: '2rem',
-          minWidth: 0
-        }}>
-          <li><Link to="/">Home</Link></li>
-          <li
-            onMouseEnter={handleProductsHover}
-            onMouseLeave={handleProductsLeave}
-            className="dropdown-container"
+    <header className="header">
+      <div className="header-container">
+        {/* Logo with Diamond Icon */}
+        <Link to="/" className="header-logo">
+          <Diamond className="logo-icon" size={24} />
+          <span className="logo-text">GmDia</span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="desktop-nav">
+          <Link
+            to="/products"
+            className={`nav-link ${isActivePath('/products') ? 'active' : ''}`}
           >
-            <Link to="/products">Products</Link>
-            {isProductsDropdownOpen && (
-              <ul className="dropdown-menu">
-                <li><Link to="/products/rings">Rings</Link></li>
-                <li><Link to="/products/bands">Bands</Link></li>
-                <li><Link to="/products/necklaces">Necklaces</Link></li>
-                <li><Link to="/products/all">View All</Link></li>
-              </ul>
-            )}
-          </li>
-          <li><Link to="/customize">Customize</Link></li>
-          <li
-            onMouseEnter={handleAboutHover}
-            onMouseLeave={handleAboutLeave}
-            className="dropdown-container"
-          >
-            <Link to="/about">About Us</Link>
-            {isAboutDropdownOpen && (
-              <ul className="dropdown-menu">
-                <li><Link to="/education">Lab Diamond Education</Link></li>
-                <li><Link to="/sustainability">Sustainability</Link></li>
-                <li><Link to="/contact">Contact Us</Link></li>
-                <li><Link to="/blog">Blog</Link></li>
-              </ul>
-            )}
-          </li>
-          {user && (
-            <>
-              <li><Link to="/dashboard">Dashboard</Link></li>
-              <li><span>Hello, {user.name}!</span></li>
-              <li><button onClick={handleLogout} style={{background: 'none', border: 'none', color: 'inherit', cursor: 'pointer'}}>Logout</button></li>
-            </>
-          )}
-        </ul>
-        <form onSubmit={handleSearchSubmit} className="search-bar" style={{
-          margin: '0 2rem',
-          flex: '0 0 auto',
-          display: 'flex',
-          alignItems: 'center',
-          zIndex: 1
-        }}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-          <button type="submit">Search</button>
-        </form>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1.2rem',
-          position: 'relative',
-          zIndex: 2
-        }}>
-          <Link to="/cart" className="header-icon-btn" style={{
-            background: 'rgba(239,231,221,0.65)',
-            border: '1.5px solid var(--champagne-beige)',
-            color: 'var(--graphite-black)',
-            borderRadius: '50%',
-            padding: '10px',
-            fontWeight: 600,
-            fontFamily: 'var(--font-secondary)',
-            fontSize: '1.5rem',
-            boxShadow: '0 4px 18px rgba(239,231,221,0.10)',
-            backdropFilter: 'blur(10px)',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '48px',
-            height: '48px',
-            transition: 'background 0.3s, box-shadow 0.3s',
-            opacity: 0.92,
-            margin: 0
-          }}
-            aria-label="Cart"
-          >
-            <FaShoppingCart className="header-icon-svg" style={{ display: 'block', margin: 0, padding: 0, transition: 'color 0.3s' }} />
-            {cartItemCount > 0 && (
-              <span style={{
-                position: 'absolute',
-                top: '-6px',
-                right: '-6px',
-                background: '#ff4444',
-                color: 'white',
-                borderRadius: '50%',
-                padding: '2px 7px',
-                fontSize: '12px',
-                minWidth: '18px',
-                height: '18px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 700,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.12)'
-              }}>
-                {cartItemCount}
-              </span>
-            )}
+            Rings
           </Link>
-          {!user && (
-            <Link to="/login" className="header-icon-btn" style={{
-              background: 'rgba(239,231,221,0.65)',
-              border: '1.5px solid var(--champagne-beige)',
-              color: 'var(--graphite-black)',
-              borderRadius: '50%',
-              padding: '10px',
-              fontWeight: 600,
-              fontFamily: 'var(--font-secondary)',
-              fontSize: '1.5rem',
-              boxShadow: '0 4px 18px rgba(239,231,221,0.10)',
-              backdropFilter: 'blur(10px)',
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '48px',
-              height: '48px',
-              transition: 'background 0.3s, box-shadow 0.3s',
-              opacity: 0.92,
-              margin: 0
-            }}
-              aria-label="Login"
+          <Link
+            to="/products"
+            className={`nav-link ${isActivePath('/products') ? 'active' : ''}`}
+          >
+            Necklaces
+          </Link>
+          <Link
+            to="/products"
+            className={`nav-link ${isActivePath('/products') ? 'active' : ''}`}
+          >
+            Tennis Bands
+          </Link>
+          <Link
+            to="/about"
+            className={`nav-link ${isActivePath('/about') ? 'active' : ''}`}
+          >
+            Our Story
+          </Link>
+        </nav>
+
+        {/* Header Actions */}
+        <div className="header-actions">
+          {/* Desktop CTA Button */}
+          <Link to="/customize" className="header-cta-btn">
+            How It Works
+          </Link>
+
+          {/* Mobile/Additional Actions */}
+          <div className="header-icons">
+            {/* Search */}
+            <button
+              onClick={openSearchOverlay}
+              className="header-action-btn"
+              aria-label="Open search"
             >
-              <FaUserAlt className="header-icon-svg" style={{ display: 'block', margin: 0, padding: 0, transition: 'color 0.3s' }} />
-            </Link>
+              <Search size={20} />
+            </button>
+
+            {/* Profile */}
+            <div className="profile-container">
+              <button
+                onClick={toggleProfileDropdown}
+                className="header-action-btn"
+                aria-label="Toggle profile menu"
+              >
+                <User size={20} />
+              </button>
+
+              {isProfileDropdownOpen && (
+                <div className="profile-dropdown">
+                  {user ? (
+                    <>
+                      <div className="profile-info">
+                        <span className="profile-name">{user.name}</span>
+                        <span className="profile-email">{user.email}</span>
+                      </div>
+                      <Link to="/dashboard" className="profile-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                        Dashboard
+                      </Link>
+                      <Link to="/account-settings" className="profile-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                        Account Settings
+                      </Link>
+                      <Link to="/order-history" className="profile-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                        Order History
+                      </Link>
+                      <div className="profile-divider"></div>
+                      <button onClick={handleLogout} className="profile-logout">
+                        Sign Out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/login" className="profile-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                        Sign In
+                      </Link>
+                      <Link to="/register" className="profile-link" onClick={() => setIsProfileDropdownOpen(false)}>
+                        Create Account
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Cart */}
+            <button
+              onClick={openCartSlider}
+              className="header-action-btn"
+              aria-label="Open cart"
+            >
+              <ShoppingCart size={20} />
+              {cartItemCount > 0 && (
+                <span className="cart-badge">{cartItemCount}</span>
+              )}
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="mobile-menu-toggle"
+              onClick={toggleMobileMenu}
+              aria-label="Toggle mobile menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Slide-in Navigation */}
+      <div
+        className={`mobile-nav-backdrop ${isMobileMenuOpen ? 'open' : ''}`}
+        onClick={toggleMobileMenu}
+      />
+      <nav className={`mobile-nav ${isMobileMenuOpen ? 'open' : ''}`}>
+        <div className="mobile-nav-content">
+          {user && (
+            <div className="mobile-profile-info">
+              <span className="mobile-profile-name">{user.name}</span>
+              <span className="mobile-profile-email">{user.email}</span>
+            </div>
+          )}
+
+          <Link
+            to="/"
+            className={`mobile-nav-link ${isActivePath('/') ? 'active' : ''}`}
+            onClick={toggleMobileMenu}
+          >
+            Home
+          </Link>
+          <Link
+            to="/products"
+            className={`mobile-nav-link ${isActivePath('/products') ? 'active' : ''}`}
+            onClick={toggleMobileMenu}
+          >
+            Products
+          </Link>
+          <Link
+            to="/customize"
+            className={`mobile-nav-link ${isActivePath('/customize') ? 'active' : ''}`}
+            onClick={toggleMobileMenu}
+          >
+            Customize
+          </Link>
+          <Link
+            to="/about"
+            className={`mobile-nav-link ${isActivePath('/about') ? 'active' : ''}`}
+            onClick={toggleMobileMenu}
+          >
+            About Us
+          </Link>
+
+          {user ? (
+            <>
+              <div className="mobile-nav-divider"></div>
+              <Link
+                to="/dashboard"
+                className="mobile-nav-link"
+                onClick={toggleMobileMenu}
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/account-settings"
+                className="mobile-nav-link"
+                onClick={toggleMobileMenu}
+              >
+                Account Settings
+              </Link>
+              <Link
+                to="/order-history"
+                className="mobile-nav-link"
+                onClick={toggleMobileMenu}
+              >
+                Order History
+              </Link>
+              <button onClick={handleLogout} className="mobile-logout-btn">
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="mobile-nav-divider"></div>
+              <Link
+                to="/login"
+                className="mobile-nav-link"
+                onClick={toggleMobileMenu}
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/register"
+                className="mobile-nav-link"
+                onClick={toggleMobileMenu}
+              >
+                Create Account
+              </Link>
+            </>
           )}
         </div>
       </nav>
+
+      {/* Search Overlay */}
+      <div className={`search-overlay ${isSearchOverlayOpen ? 'open' : ''}`}>
+        <div className="search-overlay-header">
+          <button onClick={closeSearchOverlay} className="search-overlay-close-btn" aria-label="Close search">
+            <X size={24} />
+          </button>
+        </div>
+        <form onSubmit={handleSearchSubmit} className="search-overlay-form">
+          <input
+            type="text"
+            placeholder="Search jewelry..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-overlay-input"
+          />
+          <button type="submit" className="search-overlay-submit-btn" aria-label="Submit search">
+            <Search size={24} />
+          </button>
+        </form>
+      </div>
     </header>
   );
 };

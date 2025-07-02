@@ -1,202 +1,105 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Lato:wght@300;400;500;600&display=swap');
 
 :root {
-  /* Primary Palette - Luxury jewelry store aesthetic */
-  --ivory-white: #F9F9F9;
-  --pure-white: #FFFFFF;
-  --graphite-black: #1A1A1A;
-  --champagne-beige: #EFE7DD;
-
-  /* Accent Colors (Gen Z Appeal) */
-  --muted-blush: #F5DADF;
-  --pale-sage: #DCEDE4;
-  --digital-lavender: #CDB4DB;
-
-  /* Additional luxury tones */
-  --luxury-gold: #D4AF37;
-  --deep-navy: #0F1419;
-  --warm-gray: #8A8A8A;
-  --light-gray: #F5F5F5;
-
-  /* Functional Colors */
-  --highlight-cta: var(--graphite-black);
-  --highlight-cta-text: var(--ivory-white);
-  --link-hover: var(--digital-lavender);
-  --success-progress: var(--pale-sage);
-  --error-color: #E74C3C;
-  --warning-color: #F39C12;
-
-  /* Typography scale */
-  --font-primary: 'Playfair Display', serif;
-  --font-secondary: 'Lato', sans-serif;
+  /* Primary Colors */
+  --primary-color: #1A1A1A;
+  --secondary-color: #333333;
+  --text-color: #333333;
+  --light-text: #666666;
   
-  /* Shadows */
-  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
-  --shadow-heavy: 0 15px 35px rgba(0, 0, 0, 0.2);
+  /* Background Colors */
+  --champagne-beige: #EFE7DD; /* Updated background color */
+  --background-color: #EFE7DD; /* Updated background color */
   
-  /* Border radius */
-  --radius-small: 4px;
-  --radius-medium: 8px;
-  --radius-large: 16px;
-  --radius-pill: 50px;
+  /* Accent Colors */
+  --muted-blush: #F5DADF; /* Updated pink accent */
+  --gold-accent: #D4AF37;
+  --digital-lavender: #F5DADF; /* Updated pink accent */
+  
+  /* Utility Colors */
+  --error-color: #D32F2F;
+  --success-color: #388E3C;
+  --warning-color: #F57C00;
+  --info-color: #0288D1;
+  
+  /* Border & Shadow */
+  --border-color: #E0E0E0;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+  
+  /* Typography */
+  --font-family: 'Montserrat', sans-serif;
+  --font-family-secondary: 'Playfair Display', serif;
+  
+  /* Breakpoints */
+  --mobile: 480px;
+  --tablet: 768px;
+  --desktop: 1024px;
+  --large-desktop: 1440px;
+  
+  /* Border Radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  --border-radius-pill: 9999px;
+  
+  /* Z-index layers */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
 }
 
-* {
-  box-sizing: border-box;
-}
-
+/* Global Styles */
 body {
-  font-family: var(--font-secondary);
-  background-color: var(--ivory-white);
-  color: var(--graphite-black);
   margin: 0;
-  padding: 0;
-  line-height: 1.6;
-  font-weight: 400;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
-/* Enhanced typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-primary);
-  font-weight: 400;
-  line-height: 1.3;
-  margin: 0 0 1rem 0;
-  color: var(--graphite-black);
+  font-family: var(--font-family-secondary);
+  margin-top: 0;
 }
 
-h1 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 300;
-}
-
-h2 {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-}
-
-h3 {
-  font-size: clamp(1.25rem, 2.5vw, 2rem);
-}
-
-p {
-  margin: 0 0 1rem 0;
-  color: var(--graphite-black);
-  opacity: 0.9;
-}
-
-/* Enhanced link styles */
 a {
-  color: var(--graphite-black);
+  color: inherit;
   text-decoration: none;
-  transition: all 0.3s ease;
-  position: relative;
 }
 
-a:hover {
-  color: var(--digital-lavender);
+/* Mobile-first media queries */
+/* Tablet and above */
+@media (min-width: 768px) {
+  :root {
+    --spacing-md: 1.25rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 2.5rem;
+    --spacing-xxl: 4rem;
+  }
 }
 
-/* Button enhancements */
-button, .btn {
-  font-family: var(--font-secondary);
-  font-weight: 500;
-  border: none;
-  border-radius: var(--radius-medium);
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.9rem;
-  padding: 12px 24px;
-  position: relative;
-  overflow: hidden;
-}
-
-button:hover, .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-medium);
-}
-
-/* Form elements */
-input, textarea, select {
-  font-family: var(--font-secondary);
-  border: 1px solid var(--champagne-beige);
-  border-radius: var(--radius-small);
-  padding: 12px 16px;
-  transition: all 0.3s ease;
-  background-color: var(--pure-white);
-  color: var(--graphite-black);
-}
-
-input:focus, textarea:focus, select:focus {
-  outline: none;
-  border-color: var(--digital-lavender);
-  box-shadow: 0 0 0 3px rgba(205, 180, 219, 0.2);
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--light-gray);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--champagne-beige);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--warm-gray);
-}
-
-/* Selection styling */
-::selection {
-  background-color: var(--digital-lavender);
-  color: var(--pure-white);
-}
-
-/* Utility classes */
-.text-center {
-  text-align: center;
-}
-
-.text-luxury {
-  font-family: var(--font-primary);
-  font-weight: 300;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.luxury-section {
-  padding: 80px 0;
-}
-
-/* Enhanced focus states for accessibility */
-button:focus-visible,
-.btn:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--digital-lavender);
-  outline-offset: 2px;
-}
-
-.cta-button.collection-btn {
-  background: #FFFFFF;
-  color: var(--graphite-black, #222);
-  border: 1.5px solid #F5DADF;
-  transition: background 0.3s cubic-bezier(0.4,0,0.2,1), color 0.3s, border 0.3s;
-}
-.cta-button.collection-btn:hover, .cta-button.collection-btn:focus {
-  background: #F5DADF;
-  color: var(--graphite-black, #222);
-  border-color: #F5DADF;
+/* Desktop and above */
+@media (min-width: 1024px) {
+  :root {
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2.5rem;
+    --spacing-xl: 3rem;
+    --spacing-xxl: 5rem;
+  }
 }
