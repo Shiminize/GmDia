@@ -168,17 +168,17 @@ const HomePage: React.FC = () => {
       {/* Hero Section - Cinematic with Video */}
       <section className="relative min-h-screen flex items-center justify-start pt-20 overflow-hidden">
         <div className="relative w-full h-full">
-          {/* Background image that shows immediately */}
+          {/* Background image that shows immediately - lowest layer */}
           <img 
             src="/hero-ring-hand.jpg" 
             alt="Lab-grown diamond engagement ring on elegant hand"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover z-0"
           />
           
-          {/* Video overlay that only shows when loaded and not errored */}
+          {/* Video overlay - above background but below overlay */}
           {!videoError && (
             <video 
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              className={`absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-1000 ${
                 videoLoaded ? 'opacity-100' : 'opacity-0'
               }`}
               autoPlay
@@ -197,10 +197,12 @@ const HomePage: React.FC = () => {
             </video>
           )}
           
-          <div className="absolute inset-0 bg-graphite/40"></div>
+          {/* Dark overlay - above video */}
+          <div className="absolute inset-0 bg-graphite/40 z-20"></div>
         </div>
         
-        <div className="relative z-10 container mx-auto px-4 pt-20">
+        {/* Content - highest layer */}
+        <div className="relative z-30 container mx-auto px-4 pt-20">
           <div className="max-w-xl bg-ivory/90 backdrop-blur-sm p-10 rounded-lg animate-fadeIn">
             <h1 className="text-5xl font-bold text-graphite leading-tight tracking-tight mb-6">
               Ethical Brilliance,<br />
