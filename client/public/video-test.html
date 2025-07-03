@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .video-container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Your Local Video</h2>
+        <div class="video-container">
+            <video controls>
+                <source src="/hero-video/video_creation_luxury_diamond_ad.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <p>Status: <span id="local-status">Loading...</span></p>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: External Test Video</h2>
+        <div class="video-container">
+            <video controls>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <p>Status: <span id="external-status">Loading...</span></p>
+    </div>
+
+    <script>
+        // Test local video
+        const localVideo = document.querySelector('video');
+        localVideo.addEventListener('loadeddata', () => {
+            document.getElementById('local-status').textContent = 'Local video loaded successfully!';
+            document.getElementById('local-status').style.color = 'green';
+        });
+        localVideo.addEventListener('error', (e) => {
+            document.getElementById('local-status').textContent = 'Local video failed to load: ' + e.message;
+            document.getElementById('local-status').style.color = 'red';
+        });
+
+        // Test external video
+        const externalVideo = document.querySelectorAll('video')[1];
+        externalVideo.addEventListener('loadeddata', () => {
+            document.getElementById('external-status').textContent = 'External video loaded successfully!';
+            document.getElementById('external-status').style.color = 'green';
+        });
+        externalVideo.addEventListener('error', (e) => {
+            document.getElementById('external-status').textContent = 'External video failed to load: ' + e.message;
+            document.getElementById('external-status').style.color = 'red';
+        });
+    </script>
+</body>
+</html> 

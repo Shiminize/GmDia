@@ -130,7 +130,7 @@ const testimonials = [
 const HomePage: React.FC = () => {
   const { user } = useAuth();
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   // Auto-rotate testimonials
   useEffect(() => {
@@ -148,8 +148,9 @@ const HomePage: React.FC = () => {
     console.log('Opening expert chat...');
   };
 
-  const handleVideoPlay = () => {
-    setIsVideoPlaying(true);
+  const handleVideoError = (e: any) => {
+    console.error('Video error:', e);
+    setVideoError(true);
   };
 
   return (
@@ -157,37 +158,30 @@ const HomePage: React.FC = () => {
       {/* Hero Section - Cinematic with Video */}
       <section className="relative min-h-screen flex items-center justify-start pt-20 overflow-hidden">
         <div className="relative w-full h-full">
-          {!isVideoPlaying ? (
-            <>
-              <div className="relative w-full h-screen">
-                <img 
-                  src="/hero-ring-hand.jpg" 
-                  alt="Lab-grown diamond engagement ring on elegant hand"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-graphite/40"></div>
-              </div>
-              <button 
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 
-                  bg-blush rounded-full flex items-center justify-center text-white shadow-lg
-                  hover:bg-blush/90 hover:scale-110 transition-all duration-300"
-                onClick={handleVideoPlay}
-                aria-label="Play hero video"
-              >
-                <Play size={32} />
-              </button>
-            </>
-          ) : (
+          {!videoError ? (
             <video 
               className="absolute inset-0 w-full h-full object-cover"
               autoPlay
               muted
               loop
               playsInline
+              controls
+              aria-label="Luxury diamond ad video"
+              onError={handleVideoError}
+              onLoadedData={() => console.log('Video loaded successfully')}
+              onCanPlay={() => console.log('Video can play')}
             >
-              <source src="/hero-video.mp4" type="video/mp4" />
+              <source src="/hero-video/video_creation_luxury_diamond_ad.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
             </video>
+          ) : (
+            <img 
+              src="/hero-ring-hand.jpg" 
+              alt="Lab-grown diamond engagement ring on elegant hand"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
           )}
+          <div className="absolute inset-0 bg-graphite/40"></div>
         </div>
         
         <div className="relative z-10 container mx-auto px-4 pt-20">
