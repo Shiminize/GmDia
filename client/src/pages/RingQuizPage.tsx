@@ -47,20 +47,20 @@ const RingQuizPage: React.FC = () => {
   ];
 
   const settingOptions = [
-    { value: 'Solitaire', label: 'Solitaire', description: 'Single diamond, timeless elegance' },
-    { value: 'Halo', label: 'Halo', description: 'Center stone surrounded by smaller diamonds' },
-    { value: 'Three-stone', label: 'Three-stone', description: 'Past, present, future symbolism' },
-    { value: 'Vintage', label: 'Vintage', description: 'Intricate details, old-world charm' },
-    { value: 'Hidden Halo', label: 'Hidden Halo', description: 'Subtle sparkle, modern twist' }
+    { value: 'Solitaire', label: 'Solitaire', description: 'Single diamond, timeless elegance', image: '/ringsettings/Solitaire_quiz.jpeg.webp' },
+    { value: 'Halo', label: 'Halo', description: 'Center stone surrounded by smaller diamonds', image: '/ringsettings/Halo_quiz.jpeg.webp' },
+    { value: 'Three-stone', label: 'Three-stone', description: 'Past, present, future symbolism', image: '/ringsettings/threestone_quiz.jpeg.webp' },
+    { value: 'Vintage', label: 'Vintage', description: 'Intricate details, old-world charm', image: '/ringsettings/vintage_quiz.jpeg.webp' },
+    { value: 'Hidden Halo', label: 'Hidden Halo', description: 'Subtle sparkle, modern twist', image: '/ringsettings/hiddenhalo_quiz.jpeg.webp' }
   ];
 
   const shapeOptions = [
-    { value: 'Round', label: 'Round', description: 'Classic brilliance' },
-    { value: 'Oval', label: 'Oval', description: 'Elongated elegance' },
-    { value: 'Emerald', label: 'Emerald', description: 'Sophisticated step cut' },
-    { value: 'Pear', label: 'Pear', description: 'Unique teardrop shape' },
-    { value: 'Cushion', label: 'Cushion', description: 'Vintage-inspired curves' },
-    { value: 'Princess', label: 'Princess', description: 'Modern square cut' }
+    { value: 'Round', label: 'Round', description: 'Classic brilliance', image: '/diamondshape/round.jpeg.webp' },
+    { value: 'Oval', label: 'Oval', description: 'Elongated elegance', image: '/diamondshape/oval.jpeg.webp' },
+    { value: 'Emerald', label: 'Emerald', description: 'Sophisticated step cut', image: '/diamondshape/emerald.jpeg.webp' },
+    { value: 'Pear', label: 'Pear', description: 'Unique teardrop shape', image: '/diamondshape/pear.jpeg.webp' },
+    { value: 'Cushion', label: 'Cushion', description: 'Vintage-inspired curves', image: '/diamondshape/cushion.jpeg.webp' },
+    { value: 'Princess', label: 'Princess', description: 'Modern square cut', image: '/diamondshape/princess.jpeg.webp' }
   ];
 
   const metalOptions = [
@@ -163,8 +163,13 @@ const RingQuizPage: React.FC = () => {
               className="sr-only"
             />
             <div className="text-center">
-              <div className="h-32 bg-ivory rounded-lg mb-4 flex items-center justify-center border border-champagne">
-                <span className="text-graphite/50 text-sm">Ring Image</span>
+              <div className="h-32 flex items-center justify-center mb-4">
+                <img
+                  src={option.image}
+                  alt={option.label}
+                  className="max-h-32 w-auto rounded-lg shadow-md object-cover border border-champagne bg-ivory"
+                  loading="lazy"
+                />
               </div>
               <div className="font-medium text-graphite mb-1">{option.label}</div>
               <div className="text-sm text-graphite/70">{option.description}</div>
@@ -196,8 +201,13 @@ const RingQuizPage: React.FC = () => {
               className="sr-only"
             />
             <div className="text-center">
-              <div className="h-24 bg-ivory rounded-lg mb-3 flex items-center justify-center border border-champagne">
-                <span className="text-graphite/50 text-xs">Diamond</span>
+              <div className="h-24 flex items-center justify-center mb-3">
+                <img
+                  src={option.image}
+                  alt={option.label}
+                  className="max-h-24 w-auto rounded-lg shadow-md object-cover border border-champagne bg-ivory"
+                  loading="lazy"
+                />
               </div>
               <div className="font-medium text-graphite text-sm mb-1">{option.label}</div>
               <div className="text-xs text-graphite/70">{option.description}</div>
