@@ -210,7 +210,7 @@ const HomePage: React.FC = () => {
               muted
               loop
               playsInline
-              controls
+
               aria-label="Luxury diamond ad video"
               onError={handleVideoError}
             >
