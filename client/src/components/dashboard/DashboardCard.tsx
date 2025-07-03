@@ -17,32 +17,34 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
   onClick,
   loading = false
 }) => {
-  const cardClasses = `dashboard-card ${className} ${loading ? 'loading' : ''}`.trim();
+  const cardClasses = `bg-white rounded-xl shadow-sm border border-champagne/30 p-6 transition-all duration-300 
+    hover:shadow-md hover:-translate-y-0.5 ${className} ${loading ? 'animate-pulse' : ''}`.trim();
 
   if (loading) {
     return (
       <div className={cardClasses}>
-        <div className="skeleton skeleton-title"></div>
-        <div className="skeleton skeleton-text"></div>
-        <div className="skeleton skeleton-text" style={{ width: '70%' }}></div>
-        <div className="skeleton skeleton-text" style={{ width: '90%' }}></div>
+        <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
+        <div className="space-y-3">
+          <div className="h-4 bg-gray-200 rounded w-full"></div>
+          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+          <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+        </div>
       </div>
     );
   }
 
   return (
     <div 
-      className={cardClasses}
+      className={`${cardClasses} ${onClick ? 'cursor-pointer' : 'cursor-default'}`}
       onClick={onClick}
-      style={{ cursor: onClick ? 'pointer' : 'default' }}
     >
       {title && (
-        <div className="card-header">
-          <h3 className="card-title">{title}</h3>
-          {action && <div className="card-action">{action}</div>}
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-champagne">
+          <h3 className="text-2xl font-normal text-graphite">{title}</h3>
+          {action && <div>{action}</div>}
         </div>
       )}
-      <div className="card-content">
+      <div>
         {children}
       </div>
     </div>

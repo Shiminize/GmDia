@@ -89,57 +89,57 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ user }) => {
   };
 
   return (
-    <div className="dashboard-sidebar slide-in-left">
+    <div className="bg-white rounded-xl shadow-sm p-8 h-fit sticky top-[100px] transition-all duration-300 
+      hover:shadow-md animate-slideInLeft">
       {/* Profile Section */}
-      <div className="sidebar-profile">
-        <div className="profile-avatar">
+      <div className="text-center pb-8 border-b border-champagne mb-8">
+        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-lavender to-blush flex items-center 
+          justify-center mx-auto mb-4 shadow-sm text-white text-2xl font-primary">
           {user.initials}
         </div>
-        <h4 className="profile-name">{user.name}</h4>
-        <p className="profile-email">{user.email}</p>
+        <h4 className="text-xl text-graphite mb-2 font-primary">{user.name}</h4>
+        <p className="text-sm text-warm-gray mb-4">{user.email}</p>
         
-        <div className="profile-stats">
-          <div className="stat-item">
-            <span className="stat-number">{user.stats.orders}</span>
-            <span className="stat-label">Orders</span>
+        <div className="flex justify-around pt-4">
+          <div className="text-center">
+            <span className="block text-2xl font-medium text-graphite font-primary">{user.stats.orders}</span>
+            <span className="text-xs text-warm-gray uppercase tracking-wider">Orders</span>
           </div>
-          <div className="stat-item">
-            <span className="stat-number">{user.stats.designs}</span>
-            <span className="stat-label">Designs</span>
+          <div className="text-center">
+            <span className="block text-2xl font-medium text-graphite font-primary">{user.stats.designs}</span>
+            <span className="text-xs text-warm-gray uppercase tracking-wider">Designs</span>
           </div>
-          <div className="stat-item">
-            <span className="stat-number">{user.stats.wishlist}</span>
-            <span className="stat-label">Wishlist</span>
+          <div className="text-center">
+            <span className="block text-2xl font-medium text-graphite font-primary">{user.stats.wishlist}</span>
+            <span className="text-xs text-warm-gray uppercase tracking-wider">Wishlist</span>
           </div>
         </div>
       </div>
 
       {/* Navigation Menu */}
       <nav>
-        <ul className="nav-menu">
+        <ul className="space-y-2">
           {navigationItems.map((item) => (
-            <li key={item.id} className="nav-item">
+            <li key={item.id}>
               {item.path ? (
                 <Link
                   to={item.path}
-                  className={`nav-link ${isActive(item.id) ? 'active' : ''}`}
+                  className={`flex items-center px-4 py-3 rounded-lg text-graphite font-medium transition-all 
+                    duration-300 hover:bg-champagne hover:translate-x-1 
+                    ${isActive(item.id) ? 'bg-champagne translate-x-1' : ''}`}
                   onClick={() => handleNavClick(item)}
                 >
-                  <item.icon className="nav-icon" />
+                  <item.icon className="w-5 h-5 mr-3" />
                   {item.label}
                 </Link>
               ) : (
                 <button
-                  className={`nav-link ${isActive(item.id) ? 'active' : ''}`}
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-graphite font-medium 
+                    transition-all duration-300 hover:bg-champagne hover:translate-x-1 text-left
+                    ${isActive(item.id) ? 'bg-champagne translate-x-1' : ''}`}
                   onClick={() => handleNavClick(item)}
-                  style={{ 
-                    background: 'none', 
-                    border: 'none', 
-                    width: '100%', 
-                    textAlign: 'left' 
-                  }}
                 >
-                  <item.icon className="nav-icon" />
+                  <item.icon className="w-5 h-5 mr-3" />
                   {item.label}
                 </button>
               )}

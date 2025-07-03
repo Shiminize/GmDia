@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import DashboardCard from '../components/dashboard/DashboardCard';
 import { FaUser, FaEnvelope, FaPhone, FaLocationDot, FaBell, FaLock, FaMobile, FaSlack, FaWhatsapp } from 'react-icons/fa6';
-import './Dashboard.css';
 
 interface UserProfile {
   name: string;

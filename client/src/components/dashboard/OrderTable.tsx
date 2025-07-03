@@ -87,8 +87,10 @@ const OrderTable: React.FC<OrderTableProps> = ({
   };
 
   const getSortIcon = (field: SortField) => {
-    if (sortField !== field) return <FaSort />;
-    return sortDirection === 'asc' ? <FaSortUp /> : <FaSortDown />;
+    if (sortField !== field) return <FaSort className="w-3 h-3 text-warm-gray" />;
+    return sortDirection === 'asc' ? 
+      <FaSortUp className="w-3 h-3 text-graphite" /> : 
+      <FaSortDown className="w-3 h-3 text-graphite" />;
   };
 
   const getStatusOptions = (): StatusType[] => {
@@ -98,28 +100,28 @@ const OrderTable: React.FC<OrderTableProps> = ({
 
   if (loading) {
     return (
-      <div className="order-table-container">
-        <div className="table-controls">
-          <div className="skeleton skeleton-text" style={{ width: '200px', height: '40px' }}></div>
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <div className="h-10 w-48 bg-gray-200 rounded animate-pulse"></div>
         </div>
-        <table className="luxury-table">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
-              <th><div className="skeleton skeleton-text" style={{ width: '80px' }}></div></th>
-              <th><div className="skeleton skeleton-text" style={{ width: '100px' }}></div></th>
-              <th><div className="skeleton skeleton-text" style={{ width: '80px' }}></div></th>
-              <th><div className="skeleton skeleton-text" style={{ width: '80px' }}></div></th>
-              <th><div className="skeleton skeleton-text" style={{ width: '120px' }}></div></th>
+              <th className="p-4"><div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div></th>
+              <th className="p-4"><div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div></th>
+              <th className="p-4"><div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div></th>
+              <th className="p-4"><div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div></th>
+              <th className="p-4"><div className="h-4 w-28 bg-gray-200 rounded animate-pulse"></div></th>
             </tr>
           </thead>
           <tbody>
             {[...Array(5)].map((_, index) => (
               <tr key={index}>
-                <td><div className="skeleton skeleton-text"></div></td>
-                <td><div className="skeleton skeleton-text"></div></td>
-                <td><div className="skeleton skeleton-text"></div></td>
-                <td><div className="skeleton skeleton-text"></div></td>
-                <td><div className="skeleton skeleton-text"></div></td>
+                <td className="p-4"><div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div></td>
+                <td className="p-4"><div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div></td>
+                <td className="p-4"><div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div></td>
+                <td className="p-4"><div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div></td>
+                <td className="p-4"><div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div></td>
               </tr>
             ))}
           </tbody>
@@ -129,21 +131,11 @@ const OrderTable: React.FC<OrderTableProps> = ({
   }
 
   return (
-    <div className="order-table-container">
+    <div className="space-y-6">
       {/* Controls */}
-      <div className="table-controls" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '1.5rem',
-        gap: '1rem'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <label style={{ 
-            fontSize: '0.9rem',
-            fontWeight: '500',
-            color: 'var(--graphite-black)'
-          }}>
+      <div className="flex flex-wrap justify-between items-center gap-4">
+        <div className="flex items-center gap-4">
+          <label className="text-sm font-medium text-graphite">
             Filter by Status:
           </label>
           <select
@@ -152,13 +144,8 @@ const OrderTable: React.FC<OrderTableProps> = ({
               setStatusFilter(e.target.value as StatusType | 'all');
               setCurrentPage(1);
             }}
-            style={{
-              padding: '0.5rem 1rem',
-              borderRadius: 'var(--radius-medium)',
-              border: '1px solid var(--champagne-beige)',
-              background: 'var(--pure-white)',
-              fontSize: '0.9rem'
-            }}
+            className="px-4 py-2 rounded-lg border border-champagne bg-white text-sm focus:outline-none 
+              focus:ring-2 focus:ring-champagne focus:border-transparent"
           >
             <option value="all">All Statuses</option>
             {getStatusOptions().map(status => (
@@ -169,149 +156,118 @@ const OrderTable: React.FC<OrderTableProps> = ({
           </select>
         </div>
 
-        <div style={{ 
-          fontSize: '0.9rem',
-          color: 'var(--warm-gray)'
-        }}>
+        <div className="text-sm text-warm-gray">
           Showing {startIndex + 1}-{Math.min(startIndex + itemsPerPage, filteredAndSortedOrders.length)} of {filteredAndSortedOrders.length} orders
         </div>
       </div>
 
       {/* Table */}
-      <table className="luxury-table">
-        <thead>
-          <tr>
-            <th 
-              onClick={() => handleSort('id')}
-              style={{ cursor: 'pointer', userSelect: 'none' }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                Order ID {getSortIcon('id')}
-              </div>
-            </th>
-            <th 
-              onClick={() => handleSort('date')}
-              style={{ cursor: 'pointer', userSelect: 'none' }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                Date {getSortIcon('date')}
-              </div>
-            </th>
-            <th 
-              onClick={() => handleSort('total')}
-              style={{ cursor: 'pointer', userSelect: 'none' }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                Total {getSortIcon('total')}
-              </div>
-            </th>
-            <th 
-              onClick={() => handleSort('status')}
-              style={{ cursor: 'pointer', userSelect: 'none' }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                Status {getSortIcon('status')}
-              </div>
-            </th>
-            <th>Items</th>
-            {onViewOrder && <th>Actions</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedOrders.length > 0 ? (
-            paginatedOrders.map(order => (
-              <tr key={order.id}>
-                <td style={{ fontFamily: 'var(--font-secondary)', fontWeight: '500' }}>
-                  {order.id}
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr>
+              <th 
+                onClick={() => handleSort('id')}
+                className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30 
+                  cursor-pointer select-none hover:bg-champagne/5"
+              >
+                <div className="flex items-center gap-2">
+                  Order ID {getSortIcon('id')}
+                </div>
+              </th>
+              <th 
+                onClick={() => handleSort('date')}
+                className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30 
+                  cursor-pointer select-none hover:bg-champagne/5"
+              >
+                <div className="flex items-center gap-2">
+                  Date {getSortIcon('date')}
+                </div>
+              </th>
+              <th 
+                onClick={() => handleSort('total')}
+                className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30 
+                  cursor-pointer select-none hover:bg-champagne/5"
+              >
+                <div className="flex items-center gap-2">
+                  Total {getSortIcon('total')}
+                </div>
+              </th>
+              <th 
+                onClick={() => handleSort('status')}
+                className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30 
+                  cursor-pointer select-none hover:bg-champagne/5"
+              >
+                <div className="flex items-center gap-2">
+                  Status {getSortIcon('status')}
+                </div>
+              </th>
+              <th className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedOrders.map((order) => (
+              <tr 
+                key={order.id}
+                className="hover:bg-champagne/5 transition-colors duration-150"
+              >
+                <td className="p-4 text-sm text-graphite border-b border-champagne/30">
+                  #{order.id}
                 </td>
-                <td>{new Date(order.date).toLocaleDateString()}</td>
-                <td style={{ fontWeight: '500' }}>
+                <td className="p-4 text-sm text-graphite border-b border-champagne/30">
+                  {new Date(order.date).toLocaleDateString()}
+                </td>
+                <td className="p-4 text-sm text-graphite border-b border-champagne/30">
                   ${order.total.toLocaleString()}
                 </td>
-                <td>
+                <td className="p-4 text-sm border-b border-champagne/30">
                   <StatusBadge status={order.status} />
                 </td>
-                <td style={{ fontSize: '0.9rem', color: 'var(--warm-gray)' }}>
-                  {order.items.length > 2 
-                    ? `${order.items.slice(0, 2).join(', ')} +${order.items.length - 2} more`
-                    : order.items.join(', ')
-                  }
-                </td>
-                {onViewOrder && (
-                  <td>
+                <td className="p-4 text-sm border-b border-champagne/30">
+                  {onViewOrder && (
                     <button
                       onClick={() => onViewOrder(order.id)}
-                      className="card-action"
-                      style={{ 
-                        fontSize: '0.8rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.5rem'
-                      }}
+                      className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-graphite 
+                        bg-champagne rounded-full hover:bg-blush hover:text-white transition-colors duration-200"
                     >
-                      <FaEye /> View
+                      <FaEye className="w-3 h-3" />
+                      View Details
                     </button>
-                  </td>
-                )}
+                  )}
+                </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td 
-                colSpan={onViewOrder ? 6 : 5}
-                style={{ 
-                  textAlign: 'center', 
-                  padding: '3rem',
-                  color: 'var(--warm-gray)'
-                }}
-              >
-                No orders found matching your criteria.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '1rem',
-          marginTop: '2rem',
-          padding: '1rem'
-        }}>
+        <div className="flex justify-between items-center pt-4">
           <button
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="card-action"
-            style={{
-              opacity: currentPage === 1 ? 0.5 : 1,
-              cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
-            }}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-graphite bg-white 
+              rounded-lg border border-champagne disabled:opacity-50 disabled:cursor-not-allowed 
+              hover:bg-champagne/10 transition-colors duration-200"
           >
-            <FaChevronLeft />
+            <FaChevronLeft className="w-3 h-3" />
+            Previous
           </button>
-          
-          <span style={{ 
-            fontSize: '0.9rem',
-            color: 'var(--graphite-black)',
-            fontWeight: '500'
-          }}>
+          <div className="text-sm text-warm-gray">
             Page {currentPage} of {totalPages}
-          </span>
-          
+          </div>
           <button
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
-            className="card-action"
-            style={{
-              opacity: currentPage === totalPages ? 0.5 : 1,
-              cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
-            }}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-graphite bg-white 
+              rounded-lg border border-champagne disabled:opacity-50 disabled:cursor-not-allowed 
+              hover:bg-champagne/10 transition-colors duration-200"
           >
-            <FaChevronRight />
+            Next
+            <FaChevronRight className="w-3 h-3" />
           </button>
         </div>
       )}

@@ -7,7 +7,6 @@ import DashboardSidebar from '../components/dashboard/DashboardSidebar';
 import MetricCard from '../components/dashboard/MetricCard';
 import StatusBadge, { StatusType } from '../components/dashboard/StatusBadge';
 import OrderTable from '../components/dashboard/OrderTable';
-import './Dashboard.css';
 
 interface SavedDesign {
   _id: string;
@@ -35,7 +34,6 @@ const Dashboard: React.FC = () => {
   const [loadingDesigns, setLoadingDesigns] = useState(false);
   const [loadingMetrics, setLoadingMetrics] = useState(true);
 
-  // Load saved designs
   useEffect(() => {
     const loadSavedDesigns = async () => {
       if (!user) return;
@@ -54,7 +52,6 @@ const Dashboard: React.FC = () => {
     loadSavedDesigns();
   }, [user]);
 
-  // Simulate loading metrics
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoadingMetrics(false);
@@ -62,16 +59,16 @@ const Dashboard: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Redirect to login if not authenticated
   if (!user) {
     return (
-      <div className="dashboard">
-        <div className="dashboard-container">
+      <div className="min-h-screen bg-gradient-to-br from-ivory to-gray-100 pt-20">
+        <div className="max-w-7xl mx-auto px-8">
           <DashboardCard title="Authentication Required">
-            <div style={{ textAlign: 'center', padding: '2rem' }}>
-              <h3>Please log in to access your dashboard</h3>
+            <div className="text-center py-8">
+              <h3 className="text-xl font-medium text-graphite mb-4">Please log in to access your dashboard</h3>
               <Link to="/login">
-                <button className="card-action" style={{ marginTop: '1rem' }}>
+                <button className="px-6 py-2 bg-champagne text-graphite text-sm font-medium uppercase tracking-wider 
+                  rounded-full hover:bg-blush hover:text-white transition-all duration-300">
                   Go to Login
                 </button>
               </Link>
@@ -82,7 +79,6 @@ const Dashboard: React.FC = () => {
     );
   }
 
-  // Mock data - in real app, this would come from API
   const orderHistory: Order[] = [
     { id: 'ORD001', date: '2025-06-20', total: 1500, status: 'delivered', items: ['Classic Solitaire Ring'] },
     { id: 'ORD002', date: '2025-06-25', total: 2200, status: 'processing', items: ['Custom Emerald Necklace', 'Diamond Tennis Bracelet'] },
@@ -96,7 +92,7 @@ const Dashboard: React.FC = () => {
     stats: {
       orders: orderHistory.length,
       designs: savedDesigns.length,
-      wishlist: 5 // Mock data
+      wishlist: 5
     }
   };
 
@@ -115,20 +111,21 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="dashboard fade-in">
-      <div className="dashboard-container">
+    <div className="min-h-screen bg-gradient-to-br from-ivory to-gray-100 pt-20 flex animate-fadeIn">
+      <div className="max-w-[1600px] w-full mx-auto px-8 py-8 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10 
+        min-h-[calc(100vh-80px)] relative">
         {/* Sidebar */}
         <DashboardSidebar user={userStats} />
 
         {/* Main Content */}
-        <main className="dashboard-main">
-          <div className="dashboard-header">
-            <h1 className="dashboard-title">Welcome back, {user.name}</h1>
-            <p className="dashboard-subtitle">Here's what's happening with your jewelry collection</p>
+        <main>
+          <div className="mb-8">
+            <h1 className="text-4xl font-light text-graphite mb-2">Welcome back, {user.name}</h1>
+            <p className="text-lg text-warm-gray">Here's what's happening with your jewelry collection</p>
           </div>
 
           {/* Metrics Overview */}
-          <div className="metrics-grid">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
             <MetricCard
               value={totalSpent}
               label="Total Spent"
@@ -156,21 +153,23 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Content Sections */}
-          <div className="content-section">
-            <div className="section-grid">
-              
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Account Information */}
               <DashboardCard 
                 title="Account Information"
                 action={
-                  <button className="card-action">Edit Profile</button>
+                  <button className="px-4 py-2 bg-champagne text-graphite text-sm font-medium uppercase 
+                    tracking-wider rounded-full hover:bg-blush hover:text-white transition-all duration-300">
+                    Edit Profile
+                  </button>
                 }
               >
-                <div style={{ marginBottom: '1rem' }}>
-                  <p><strong>Name:</strong> {user.name}</p>
-                  <p><strong>Email:</strong> {user.email}</p>
-                  <p><strong>Account Type:</strong> {user.isAdmin ? 'Admin' : 'Premium Customer'}</p>
-                  <p><strong>Member Since:</strong> June 2024</p>
+                <div className="space-y-3">
+                  <p><span className="font-medium">Name:</span> {user.name}</p>
+                  <p><span className="font-medium">Email:</span> {user.email}</p>
+                  <p><span className="font-medium">Account Type:</span> {user.isAdmin ? 'Admin' : 'Premium Customer'}</p>
+                  <p><span className="font-medium">Member Since:</span> June 2024</p>
                 </div>
               </DashboardCard>
 
@@ -178,7 +177,10 @@ const Dashboard: React.FC = () => {
               <DashboardCard 
                 title="Order History"
                 action={
-                  <Link to="/dashboard/orders" className="card-action">View All Orders</Link>
+                  <Link to="/dashboard/orders" className="px-4 py-2 bg-champagne text-graphite text-sm font-medium 
+                    uppercase tracking-wider rounded-full hover:bg-blush hover:text-white transition-all duration-300">
+                    View All Orders
+                  </Link>
                 }
               >
                 <OrderTable
@@ -187,88 +189,83 @@ const Dashboard: React.FC = () => {
                   itemsPerPage={5}
                   onViewOrder={(orderId) => {
                     console.log('Viewing order:', orderId);
-                    // Navigate to order detail page
                   }}
                 />
               </DashboardCard>
             </div>
-          </div>
 
-          {/* Saved Designs */}
-          <DashboardCard 
-            title="Saved Designs"
-            action={
-              <Link to="/customize" className="card-action">Create New</Link>
-            }
-            loading={loadingDesigns}
-          >
-            {savedDesigns.length > 0 ? (
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
-                gap: '1.5rem',
-                marginTop: '1rem'
-              }}>
-                {savedDesigns.map(design => (
-                  <div key={design._id} style={{
-                    background: 'var(--light-gray)',
-                    borderRadius: 'var(--radius-medium)',
-                    padding: '1.5rem',
-                    border: '1px solid var(--champagne-beige)'
-                  }}>
-                    <h4 style={{ 
-                      fontFamily: 'var(--font-primary)', 
-                      marginBottom: '1rem',
-                      color: 'var(--graphite-black)'
-                    }}>
-                      {design.name}
-                    </h4>
-                    <div style={{ marginBottom: '1rem', fontSize: '0.9rem' }}>
-                      <p><strong>Setting:</strong> {design.designData.setting || 'Not specified'}</p>
-                      <p><strong>Metal:</strong> {design.designData.metal || 'Not specified'}</p>
-                      <p><strong>Diamond:</strong> {design.designData.diamondShape || 'Not specified'}</p>
-                      {design.designData.engraving && (
-                        <p><strong>Engraving:</strong> "{design.designData.engraving}"</p>
-                      )}
-                      <p><strong>Created:</strong> {new Date(design.createdAt).toLocaleDateString()}</p>
-                    </div>
-                    <div style={{ 
-                      display: 'flex', 
-                      gap: '0.5rem',
-                      justifyContent: 'flex-start'
-                    }}>
-                      <Link to={`/customize?loadDesign=${design._id}`}>
-                        <button className="card-action" style={{ fontSize: '0.8rem' }}>
-                          Load Design
-                        </button>
-                      </Link>
-                      <button 
-                        className="card-action"
-                        style={{ 
-                          fontSize: '0.8rem',
-                          background: 'var(--error-color)',
-                          color: 'var(--pure-white)'
-                        }}
-                        onClick={() => handleDeleteDesign(design._id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--warm-gray)' }}>
-                <h4>No saved designs yet</h4>
-                <p>Start customizing your perfect piece of jewelry!</p>
-                <Link to="/customize">
-                  <button className="card-action" style={{ marginTop: '1rem' }}>
-                    Create Your First Design
-                  </button>
+            {/* Saved Designs */}
+            <DashboardCard 
+              title="Saved Designs"
+              action={
+                <Link to="/design" className="px-4 py-2 bg-champagne text-graphite text-sm font-medium 
+                  uppercase tracking-wider rounded-full hover:bg-blush hover:text-white transition-all duration-300">
+                  Create New Design
                 </Link>
-              </div>
-            )}
-          </DashboardCard>
+              }
+            >
+              {loadingDesigns ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="animate-pulse">
+                      <div className="h-48 bg-gray-200 rounded-lg mb-4"></div>
+                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                      <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                    </div>
+                  ))}
+                </div>
+              ) : savedDesigns.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {savedDesigns.map((design) => (
+                    <div key={design._id} className="bg-white rounded-lg shadow-sm border border-champagne/30 
+                      overflow-hidden hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                      <div className="aspect-square bg-gray-100 relative">
+                        <img
+                          src={`/design-previews/${design.designData.setting}.jpg`}
+                          alt={design.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="text-lg font-medium text-graphite mb-2">{design.name}</h3>
+                        <div className="text-sm text-warm-gray space-y-1">
+                          <p>Setting: {design.designData.setting}</p>
+                          <p>Metal: {design.designData.metal}</p>
+                          <p>Shape: {design.designData.diamondShape}</p>
+                        </div>
+                        <div className="mt-4 flex justify-between items-center">
+                          <button 
+                            onClick={() => handleDeleteDesign(design._id)}
+                            className="text-sm text-red-500 hover:text-red-600 transition-colors duration-200"
+                          >
+                            Delete
+                          </button>
+                          <Link
+                            to={`/design/${design._id}`}
+                            className="px-4 py-2 bg-graphite text-white text-sm font-medium rounded-full 
+                              hover:bg-blush transition-all duration-300"
+                          >
+                            Edit Design
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-warm-gray mb-4">You haven't saved any designs yet.</p>
+                  <Link
+                    to="/design"
+                    className="inline-flex items-center px-6 py-3 bg-graphite text-white text-sm font-medium 
+                      rounded-full hover:bg-blush transition-all duration-300"
+                  >
+                    Start Designing
+                  </Link>
+                </div>
+              )}
+            </DashboardCard>
+          </div>
         </main>
       </div>
     </div>

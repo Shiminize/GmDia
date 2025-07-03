@@ -23,13 +23,16 @@ const MetricCard: React.FC<MetricCardProps> = ({
   suffix = '',
   loading = false
 }) => {
-  const cardClasses = `metric-card ${className}`.trim();
+  const cardClasses = `relative bg-white rounded-xl shadow-sm border border-champagne/30 p-6 text-center 
+    transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 before:absolute before:inset-0 
+    before:bg-gradient-to-br before:from-lavender/5 before:to-blush/5 before:rounded-xl before:opacity-0 
+    hover:before:opacity-100 before:transition-opacity before:duration-300 ${className}`.trim();
 
   if (loading) {
     return (
       <div className={cardClasses}>
-        <div className="skeleton skeleton-title" style={{ height: '2.5rem', width: '60%', margin: '0 auto 0.5rem' }}></div>
-        <div className="skeleton skeleton-text" style={{ height: '0.9rem', width: '80%', margin: '0 auto' }}></div>
+        <div className="h-10 bg-gray-200 rounded w-3/5 mx-auto mb-2 animate-pulse"></div>
+        <div className="h-4 bg-gray-200 rounded w-4/5 mx-auto animate-pulse"></div>
       </div>
     );
   }
@@ -44,12 +47,12 @@ const MetricCard: React.FC<MetricCardProps> = ({
 
   return (
     <div className={cardClasses}>
-      <span className="metric-value">
+      <span className="block text-3xl font-light text-graphite mb-2">
         {prefix}{formatValue(value)}{suffix}
       </span>
-      <div className="metric-label">{label}</div>
+      <div className="text-sm text-warm-gray uppercase tracking-wider">{label}</div>
       {trend && (
-        <div className={`metric-trend ${trend.isPositive ? 'trend-up' : 'trend-down'}`}>
+        <div className={`mt-3 text-sm font-medium ${trend.isPositive ? 'text-emerald-500' : 'text-rose-500'}`}>
           {trend.isPositive ? '↗' : '↘'} {Math.abs(trend.value)}%
           {trend.label && ` ${trend.label}`}
         </div>

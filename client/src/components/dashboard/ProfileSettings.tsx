@@ -112,19 +112,20 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
 
   if (loading) {
     return (
-      <div className="profile-settings">
-        <div className="profile-header">
-          <div className="skeleton skeleton-avatar"></div>
-          <div style={{ flex: 1 }}>
-            <div className="skeleton skeleton-text" style={{ width: '200px', marginBottom: '0.5rem' }}></div>
-            <div className="skeleton skeleton-text" style={{ width: '150px' }}></div>
+      <div className="space-y-8">
+        <div className="flex items-center gap-6 p-6 bg-gradient-to-br from-champagne to-gray-100 
+          rounded-xl border border-champagne">
+          <div className="w-20 h-20 rounded-full bg-gray-200 animate-pulse"></div>
+          <div className="flex-1">
+            <div className="h-6 w-48 bg-gray-200 rounded animate-pulse mb-2"></div>
+            <div className="h-4 w-36 bg-gray-200 rounded animate-pulse"></div>
           </div>
         </div>
-        <div className="profile-form">
+        <div className="space-y-6">
           {[...Array(5)].map((_, index) => (
-            <div key={index} className="form-group">
-              <div className="skeleton skeleton-text" style={{ width: '100px', marginBottom: '0.5rem' }}></div>
-              <div className="skeleton skeleton-text" style={{ height: '40px' }}></div>
+            <div key={index} className="space-y-2">
+              <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+              <div className="h-10 w-full bg-gray-200 rounded animate-pulse"></div>
             </div>
           ))}
         </div>
@@ -133,354 +134,256 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
   }
 
   return (
-    <div className="profile-settings">
+    <div className="space-y-8">
       {/* Profile Header */}
-      <div className="profile-header" style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '1.5rem',
-        marginBottom: '2rem',
-        padding: '1.5rem',
-        background: 'linear-gradient(135deg, var(--champagne-beige) 0%, var(--light-gray) 100%)',
-        borderRadius: 'var(--radius-large)',
-        border: '1px solid var(--champagne-beige)'
-      }}>
-        <div style={{ position: 'relative' }}>
-          <div style={{
-            width: '80px',
-            height: '80px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, var(--digital-lavender), var(--graphite-black))',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--pure-white)',
-            fontSize: '2rem',
-            fontWeight: 'bold',
-            border: '3px solid var(--pure-white)',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
-          }}>
+      <div className="flex items-center gap-6 p-6 bg-gradient-to-br from-champagne to-gray-100 
+        rounded-xl border border-champagne">
+        <div className="relative">
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-lavender to-graphite 
+            flex items-center justify-center text-white text-3xl font-bold border-3 border-white 
+            shadow-lg">
             {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
           </div>
           <button 
-            className="avatar-upload"
-            style={{
-              position: 'absolute',
-              bottom: '-5px',
-              right: '-5px',
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              background: 'var(--digital-lavender)',
-              border: '2px solid var(--pure-white)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              color: 'var(--pure-white)',
-              fontSize: '0.8rem'
-            }}
+            className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-lavender border-2 
+              border-white flex items-center justify-center text-white hover:bg-lavender/90 
+              transition-colors duration-200"
           >
-            <FaCamera />
+            <FaCamera className="w-3.5 h-3.5" />
           </button>
         </div>
-        <div style={{ flex: 1 }}>
-          <h3 style={{ 
-            margin: 0,
-            fontFamily: 'var(--font-primary)',
-            color: 'var(--graphite-black)'
-          }}>
+        <div className="flex-1">
+          <h3 className="m-0 font-primary text-graphite text-xl">
             {user.name}
           </h3>
-          <p style={{ 
-            margin: '0.25rem 0 0',
-            color: 'var(--warm-gray)',
-            fontSize: '0.9rem'
-          }}>
+          <p className="mt-1 text-warm-gray text-sm">
             {user.email}
-          </p>
-          <p style={{
-            margin: '0.25rem 0 0',
-            fontSize: '0.8rem',
-            color: 'var(--digital-lavender)',
-            fontWeight: '500'
-          }}>
-            {user.isAdmin ? 'Administrator' : 'Premium Member'} • Member since June 2024
           </p>
         </div>
         <button
           onClick={() => setIsEditing(!isEditing)}
-          className="card-action"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}
+          disabled={isSubmitting}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium 
+            transition-colors duration-200 ${
+            isEditing
+              ? 'border-rose-200 text-rose-600 hover:bg-rose-50'
+              : 'border-champagne text-graphite hover:bg-champagne/10'
+          }`}
         >
-          <FaEdit /> {isEditing ? 'Cancel' : 'Edit Profile'}
+          {isEditing ? (
+            <>
+              <FaTimes className="w-4 h-4" />
+              Cancel
+            </>
+          ) : (
+            <>
+              <FaEdit className="w-4 h-4" />
+              Edit Profile
+            </>
+          )}
         </button>
       </div>
 
       {/* Profile Form */}
-      <form onSubmit={handleSubmit} className="profile-form">
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '1.5rem'
-        }}>
-          {/* Personal Information */}
-          <div className="form-section">
-            <h4 style={{ 
-              margin: '0 0 1rem',
-              color: 'var(--graphite-black)',
-              fontFamily: 'var(--font-primary)'
-            }}>
-              Personal Information
-            </h4>
-            
-            <div className="form-group" style={{ marginBottom: '1rem' }}>
-              <label style={{ 
-                display: 'block',
-                marginBottom: '0.5rem',
-                fontWeight: '500',
-                color: 'var(--graphite-black)'
-              }}>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Personal Information */}
+        <div className="space-y-4">
+          <h4 className="text-lg font-medium text-graphite">Personal Information</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-graphite mb-1">
                 Full Name
               </label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="luxury-input"
-                  required
-                />
-              ) : (
-                <p style={{ margin: 0, color: 'var(--warm-gray)' }}>{user.name}</p>
-              )}
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => handleInputChange('name', e.target.value)}
+                disabled={!isEditing}
+                className="w-full px-4 py-2 rounded-lg border border-champagne bg-white text-graphite 
+                  placeholder-warm-gray disabled:bg-gray-50 disabled:text-warm-gray 
+                  focus:outline-none focus:ring-2 focus:ring-lavender focus:border-transparent"
+                placeholder="Enter your full name"
+              />
             </div>
-
-            <div className="form-group" style={{ marginBottom: '1rem' }}>
-              <label style={{ 
-                display: 'block',
-                marginBottom: '0.5rem',
-                fontWeight: '500',
-                color: 'var(--graphite-black)'
-              }}>
+            <div>
+              <label className="block text-sm font-medium text-graphite mb-1">
                 Email Address
               </label>
-              {isEditing ? (
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="luxury-input"
-                  required
-                />
-              ) : (
-                <p style={{ margin: 0, color: 'var(--warm-gray)' }}>{user.email}</p>
-              )}
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => handleInputChange('email', e.target.value)}
+                disabled={!isEditing}
+                className="w-full px-4 py-2 rounded-lg border border-champagne bg-white text-graphite 
+                  placeholder-warm-gray disabled:bg-gray-50 disabled:text-warm-gray 
+                  focus:outline-none focus:ring-2 focus:ring-lavender focus:border-transparent"
+                placeholder="Enter your email address"
+              />
             </div>
-
-            <div className="form-group" style={{ marginBottom: '1rem' }}>
-              <label style={{ 
-                display: 'block',
-                marginBottom: '0.5rem',
-                fontWeight: '500',
-                color: 'var(--graphite-black)'
-              }}>
+            <div>
+              <label className="block text-sm font-medium text-graphite mb-1">
                 Phone Number
               </label>
-              {isEditing ? (
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
-                  className="luxury-input"
-                  placeholder="(555) 123-4567"
-                />
-              ) : (
-                <p style={{ margin: 0, color: 'var(--warm-gray)' }}>
-                  {user.phone || 'Not provided'}
-                </p>
-              )}
+              <input
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => handleInputChange('phone', e.target.value)}
+                disabled={!isEditing}
+                className="w-full px-4 py-2 rounded-lg border border-champagne bg-white text-graphite 
+                  placeholder-warm-gray disabled:bg-gray-50 disabled:text-warm-gray 
+                  focus:outline-none focus:ring-2 focus:ring-lavender focus:border-transparent"
+                placeholder="Enter your phone number"
+              />
             </div>
           </div>
+        </div>
 
-          {/* Address Information */}
-          <div className="form-section">
-            <h4 style={{ 
-              margin: '0 0 1rem',
-              color: 'var(--graphite-black)',
-              fontFamily: 'var(--font-primary)'
-            }}>
-              Shipping Address
-            </h4>
-            
-            <div className="form-group" style={{ marginBottom: '1rem' }}>
-              <label style={{ 
-                display: 'block',
-                marginBottom: '0.5rem',
-                fontWeight: '500',
-                color: 'var(--graphite-black)'
-              }}>
+        {/* Address Information */}
+        <div className="space-y-4">
+          <h4 className="text-lg font-medium text-graphite">Address Information</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-graphite mb-1">
                 Street Address
               </label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  value={formData.address?.street}
-                  onChange={(e) => handleInputChange('street', e.target.value, 'address')}
-                  className="luxury-input"
-                  placeholder="123 Main Street"
-                />
-              ) : (
-                <p style={{ margin: 0, color: 'var(--warm-gray)' }}>
-                  {user.address?.street || 'Not provided'}
-                </p>
-              )}
+              <input
+                type="text"
+                value={formData.address?.street}
+                onChange={(e) => handleInputChange('street', e.target.value, 'address')}
+                disabled={!isEditing}
+                className="w-full px-4 py-2 rounded-lg border border-champagne bg-white text-graphite 
+                  placeholder-warm-gray disabled:bg-gray-50 disabled:text-warm-gray 
+                  focus:outline-none focus:ring-2 focus:ring-lavender focus:border-transparent"
+                placeholder="Enter your street address"
+              />
             </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-              <div className="form-group">
-                <label style={{ 
-                  display: 'block',
-                  marginBottom: '0.5rem',
-                  fontWeight: '500',
-                  color: 'var(--graphite-black)'
-                }}>
-                  City
-                </label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    value={formData.address?.city}
-                    onChange={(e) => handleInputChange('city', e.target.value, 'address')}
-                    className="luxury-input"
-                    placeholder="New York"
-                  />
-                ) : (
-                  <p style={{ margin: 0, color: 'var(--warm-gray)' }}>
-                    {user.address?.city || 'Not provided'}
-                  </p>
-                )}
-              </div>
-
-              <div className="form-group">
-                <label style={{ 
-                  display: 'block',
-                  marginBottom: '0.5rem',
-                  fontWeight: '500',
-                  color: 'var(--graphite-black)'
-                }}>
-                  State
-                </label>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    value={formData.address?.state}
-                    onChange={(e) => handleInputChange('state', e.target.value, 'address')}
-                    className="luxury-input"
-                    placeholder="NY"
-                  />
-                ) : (
-                  <p style={{ margin: 0, color: 'var(--warm-gray)' }}>
-                    {user.address?.state || 'Not provided'}
-                  </p>
-                )}
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-graphite mb-1">
+                City
+              </label>
+              <input
+                type="text"
+                value={formData.address?.city}
+                onChange={(e) => handleInputChange('city', e.target.value, 'address')}
+                disabled={!isEditing}
+                className="w-full px-4 py-2 rounded-lg border border-champagne bg-white text-graphite 
+                  placeholder-warm-gray disabled:bg-gray-50 disabled:text-warm-gray 
+                  focus:outline-none focus:ring-2 focus:ring-lavender focus:border-transparent"
+                placeholder="Enter your city"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-graphite mb-1">
+                State
+              </label>
+              <input
+                type="text"
+                value={formData.address?.state}
+                onChange={(e) => handleInputChange('state', e.target.value, 'address')}
+                disabled={!isEditing}
+                className="w-full px-4 py-2 rounded-lg border border-champagne bg-white text-graphite 
+                  placeholder-warm-gray disabled:bg-gray-50 disabled:text-warm-gray 
+                  focus:outline-none focus:ring-2 focus:ring-lavender focus:border-transparent"
+                placeholder="Enter your state"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-graphite mb-1">
+                ZIP Code
+              </label>
+              <input
+                type="text"
+                value={formData.address?.zipCode}
+                onChange={(e) => handleInputChange('zipCode', e.target.value, 'address')}
+                disabled={!isEditing}
+                className="w-full px-4 py-2 rounded-lg border border-champagne bg-white text-graphite 
+                  placeholder-warm-gray disabled:bg-gray-50 disabled:text-warm-gray 
+                  focus:outline-none focus:ring-2 focus:ring-lavender focus:border-transparent"
+                placeholder="Enter your ZIP code"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-graphite mb-1">
+                Country
+              </label>
+              <select
+                value={formData.address?.country}
+                onChange={(e) => handleInputChange('country', e.target.value, 'address')}
+                disabled={!isEditing}
+                className="w-full px-4 py-2 rounded-lg border border-champagne bg-white text-graphite 
+                  disabled:bg-gray-50 disabled:text-warm-gray 
+                  focus:outline-none focus:ring-2 focus:ring-lavender focus:border-transparent"
+              >
+                <option value="United States">United States</option>
+                <option value="Canada">Canada</option>
+                <option value="United Kingdom">United Kingdom</option>
+                {/* Add more countries as needed */}
+              </select>
             </div>
           </div>
         </div>
 
         {/* Preferences */}
-        <div className="form-section" style={{ marginTop: '2rem' }}>
-          <h4 style={{ 
-            margin: '0 0 1rem',
-            color: 'var(--graphite-black)',
-            fontFamily: 'var(--font-primary)'
-          }}>
-            Communication Preferences
-          </h4>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}>
-            {[
-              { key: 'newsletter', label: 'Newsletter & Updates' },
-              { key: 'promotions', label: 'Promotions & Offers' },
-              { key: 'emailNotifications', label: 'Email Notifications' }
-            ].map(pref => (
-              <label key={pref.key} style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                cursor: isEditing ? 'pointer' : 'default',
-                padding: '1rem',
-                background: 'var(--light-gray)',
-                borderRadius: 'var(--radius-medium)',
-                border: '1px solid var(--champagne-beige)'
-              }}>
-                <input
-                  type="checkbox"
-                  checked={formData.preferences?.[pref.key as keyof typeof formData.preferences]}
-                  onChange={(e) => handleInputChange(pref.key, e.target.checked, 'preferences')}
-                  disabled={!isEditing}
-                  style={{
-                    width: '18px',
-                    height: '18px',
-                    accentColor: 'var(--digital-lavender)'
-                  }}
-                />
-                <span style={{
-                  fontWeight: '500',
-                  color: 'var(--graphite-black)'
-                }}>
-                  {pref.label}
-                </span>
-              </label>
-            ))}
+        <div className="space-y-4">
+          <h4 className="text-lg font-medium text-graphite">Communication Preferences</h4>
+          <div className="space-y-3">
+            <label className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={formData.preferences?.newsletter}
+                onChange={(e) => handleInputChange('newsletter', e.target.checked, 'preferences')}
+                disabled={!isEditing}
+                className="w-5 h-5 rounded border-champagne text-lavender focus:ring-lavender 
+                  disabled:opacity-50"
+              />
+              <span className="text-sm text-graphite">Subscribe to newsletter</span>
+            </label>
+            <label className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={formData.preferences?.promotions}
+                onChange={(e) => handleInputChange('promotions', e.target.checked, 'preferences')}
+                disabled={!isEditing}
+                className="w-5 h-5 rounded border-champagne text-lavender focus:ring-lavender 
+                  disabled:opacity-50"
+              />
+              <span className="text-sm text-graphite">Receive promotional emails</span>
+            </label>
+            <label className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={formData.preferences?.emailNotifications}
+                onChange={(e) => handleInputChange('emailNotifications', e.target.checked, 'preferences')}
+                disabled={!isEditing}
+                className="w-5 h-5 rounded border-champagne text-lavender focus:ring-lavender 
+                  disabled:opacity-50"
+              />
+              <span className="text-sm text-graphite">Email notifications for orders and updates</span>
+            </label>
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* Form Actions */}
         {isEditing && (
-          <div style={{
-            display: 'flex',
-            gap: '1rem',
-            justifyContent: 'flex-end',
-            marginTop: '2rem',
-            padding: '1.5rem',
-            background: 'var(--light-gray)',
-            borderRadius: 'var(--radius-medium)',
-            border: '1px solid var(--champagne-beige)'
-          }}>
+          <div className="flex justify-end gap-4 pt-4">
             <button
               type="button"
               onClick={handleCancel}
-              className="card-action"
-              style={{
-                background: 'var(--warm-gray)',
-                color: 'var(--pure-white)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}
+              disabled={isSubmitting}
+              className="px-6 py-2 rounded-lg border border-champagne text-graphite text-sm 
+                font-medium hover:bg-champagne/10 transition-colors duration-200 
+                disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <FaTimes /> Cancel
+              Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="card-action"
-              style={{
-                background: 'var(--digital-lavender)',
-                color: 'var(--pure-white)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                opacity: isSubmitting ? 0.7 : 1
-              }}
+              className="px-6 py-2 rounded-lg bg-lavender text-white text-sm font-medium 
+                hover:bg-lavender/90 transition-colors duration-200 
+                disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <FaSave /> {isSubmitting ? 'Saving...' : 'Save Changes'}
+              {isSubmitting ? 'Saving...' : 'Save Changes'}
             </button>
           </div>
         )}

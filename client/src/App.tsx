@@ -203,9 +203,9 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <TopBanner isAdmin={user?.isAdmin || false} />
+        <TopBanner />
         <Header />
-        <main>
+        <main className="main-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage />} />

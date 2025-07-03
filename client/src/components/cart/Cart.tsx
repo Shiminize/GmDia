@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useCart } from '../../contexts/CartContext';
 import { Link } from 'react-router-dom';
-import './Cart.css';
 
 interface CartSliderProps {
   isOpen: boolean;
@@ -16,56 +15,68 @@ export const CartSlider: React.FC<CartSliderProps> = ({ isOpen, onClose }) => {
     <>
       {/* Backdrop */}
       {isOpen && (
-        <div className="cart-slider-backdrop" onClick={onClose} />
+        <div 
+          className="fixed inset-0 bg-graphite/50 backdrop-blur-sm z-40 transition-opacity duration-300" 
+          onClick={onClose} 
+        />
       )}
       
       {/* Cart Slider */}
-      <div className={`cart-slider ${isOpen ? 'cart-slider-open' : ''}`}>
-        <div className="cart-slider-header">
-          <h2>Your Cart</h2>
-          <button className="cart-slider-close" onClick={onClose} aria-label="Close cart">
+      <div className={`fixed top-0 right-0 h-full w-96 max-w-full bg-ivory shadow-2xl transform transition-transform duration-300 z-50 flex flex-col ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}>
+        <div className="flex items-center justify-between p-6 border-b border-champagne bg-ivory">
+          <h2 className="text-xl font-semibold text-graphite font-primary">Your Cart</h2>
+          <button 
+            className="w-8 h-8 flex items-center justify-center text-graphite hover:text-lavender transition-colors duration-200 text-2xl" 
+            onClick={onClose} 
+            aria-label="Close cart"
+          >
             ×
           </button>
         </div>
 
         {cartItems.length === 0 ? (
-          <div className="cart-slider-empty">
-            <p>Your cart is empty</p>
-            <button onClick={onClose} className="continue-shopping-btn">
+          <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+            <p className="text-graphite mb-6 font-secondary text-lg">Your cart is empty</p>
+            <button 
+              onClick={onClose} 
+              className="bg-lavender text-white px-6 py-3 rounded-lg font-medium hover:bg-lavender/90 transition-colors duration-200"
+            >
               Continue Shopping
             </button>
           </div>
         ) : (
-          <div className="cart-slider-content">
+          <div className="flex-1 flex flex-col">
             {/* Cart Items */}
-            <div className="cart-slider-items">
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {cartItems.map((item) => (
-                <div key={item.id} className="cart-slider-item">
-                  <div className="cart-item-image-container">
-                    <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
+                <div key={item.id} className="flex gap-4 p-4 bg-white rounded-lg border border-champagne">
+                  <div className="w-20 h-20 flex-shrink-0">
+                    <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover rounded-md" />
                   </div>
-                  <div className="cart-item-details">
-                    <h4 className="cart-item-name">{item.name}</h4>
-                    <div className="cart-item-price">${item.price.toLocaleString()}</div>
-                    <div className="cart-item-controls">
-                      <div className="quantity-controls">
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-medium text-graphite truncate font-primary">{item.name}</h4>
+                    <div className="text-lg font-semibold text-lavender mt-1">${item.price.toLocaleString()}</div>
+                    <div className="flex items-center justify-between mt-3">
+                      <div className="flex items-center border border-champagne rounded-md">
                         <button 
-                          className="qty-btn" 
+                          className="w-8 h-8 flex items-center justify-center text-graphite hover:bg-champagne disabled:opacity-50 disabled:cursor-not-allowed" 
                           onClick={() => updateQuantity(item.id, item.quantity - 1)} 
                           disabled={item.quantity <= 1}
                         >
                           −
                         </button>
-                        <span className="qty-value">{item.quantity}</span>
+                        <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
                         <button 
-                          className="qty-btn" 
+                          className="w-8 h-8 flex items-center justify-center text-graphite hover:bg-champagne" 
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                         >
                           +
                         </button>
                       </div>
                       <button 
-                        className="remove-btn" 
+                        className="text-sm text-blush hover:text-blush/80 font-medium transition-colors duration-200" 
                         onClick={() => removeFromCart(item.id)}
                         aria-label="Remove item"
                       >
@@ -78,23 +89,31 @@ export const CartSlider: React.FC<CartSliderProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Cart Footer */}
-            <div className="cart-slider-footer">
-              <div className="cart-summary">
-                <div className="cart-summary-row">
+            <div className="border-t border-champagne p-6 bg-ivory">
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-sm text-graphite">
                   <span>Items ({cartItems.reduce((sum, item) => sum + item.quantity, 0)})</span>
                   <span>${cartTotal.toLocaleString()}</span>
                 </div>
-                <div className="cart-summary-total">
+                <div className="flex justify-between text-lg font-semibold text-graphite border-t border-champagne pt-2">
                   <span>Total</span>
                   <span>${cartTotal.toLocaleString()}</span>
                 </div>
               </div>
               
-              <div className="cart-actions">
-                <Link to="/cart" onClick={onClose} className="view-cart-btn">
+              <div className="space-y-3">
+                <Link 
+                  to="/cart" 
+                  onClick={onClose} 
+                  className="block w-full text-center bg-white border border-champagne text-graphite py-3 rounded-lg font-medium hover:bg-champagne/10 transition-colors duration-200"
+                >
                   View Cart
                 </Link>
-                <Link to="/checkout" onClick={onClose} className="checkout-btn">
+                <Link 
+                  to="/checkout" 
+                  onClick={onClose} 
+                  className="block w-full text-center bg-lavender text-white py-3 rounded-lg font-medium hover:bg-lavender/90 transition-colors duration-200"
+                >
                   Checkout
                 </Link>
               </div>
@@ -112,11 +131,11 @@ const Cart: React.FC = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="cart-page luxury-bg">
-        <div className="container">
-          <div className="cart-header">
-        <h1>Your Cart</h1>
-        <p>Your cart is empty.</p>
+      <div className="min-h-screen bg-champagne py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-graphite mb-4 font-primary">Your Cart</h1>
+            <p className="text-lg text-graphite/70">Your cart is empty.</p>
           </div>
         </div>
       </div>
@@ -124,67 +143,100 @@ const Cart: React.FC = () => {
   }
 
   return (
-    <div className="cart-page luxury-bg">
-      <div className="container">
-        <div className="cart-header">
-      <h1>Your Cart</h1>
+    <div className="min-h-screen bg-champagne py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-graphite font-primary">Your Cart</h1>
         </div>
-        <div className="cart-content">
+        <div className="lg:grid lg:grid-cols-3 lg:gap-8">
           {/* Cart Items List */}
-          <div className="cart-items-list">
-        {cartItems.map((item) => (
-              <div key={item.id} className="cart-item-card">
-                <div className="cart-item-image-container">
-            <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
-                </div>
-                <div className="cart-item-info">
-                  <h3 className="cart-item-name">{item.name}</h3>
-                  <div className="cart-item-meta">
-                    <span className="cart-item-price">${item.price.toLocaleString()}</span>
+          <div className="lg:col-span-2 space-y-6">
+            {cartItems.map((item) => (
+              <div key={item.id} className="bg-white rounded-xl shadow-sm border border-champagne p-6">
+                <div className="flex items-center gap-6">
+                  <div className="w-24 h-24 flex-shrink-0">
+                    <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover rounded-lg" />
                   </div>
-                  <div className="cart-quantity-controls">
-                    <button className="cart-qty-btn" onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
-                    <span className="cart-qty-value">{item.quantity}</span>
-                    <button className="cart-qty-btn" onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-xl font-medium text-graphite font-primary">{item.name}</h3>
+                    <div className="text-lg font-semibold text-lavender mt-2">
+                      ${item.price.toLocaleString()}
+                    </div>
+                    <div className="flex items-center justify-between mt-4">
+                      <div className="flex items-center border border-champagne rounded-lg">
+                        <button 
+                          className="w-10 h-10 flex items-center justify-center text-graphite hover:bg-champagne disabled:opacity-50 disabled:cursor-not-allowed rounded-l-lg" 
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)} 
+                          disabled={item.quantity <= 1}
+                        >
+                          -
+                        </button>
+                        <span className="w-12 text-center font-medium">{item.quantity}</span>
+                        <button 
+                          className="w-10 h-10 flex items-center justify-center text-graphite hover:bg-champagne rounded-r-lg" 
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        >
+                          +
+                        </button>
+                      </div>
+                      <button 
+                        className="text-blush hover:text-blush/80 font-medium transition-colors duration-200" 
+                        onClick={() => removeFromCart(item.id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
-                  <button className="remove-item-btn" onClick={() => removeFromCart(item.id)}>
-                    Remove
-                  </button>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Notes Section */}
-          <div className="cart-notes">
-            <label htmlFor="cart-notes">Order Notes or Special Requests</label>
-            <textarea
-              id="cart-notes"
-              value={notes}
-              onChange={e => setNotes(e.target.value)}
-              placeholder="Let us know if you have any special instructions for your order..."
-            />
-          </div>
-
-          {/* Cart Summary Section */}
-          <section className="cart-summary-section">
-            <h2>Order Summary</h2>
-            <div className="cart-summary-row">
-              <span>Items:</span>
-              <span>{cartItems.reduce((sum, item) => sum + item.quantity, 0)}</span>
+          {/* Right Column */}
+          <div className="mt-8 lg:mt-0 space-y-6">
+            {/* Notes Section */}
+            <div className="bg-white rounded-xl shadow-sm border border-champagne p-6">
+              <label htmlFor="cart-notes" className="block text-sm font-medium text-graphite mb-2">
+                Order Notes or Special Requests
+              </label>
+              <textarea
+                id="cart-notes"
+                value={notes}
+                onChange={e => setNotes(e.target.value)}
+                placeholder="Let us know if you have any special instructions for your order..."
+                className="w-full h-24 px-4 py-2 border border-champagne rounded-lg focus:outline-none focus:ring-2 focus:ring-lavender focus:border-lavender resize-none"
+              />
             </div>
-            <div className="cart-summary-row cart-summary-total">
-              <span>Total:</span>
-              <span>${cartTotal.toLocaleString()}</span>
+
+            {/* Cart Summary Section */}
+            <div className="bg-white rounded-xl shadow-sm border border-champagne p-6">
+              <h2 className="text-xl font-semibold text-graphite mb-4 font-primary">Order Summary</h2>
+              <div className="space-y-2 mb-4">
+                <div className="flex justify-between text-graphite">
+                  <span>Items:</span>
+                  <span>{cartItems.reduce((sum, item) => sum + item.quantity, 0)}</span>
+                </div>
+                <div className="flex justify-between text-lg font-semibold text-graphite border-t border-champagne pt-2">
+                  <span>Total:</span>
+                  <span>${cartTotal.toLocaleString()}</span>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <button 
+                  className="w-full bg-white border border-lavender text-lavender py-3 rounded-lg font-medium hover:bg-lavender hover:text-white transition-colors duration-200" 
+                  onClick={clearCart}
+                >
+                  Clear Cart
+                </button>
+                <Link to="/checkout">
+                  <button className="w-full bg-lavender text-white py-3 rounded-lg font-medium hover:bg-lavender/90 transition-colors duration-200">
+                    Proceed to Checkout
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
-            <button className="clear-cart-btn" onClick={clearCart}>
-              Clear Cart
-            </button>
-            <Link to="/checkout">
-              <button className="checkout-btn">Proceed to Checkout</button>
-            </Link>
-          </section>
-      </div>
+        </div>
       </div>
     </div>
   );

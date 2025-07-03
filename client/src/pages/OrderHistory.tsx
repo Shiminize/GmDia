@@ -4,7 +4,6 @@ import DashboardCard from '../components/dashboard/DashboardCard';
 import OrderTable from '../components/dashboard/OrderTable';
 import StatusBadge from '../components/dashboard/StatusBadge';
 import { FaMagnifyingGlass, FaCalendar, FaFilter } from 'react-icons/fa6';
-import './Dashboard.css';
 
 import { StatusType } from '../components/dashboard/StatusBadge';
 

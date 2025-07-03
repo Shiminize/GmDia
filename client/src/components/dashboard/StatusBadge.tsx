@@ -12,17 +12,17 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => 
     switch (status) {
       case 'completed':
       case 'delivered':
-        return 'status-completed';
+        return 'bg-emerald-100 text-emerald-700';
       case 'pending':
       case 'draft':
-        return 'status-pending';
+        return 'bg-amber-100 text-amber-700';
       case 'processing':
       case 'shipped':
-        return 'status-processing';
+        return 'bg-blue-100 text-blue-700';
       case 'cancelled':
-        return 'status-cancelled';
+        return 'bg-rose-100 text-rose-700';
       default:
-        return 'status-pending';
+        return 'bg-amber-100 text-amber-700';
     }
   };
 
@@ -47,7 +47,8 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => 
     }
   };
 
-  const badgeClasses = `status-badge ${getStatusClass(status)} ${className}`.trim();
+  const badgeClasses = `inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+    ${getStatusClass(status)} ${className}`.trim();
 
   return (
     <span className={badgeClasses}>
