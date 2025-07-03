@@ -25,6 +25,7 @@ import SizingGuide from './pages/SizingGuide';
 import ShineYourMomentEvent from './pages/ShineYourMomentEvent';
 import TopBanner from './components/common/TopBanner';
 import { useAuth } from './contexts/AuthContext';
+import RingQuizPage from './pages/RingQuizPage';
 
 interface ChatMessage {
   id: number;
@@ -226,6 +227,7 @@ function App() {
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/sizing-guide" element={<SizingGuide />} />
             <Route path="/shineyourmoment" element={<ShineYourMomentEvent />} />
+            <Route path="/quiz" element={<RingQuizPage />} />
             {/* Add other routes here as needed */}
           </Routes>
         </main>
