@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ProductCarousel from '../components/products/ProductCarousel';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
@@ -129,9 +129,14 @@ const testimonials = [
 
 const HomePage: React.FC = () => {
   const { user } = useAuth();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [key, setKey] = useState(0);
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 3;
 
   // Auto-rotate testimonials
   useEffect(() => {
@@ -140,6 +145,22 @@ const HomePage: React.FC = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  // Force video remount if not loaded after timeout
+  useEffect(() => {
+    if (isLoading && retryCount < maxRetries) {
+      const timeout = setTimeout(() => {
+        console.log(`🔄 Forcing video remount (attempt ${retryCount + 1} of ${maxRetries})...`);
+        setKey(prev => prev + 1);
+        setRetryCount(prev => prev + 1);
+      }, 5000);
+      return () => clearTimeout(timeout);
+    } else if (retryCount >= maxRetries) {
+      console.log('❌ Max retry attempts reached, falling back to static image');
+      setVideoError(true);
+      setIsLoading(false);
+    }
+  }, [isLoading, retryCount]);
 
   const handleQuizStart = () => {
     window.location.href = '/quiz';
@@ -152,22 +173,137 @@ const HomePage: React.FC = () => {
   const handleVideoLoaded = () => {
     console.log('✅ Video loaded successfully in HomePage');
     setVideoLoaded(true);
+    setIsLoading(false);
+    // Try to play the video
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          console.log('🎥 Video started playing successfully');
+        }).catch(e => {
+          console.error('Failed to play video:', e);
+          if (retryCount < maxRetries) {
+            console.log(`🔄 Retrying video play (attempt ${retryCount + 1} of ${maxRetries})...`);
+            setTimeout(() => {
+              if (videoRef.current) {
+                videoRef.current.play().catch(e => {
+                  console.error('Failed to play video on retry:', e);
+                  setRetryCount(prev => prev + 1);
+                });
+              }
+            }, 1000);
+          } else {
+            console.log('❌ Max retry attempts reached, falling back to static image');
+            setVideoError(true);
+          }
+        });
+      }
+    }
   };
 
   const handleVideoError = (e: any) => {
     console.error('❌ Video error in HomePage:', e);
-    setVideoError(true);
+    if (retryCount < maxRetries) {
+      console.log(`🔄 Retrying video load (attempt ${retryCount + 1} of ${maxRetries})...`);
+      setKey(prev => prev + 1);
+      setRetryCount(prev => prev + 1);
+    } else {
+      console.log('❌ Max retry attempts reached, falling back to static image');
+      setVideoError(true);
+      setIsLoading(false);
+    }
   };
 
   const handleVideoCanPlay = () => {
     console.log('🎬 Video can play in HomePage');
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(e => {
+          console.error('Failed to play video on canplay:', e);
+          if (retryCount < maxRetries) {
+            setTimeout(() => {
+              if (videoRef.current) {
+                videoRef.current.play().catch(e => {
+                  console.error('Failed to play video on retry:', e);
+                  setRetryCount(prev => prev + 1);
+                });
+              }
+            }, 1000);
+          } else {
+            setVideoError(true);
+          }
+        });
+      }
+    }
   };
+
+  // Debug video loading
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      console.log('Video element found:', {
+        readyState: videoElement.readyState,
+        networkState: videoElement.networkState,
+        error: videoElement.error,
+        currentSrc: videoElement.currentSrc,
+        src: videoElement.src,
+      });
+
+      const debugVideoState = () => {
+        console.log('Video state:', {
+          paused: videoElement.paused,
+          currentTime: videoElement.currentTime,
+          duration: videoElement.duration,
+          ended: videoElement.ended,
+          muted: videoElement.muted,
+          volume: videoElement.volume,
+        });
+      };
+
+      // Add event listeners
+      const eventHandlers = {
+        loadstart: () => {
+          console.log('Video loadstart event fired');
+          setIsLoading(true);
+        },
+        durationchange: () => console.log('Video duration changed:', videoElement.duration),
+        loadedmetadata: () => console.log('Video metadata loaded'),
+        loadeddata: () => console.log('Video data loaded'),
+        progress: () => console.log('Video loading progress event'),
+        canplay: () => console.log('Video canplay event fired'),
+        canplaythrough: () => console.log('Video canplaythrough event fired'),
+        play: () => console.log('Video play event fired'),
+        pause: () => console.log('Video pause event fired'),
+        timeupdate: debugVideoState,
+        error: (e: Event) => {
+          const error = (e.target as HTMLVideoElement).error;
+          console.error('Video error event:', {
+            code: error?.code,
+            message: error?.message
+          });
+        }
+      };
+
+      // Add all event listeners
+      Object.entries(eventHandlers).forEach(([event, handler]) => {
+        videoElement.addEventListener(event, handler);
+      });
+
+      // Clean up event listeners
+      return () => {
+        Object.entries(eventHandlers).forEach(([event, handler]) => {
+          videoElement.removeEventListener(event, handler);
+        });
+      };
+    }
+  }, [key]); // Add key dependency to rerun effect on remount
 
   return (
     <div className="min-h-screen flex flex-col bg-champagne">
       {/* Hero Section - Cinematic with Video */}
-      <section className="relative min-h-screen flex items-center justify-start pt-20 overflow-hidden">
-        <div className="relative w-full h-full">
+      <section className="relative h-[100vh] w-full flex items-center justify-start overflow-hidden">
+        <div className="absolute inset-0 w-full h-full">
           {/* Background image that shows immediately - lowest layer */}
           <img 
             src="/hero-ring-hand.jpg" 
@@ -175,34 +311,50 @@ const HomePage: React.FC = () => {
             className="absolute inset-0 w-full h-full object-cover z-0"
           />
           
-          {/* Video overlay - above background but below overlay */}
+          {/* Video overlay */}
           {!videoError && (
-            <video 
-              className={`absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-1000 ${
-                videoLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-label="Luxury diamond ad video"
-              onLoadStart={() => console.log('🔄 Video load started')}
-              onLoadedData={handleVideoLoaded}
-              onError={handleVideoError}
-              onCanPlay={handleVideoCanPlay}
-            >
-              <source src="/hero-video/video_creation_luxury_diamond_ad.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <>
+              {isLoading && (
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+                </div>
+              )}
+              <video 
+                ref={videoRef}
+                key={`hero-video-${key}`}
+                className={`absolute inset-0 w-full h-full object-cover z-10 ${
+                  videoLoaded ? 'opacity-100' : 'opacity-0'
+                } transition-opacity duration-1000`}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                aria-label="Luxury diamond ad video"
+                onLoadStart={() => {
+                  console.log('🔄 Video load started');
+                  setIsLoading(true);
+                }}
+                onLoadedData={handleVideoLoaded}
+                onError={(e) => {
+                  console.error('❌ Video error details:', e.currentTarget.error);
+                  handleVideoError(e);
+                }}
+                onCanPlay={handleVideoCanPlay}
+                style={{ pointerEvents: 'none' }}
+              >
+                <source src="/hero-video/video_creation_luxury_diamond_ad.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </>
           )}
           
-          {/* Dark overlay - above video */}
+          {/* Dark overlay */}
           <div className="absolute inset-0 bg-graphite/40 z-20"></div>
         </div>
         
-        {/* Content - highest layer */}
-        <div className="relative z-30 container mx-auto px-4 pt-20">
+        {/* Content */}
+        <div className="relative container mx-auto px-4 z-30">
           <div className="max-w-xl bg-ivory/90 backdrop-blur-sm p-10 rounded-lg animate-fadeIn">
             <h1 className="text-5xl font-bold text-graphite leading-tight tracking-tight mb-6">
               Ethical Brilliance,<br />
