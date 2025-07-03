@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ProductCarousel from '../components/products/ProductCarousel';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
@@ -131,6 +131,8 @@ const HomePage: React.FC = () => {
   const { user } = useAuth();
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [videoError, setVideoError] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Auto-rotate testimonials
   useEffect(() => {
@@ -138,6 +140,38 @@ const HomePage: React.FC = () => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Handle video loading
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      console.log('Video element found, attempting to load...');
+      const handleLoadedData = () => {
+        console.log('Video loaded successfully');
+        setVideoLoaded(true);
+      };
+      const handleError = (e: any) => {
+        console.error('Video error in useEffect:', e);
+        setVideoError(true);
+      };
+      const handleCanPlay = () => {
+        console.log('Video can play');
+      };
+
+      video.addEventListener('loadeddata', handleLoadedData);
+      video.addEventListener('error', handleError);
+      video.addEventListener('canplay', handleCanPlay);
+
+      // Try to load the video
+      video.load();
+
+      return () => {
+        video.removeEventListener('loadeddata', handleLoadedData);
+        video.removeEventListener('error', handleError);
+        video.removeEventListener('canplay', handleCanPlay);
+      };
+    }
   }, []);
 
   const handleQuizStart = () => {
@@ -158,9 +192,20 @@ const HomePage: React.FC = () => {
       {/* Hero Section - Cinematic with Video */}
       <section className="relative min-h-screen flex items-center justify-start pt-20 overflow-hidden">
         <div className="relative w-full h-full">
-          {!videoError ? (
+          {/* Background image that shows immediately */}
+          <img 
+            src="/hero-ring-hand.jpg" 
+            alt="Lab-grown diamond engagement ring on elegant hand"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          
+          {/* Video overlay that only shows when loaded and not errored */}
+          {!videoError && (
             <video 
-              className="absolute inset-0 w-full h-full object-cover"
+              ref={videoRef}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                videoLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
               autoPlay
               muted
               loop
@@ -168,18 +213,16 @@ const HomePage: React.FC = () => {
               controls
               aria-label="Luxury diamond ad video"
               onError={handleVideoError}
-              onLoadedData={() => console.log('Video loaded successfully')}
-              onCanPlay={() => console.log('Video can play')}
             >
               <source src="/hero-video/video_creation_luxury_diamond_ad.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-          ) : (
-            <img 
-              src="/hero-ring-hand.jpg" 
-              alt="Lab-grown diamond engagement ring on elegant hand"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+          )}
+          
+          {!videoLoaded && !videoError && (
+            <div className="absolute inset-0 bg-graphite/20 flex items-center justify-center">
+              <div className="text-ivory text-sm bg-graphite/50 px-4 py-2 rounded">Loading video...</div>
+            </div>
           )}
           <div className="absolute inset-0 bg-graphite/40"></div>
         </div>
