@@ -197,25 +197,6 @@ const HomePage: React.FC = () => {
             </video>
           )}
           
-          {/* Debug indicators */}
-          <div className="absolute top-4 left-4 space-y-1">
-            {!videoLoaded && !videoError && (
-              <div className="bg-blue-500 text-white text-xs px-3 py-1 rounded">
-                Loading video...
-              </div>
-            )}
-            {videoLoaded && (
-              <div className="bg-green-500 text-white text-xs px-3 py-1 rounded">
-                Video loaded ✅
-              </div>
-            )}
-            {videoError && (
-              <div className="bg-red-500 text-white text-xs px-3 py-1 rounded">
-                Video failed ❌
-              </div>
-            )}
-          </div>
-          
           <div className="absolute inset-0 bg-graphite/40"></div>
         </div>
         
