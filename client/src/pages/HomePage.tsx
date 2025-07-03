@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCarousel from '../components/products/ProductCarousel';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
@@ -132,7 +132,6 @@ const HomePage: React.FC = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Auto-rotate testimonials
   useEffect(() => {
@@ -140,38 +139,6 @@ const HomePage: React.FC = () => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
-
-  // Handle video loading
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      console.log('Video element found, attempting to load...');
-      const handleLoadedData = () => {
-        console.log('Video loaded successfully');
-        setVideoLoaded(true);
-      };
-      const handleError = (e: any) => {
-        console.error('Video error in useEffect:', e);
-        setVideoError(true);
-      };
-      const handleCanPlay = () => {
-        console.log('Video can play');
-      };
-
-      video.addEventListener('loadeddata', handleLoadedData);
-      video.addEventListener('error', handleError);
-      video.addEventListener('canplay', handleCanPlay);
-
-      // Try to load the video
-      video.load();
-
-      return () => {
-        video.removeEventListener('loadeddata', handleLoadedData);
-        video.removeEventListener('error', handleError);
-        video.removeEventListener('canplay', handleCanPlay);
-      };
-    }
   }, []);
 
   const handleQuizStart = () => {
@@ -182,9 +149,18 @@ const HomePage: React.FC = () => {
     console.log('Opening expert chat...');
   };
 
+  const handleVideoLoaded = () => {
+    console.log('✅ Video loaded successfully in HomePage');
+    setVideoLoaded(true);
+  };
+
   const handleVideoError = (e: any) => {
-    console.error('Video error:', e);
+    console.error('❌ Video error in HomePage:', e);
     setVideoError(true);
+  };
+
+  const handleVideoCanPlay = () => {
+    console.log('🎬 Video can play in HomePage');
   };
 
   return (
@@ -202,7 +178,6 @@ const HomePage: React.FC = () => {
           {/* Video overlay that only shows when loaded and not errored */}
           {!videoError && (
             <video 
-              ref={videoRef}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
                 videoLoaded ? 'opacity-100' : 'opacity-0'
               }`}
@@ -210,20 +185,35 @@ const HomePage: React.FC = () => {
               muted
               loop
               playsInline
-
               aria-label="Luxury diamond ad video"
+              onLoadedData={handleVideoLoaded}
               onError={handleVideoError}
+              onCanPlay={handleVideoCanPlay}
             >
               <source src="/hero-video/video_creation_luxury_diamond_ad.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           )}
           
-          {!videoLoaded && !videoError && (
-            <div className="absolute inset-0 bg-graphite/20 flex items-center justify-center">
-              <div className="text-ivory text-sm bg-graphite/50 px-4 py-2 rounded">Loading video...</div>
-            </div>
-          )}
+          {/* Debug indicators */}
+          <div className="absolute top-4 left-4 space-y-1">
+            {!videoLoaded && !videoError && (
+              <div className="bg-blue-500 text-white text-xs px-3 py-1 rounded">
+                Loading video...
+              </div>
+            )}
+            {videoLoaded && (
+              <div className="bg-green-500 text-white text-xs px-3 py-1 rounded">
+                Video loaded ✅
+              </div>
+            )}
+            {videoError && (
+              <div className="bg-red-500 text-white text-xs px-3 py-1 rounded">
+                Video failed ❌
+              </div>
+            )}
+          </div>
+          
           <div className="absolute inset-0 bg-graphite/40"></div>
         </div>
         
