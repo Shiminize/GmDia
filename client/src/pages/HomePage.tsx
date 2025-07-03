@@ -185,7 +185,9 @@ const HomePage: React.FC = () => {
               muted
               loop
               playsInline
+              preload="auto"
               aria-label="Luxury diamond ad video"
+              onLoadStart={() => console.log('🔄 Video load started')}
               onLoadedData={handleVideoLoaded}
               onError={handleVideoError}
               onCanPlay={handleVideoCanPlay}
