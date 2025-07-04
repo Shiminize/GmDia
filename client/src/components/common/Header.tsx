@@ -109,9 +109,22 @@ const Header: React.FC = () => {
   const closeMobileMenu = () => {
     console.log('❌ NUCLEAR MENU CLOSE triggered');
     setIsMobileMenuOpen(false);
+    
+    // Device detection for close handling
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    
     // Unlock body scroll
     document.body.style.overflow = '';
     document.body.style.paddingRight = '';
+    
+    // iOS Safari specific cleanup
+    if (isIOS) {
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
   };
 
   const toggleSearchOverlay = () => setIsSearchOverlayOpen(!isSearchOverlayOpen);
@@ -151,6 +164,45 @@ const Header: React.FC = () => {
       document.body.style.paddingRight = '';
     };
   }, []);
+
+  // Mobile menu validation function (for testing)
+  const validateMobileMenuFix = () => {
+    console.log('🔍 MOBILE MENU FIX VALIDATION:', {
+      timestamp: new Date().toISOString(),
+      menuState: isMobileMenuOpen,
+      elements: {
+        overlay: !!document.querySelector('.mobile-menu-nuclear-overlay'),
+        panel: !!document.querySelector('.mobile-menu-nuclear-panel'),
+        overlayZIndex: getComputedStyle(document.querySelector('.mobile-menu-nuclear-overlay') || document.body).zIndex,
+        panelZIndex: getComputedStyle(document.querySelector('.mobile-menu-nuclear-panel') || document.body).zIndex
+      },
+      viewport: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        devicePixelRatio: window.devicePixelRatio,
+        orientation: (screen as any).orientation?.type || 'unknown'
+      },
+      device: {
+        isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent),
+        isAndroid: /Android/.test(navigator.userAgent),
+        isSafari: /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent),
+        userAgent: navigator.userAgent
+      },
+      bodyStyles: {
+        overflow: document.body.style.overflow,
+        position: document.body.style.position,
+        paddingRight: document.body.style.paddingRight
+      }
+    });
+  };
+
+  // Expose validation function globally for testing
+  useEffect(() => {
+    (window as any).validateMobileMenuFix = validateMobileMenuFix;
+    return () => {
+      delete (window as any).validateMobileMenuFix;
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <>
