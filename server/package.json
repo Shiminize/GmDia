@@ -5,6 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "dev:local": "cp .env.local .env && node src/server.js",
+    "seed": "node seed.js",
+    "seed:local": "cp .env.local .env && node seed.js",
+    "test:connection": "node -e \"require('dotenv').config(); require('./src/config/db')()\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -18,5 +23,8 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
   }
 }
