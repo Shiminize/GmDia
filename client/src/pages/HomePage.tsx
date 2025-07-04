@@ -395,7 +395,7 @@ const HomePage: React.FC = () => {
                 <img
                   src="/packaging.png"
                   alt="Luxury Facet & Co. packaging with elegant black jewelry box"
-                  className="w-full h-64 object-cover"
+                  className="w-full h-56 object-contain bg-gradient-to-br from-champagne/30 to-accent/10"
                   onError={(e) => {
                     // Fallback to a placeholder if packaging.png doesn't exist
                     const target = e.target as HTMLImageElement;
