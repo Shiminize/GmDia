@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
-import { Diamond, Search, User, ShoppingCart, Menu, X, LogOut, LogIn, UserPlus, MessageCircle } from 'lucide-react';
+import { Search, User, ShoppingCart, Menu, X, LogOut, LogIn, UserPlus, MessageCircle } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -60,13 +60,22 @@ const Header: React.FC = () => {
   const toggleMobileMenu = () => {
     const newState = !isMobileMenuOpen;
     setIsMobileMenuOpen(newState);
-    // Prevent body scroll when menu is open
-    document.body.style.overflow = newState ? 'hidden' : '';
+    
+    // Lock/unlock body scroll
+    if (newState) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
   };
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+    // Unlock body scroll
     document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
   };
 
   const toggleSearchOverlay = () => setIsSearchOverlayOpen(!isSearchOverlayOpen);
@@ -81,10 +90,12 @@ const Header: React.FC = () => {
     }
   };
 
-  // Cleanup on component unmount
+  // Cleanup effect for body scroll lock
   useEffect(() => {
     return () => {
+      // Cleanup body scroll lock on unmount
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
   }, []);
 
@@ -298,14 +309,14 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation Overlay */}
         <div
-          className={`lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm transition-all duration-300 z-40
+          className={`lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm transition-all duration-300 z-[60]
             ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
           onClick={closeMobileMenu}
         >
           {/* Mobile Menu Panel */}
           <div
             className={`fixed top-0 right-0 w-full max-w-sm h-full bg-white transform transition-transform 
-              duration-300 ease-out overflow-y-auto ${
+              duration-300 ease-out overflow-y-auto z-[70] ${
               isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
             onClick={(e) => e.stopPropagation()}
