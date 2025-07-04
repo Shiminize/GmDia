@@ -391,11 +391,11 @@ const HomePage: React.FC = () => {
             {/* Right side - Packaging section */}
             <div className="relative max-w-md animate-fadeIn animation-delay-200">
               {/* Packaging image card */}
-              <div className="bg-ivory/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-4">
+              <div className="bg-ivory/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-4 h-80">
                 <img
                   src="/packaging.png"
                   alt="Luxury Facet & Co. packaging with elegant black jewelry box"
-                  className="w-full h-auto object-contain block"
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     // Fallback to a placeholder if packaging.png doesn't exist
                     const target = e.target as HTMLImageElement;
