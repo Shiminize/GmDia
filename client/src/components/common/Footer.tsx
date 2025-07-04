@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Diamond, Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
+import { Instagram, Facebook, Twitter, MapPin, Phone, Mail } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-graphite text-ivory">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-champagne border-t border-border">
+      <div className="max-w-7xl mx-auto px-6 md:px-16 py-section">
         {/* Main Footer Content */}
         <div className="py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 gap-y-editorial-md">
             {/* Brand Section */}
             <div className="space-y-6">
               <Link to="/" className="flex items-center space-x-3">
@@ -17,28 +17,28 @@ const Footer: React.FC = () => {
                   alt="Facet & Co. Logo" 
                   className="w-8 h-8 object-contain brightness-0 invert"
                 />
-                <span className="text-2xl font-bold tracking-tight font-primary">Facet & Co.</span>
+                <span className="text-h2 text-graphite">Facet & Co.</span>
               </Link>
-              <p className="text-ivory/80 leading-relaxed">
+              <p className="text-graphite/80 leading-relaxed mb-editorial-sm">
                 Crafting ethical brilliance with lab-grown diamonds. 
                 Timeless designs for the modern conscious consumer.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="p-2 text-ivory/60 hover:text-blush transition-colors duration-300">
+                <button className="p-2 text-graphite/60 hover:text-blush transition-colors duration-300" aria-label="Instagram">
                   <Instagram className="w-5 h-5" />
-                </a>
-                <a href="#" className="p-2 text-ivory/60 hover:text-blush transition-colors duration-300">
+                </button>
+                <button className="p-2 text-graphite/60 hover:text-blush transition-colors duration-300" aria-label="Facebook">
                   <Facebook className="w-5 h-5" />
-                </a>
-                <a href="#" className="p-2 text-ivory/60 hover:text-blush transition-colors duration-300">
+                </button>
+                <button className="p-2 text-graphite/60 hover:text-blush transition-colors duration-300" aria-label="Twitter">
                   <Twitter className="w-5 h-5" />
-                </a>
+                </button>
               </div>
             </div>
 
             {/* Shop Section */}
             <div className="space-y-6">
-              <h3 className="text-lg font-semibold font-primary">Shop</h3>
+              <h3 className="text-lg font-primary text-graphite text-left mb-editorial-sm">Shop</h3>
               <ul className="space-y-3">
                 {[
                   { name: 'Engagement Rings', path: '/products' },
@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
                   <li key={item.name}>
                     <Link 
                       to={item.path} 
-                      className="text-ivory/80 hover:text-blush transition-colors duration-300"
+                      className="text-graphite/80 hover:text-blush transition-colors duration-300"
                     >
                       {item.name}
                     </Link>
@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
 
             {/* Company Section */}
             <div className="space-y-6">
-              <h3 className="text-lg font-semibold font-primary">Company</h3>
+              <h3 className="text-lg font-primary text-graphite text-left mb-editorial-sm">Company</h3>
               <ul className="space-y-3">
                 {[
                   { name: 'Our Story', path: '/about' },
@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
                   <li key={item.name}>
                     <Link 
                       to={item.path} 
-                      className="text-ivory/80 hover:text-blush transition-colors duration-300"
+                      className="text-graphite/80 hover:text-blush transition-colors duration-300"
                     >
                       {item.name}
                     </Link>
@@ -84,24 +84,24 @@ const Footer: React.FC = () => {
 
             {/* Contact Section */}
             <div className="space-y-6">
-              <h3 className="text-lg font-semibold font-primary">Contact</h3>
+              <h3 className="text-lg font-primary text-graphite text-left mb-editorial-sm">Contact</h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-blush mt-0.5" />
-                  <div className="text-ivory/80">
+                  <div className="text-graphite/80">
                     <p>123 Diamond District</p>
                     <p>New York, NY 10001</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-blush" />
-                  <a href="tel:+1-555-0123" className="text-ivory/80 hover:text-blush transition-colors">
+                  <a href="tel:+1-555-0123" className="text-graphite/80 hover:text-blush transition-colors">
                     +1 (555) 012-3456
                   </a>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-blush" />
-                  <a href="mailto:hello@facetandco.com" className="text-ivory/80 hover:text-blush transition-colors">
+                  <a href="mailto:hello@facetandco.com" className="text-graphite/80 hover:text-blush transition-colors">
                     hello@facetandco.com
                   </a>
                 </div>

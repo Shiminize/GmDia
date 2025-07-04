@@ -16,8 +16,6 @@ interface Product {
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [reviewText, setReviewText] = useState('');
-  const [reviewRating, setReviewRating] = useState(0);
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedMetal, setSelectedMetal] = useState<string>('');
@@ -40,18 +38,6 @@ const ProductDetail: React.FC = () => {
     setSelectedShape(mockProduct.shape);
   }, [id]);
 
-  const handleReviewSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (reviewText.trim() && reviewRating > 0) {
-      console.log('New Review:', { text: reviewText, rating: reviewRating });
-      alert('Review submitted! (Check console)');
-      setReviewText('');
-      setReviewRating(0);
-    } else {
-      alert('Please enter a review and select a rating.');
-    }
-  };
-
   const handleAddToCart = () => {
     if (product) {
     addToCart({
@@ -69,16 +55,16 @@ const ProductDetail: React.FC = () => {
   }
 
   return (
-    <div className="product-detail-page">
+    <div className="product-detail-page px-6 md:px-16 py-section bg-ivory">
       <div className="product-detail-content">
-        <div className="product-image-gallery">
+        <div className="product-image-gallery mb-editorial-md">
           <img src={product.imageUrl} alt={product.name} />
           {/* Add more images/gallery here */}
         </div>
         <div className="product-info">
-          <h1>{product.name}</h1>
-          <p className="product-price">${product.price.toLocaleString()}</p>
-          <p>{product.description}</p>
+          <h1 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">{product.name}</h1>
+          <p className="font-secondary text-graphite/80 text-left mb-editorial-sm">${product.price.toLocaleString()}</p>
+          <p className="font-secondary text-graphite/80 text-left mb-editorial-sm">{product.description}</p>
           <ul className="product-features">
             {/* Add product features here */}
           </ul>
@@ -111,7 +97,7 @@ const ProductDetail: React.FC = () => {
               </select>
             </div>
           </div>
-          <div className="product-actions">
+          <div className="product-actions flex-row gap-x-6 mt-editorial-lg">
             <Button onClick={handleAddToCart} className="add-to-cart-btn">
               Add to Cart - ${product.price.toLocaleString()}
             </Button>

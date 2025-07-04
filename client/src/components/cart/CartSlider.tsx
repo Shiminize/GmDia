@@ -21,7 +21,7 @@ const CartSlider: React.FC = () => {
       >
         <div className="sticky top-0 flex items-center justify-between p-4 sm:p-6 border-b border-champagne/30 
           bg-white/95 backdrop-blur-sm safe-top">
-          <h2 className="text-xl font-bold text-graphite">Shopping Cart</h2>
+          <h2 className="text-h2 text-charcoal">Shopping Cart</h2>
           <button
             onClick={toggleCartSlider}
             className="p-2 hover:bg-blush/5 rounded-full transition-colors duration-300"

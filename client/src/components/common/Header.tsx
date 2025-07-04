@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
@@ -62,18 +62,8 @@ const Header: React.FC = () => {
     
     // Device detection for debugging
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isAndroid = /Android/.test(navigator.userAgent);
-    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
     
-    console.log('🚀 NUCLEAR MENU TOGGLE:', { 
-      from: isMobileMenuOpen, 
-      to: newState,
-      timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent.substring(0, 50),
-      device: { isIOS, isAndroid, isSafari },
-      viewport: { width: window.innerWidth, height: window.innerHeight },
-      screen: { width: screen.width, height: screen.height }
-    });
+    // Menu toggle with device detection
     setIsMobileMenuOpen(newState);
     
     // Lock/unlock body scroll with device-specific handling
@@ -88,7 +78,7 @@ const Header: React.FC = () => {
         document.body.style.top = `-${window.scrollY}px`;
       }
       
-      console.log('🔒 Body scroll locked, menu should be visible with z-index 9999999');
+
     } else {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
@@ -102,12 +92,11 @@ const Header: React.FC = () => {
         window.scrollTo(0, parseInt(scrollY || '0') * -1);
       }
       
-      console.log('🔓 Body scroll unlocked, menu closed');
+
     }
   };
 
   const closeMobileMenu = () => {
-    console.log('❌ NUCLEAR MENU CLOSE triggered');
     setIsMobileMenuOpen(false);
     
     // Device detection for close handling
@@ -165,44 +154,26 @@ const Header: React.FC = () => {
     };
   }, []);
 
-  // Mobile menu validation function (for testing)
-  const validateMobileMenuFix = () => {
-    console.log('🔍 MOBILE MENU FIX VALIDATION:', {
-      timestamp: new Date().toISOString(),
-      menuState: isMobileMenuOpen,
-      elements: {
+  // Mobile menu validation function (for testing - can be removed in production)
+  const validateMobileMenuFix = useCallback(() => {
+    console.log('Mobile Menu Status:', {
+      menuOpen: isMobileMenuOpen,
+      elementsFound: {
         overlay: !!document.querySelector('.mobile-menu-nuclear-overlay'),
-        panel: !!document.querySelector('.mobile-menu-nuclear-panel'),
-        overlayZIndex: getComputedStyle(document.querySelector('.mobile-menu-nuclear-overlay') || document.body).zIndex,
-        panelZIndex: getComputedStyle(document.querySelector('.mobile-menu-nuclear-panel') || document.body).zIndex
-      },
-      viewport: {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        devicePixelRatio: window.devicePixelRatio,
-        orientation: (screen as any).orientation?.type || 'unknown'
-      },
-      device: {
-        isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent),
-        isAndroid: /Android/.test(navigator.userAgent),
-        isSafari: /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent),
-        userAgent: navigator.userAgent
-      },
-      bodyStyles: {
-        overflow: document.body.style.overflow,
-        position: document.body.style.position,
-        paddingRight: document.body.style.paddingRight
+        panel: !!document.querySelector('.mobile-menu-nuclear-panel')
       }
     });
-  };
-
-  // Expose validation function globally for testing
-  useEffect(() => {
-    (window as any).validateMobileMenuFix = validateMobileMenuFix;
-    return () => {
-      delete (window as any).validateMobileMenuFix;
-    };
   }, [isMobileMenuOpen]);
+
+  // Expose validation function globally for testing (remove in production)
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      (window as any).validateMobileMenuFix = validateMobileMenuFix;
+      return () => {
+        delete (window as any).validateMobileMenuFix;
+      };
+    }
+  }, [validateMobileMenuFix]);
 
   return (
     <>
@@ -214,16 +185,14 @@ const Header: React.FC = () => {
           <div className="flex items-center justify-between h-16 sm:h-20">
             
             {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link to="/" className="flex items-center space-x-3 group touch-target">
+            <div className="flex-shrink-0 flex items-center">
+              <Link to="/" className="touch-target flex items-center justify-center">
                 <img 
                   src="/Logo.png" 
                   alt="Facet & Co. Logo" 
-                  className="w-8 h-8 sm:w-10 sm:h-10 object-contain group-hover:scale-105 transition-transform duration-300"
+                  className="w-48 h-48 sm:w-12 sm:h-12 object-contain bg-transparent shadow-none border-none transition-transform duration-300"
+                  style={{ background: 'none' }}
                 />
-                <span className="text-xl sm:text-2xl font-bold tracking-tight text-graphite font-primary">
-                  Facet & Co.
-                </span>
               </Link>
             </div>
 
@@ -452,9 +421,7 @@ const Header: React.FC = () => {
               contain: 'layout style paint',
               backfaceVisibility: 'hidden',
               WebkitOverflowScrolling: 'touch',
-              borderLeft: '5px solid #ff0000', // DEBUG
-              boxShadow: '-20px 0 50px rgba(255, 0, 0, 0.5)', // DEBUG
-              outline: '3px solid #ff00ff' // DEBUG
+
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -469,9 +436,9 @@ const Header: React.FC = () => {
                 <img 
                   src="/Logo.png" 
                   alt="Facet & Co. Logo" 
-                  className="w-8 h-8 object-contain"
+                  className="w-12 h-12 object-contain bg-transparent shadow-none border-none"
+                  style={{ background: 'none' }}
                 />
-                <span className="text-lg font-bold text-graphite font-primary">Facet & Co.</span>
               </Link>
               <button
                 onClick={closeMobileMenu}

@@ -17,7 +17,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
   onClick,
   loading = false
 }) => {
-  const cardClasses = `bg-white rounded-xl shadow-sm border border-champagne/30 p-6 transition-all duration-300 
+  const cardClasses = `bg-white rounded-xl shadow-sm border border-champagne/30 p-4 sm:p-6 transition-all duration-300 
     hover:shadow-md hover:-translate-y-0.5 ${className} ${loading ? 'animate-pulse' : ''}`.trim();
 
   if (loading) {
@@ -40,7 +40,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
     >
       {title && (
         <div className="flex items-center justify-between pb-4 mb-4 border-b border-champagne">
-          <h3 className="text-2xl font-normal text-graphite">{title}</h3>
+          <h3 className="text-lg sm:text-2xl font-primary font-normal text-graphite">{title}</h3>
           {action && <div>{action}</div>}
         </div>
       )}

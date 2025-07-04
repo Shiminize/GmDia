@@ -47,7 +47,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => 
     }
   };
 
-  const badgeClasses = `inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+  const badgeClasses = `inline-flex items-center min-h-[32px] px-3 py-1.5 rounded-full text-xs sm:text-sm font-primary font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 
     ${getStatusClass(status)} ${className}`.trim();
 
   return (

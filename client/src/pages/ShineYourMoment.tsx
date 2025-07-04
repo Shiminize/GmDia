@@ -6,14 +6,14 @@ const ShineYourMoment: React.FC = () => {
   // Replace the ...existing code... with the actual event page JSX
   // If you want to further customize, you can edit below
   return (
-    <div className="shine-your-moment-event">
+    <div className="shine-your-moment-event px-6 md:px-16 py-section bg-ivory">
       <section className="event-hero">
-        <h1>✨ Shine Your Moment Contest</h1>
-        <p className="event-subtitle">Share your spark moment &amp; win a custom diamond ring worth $3,000+!<br/>Entries close February 14th.</p>
+        <h1 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">✨ Shine Your Moment Contest</h1>
+        <p className="font-secondary text-graphite/80 text-left mb-editorial-sm">Share your spark moment &amp; win a custom diamond ring worth $3,000+!<br/>Entries close February 14th.</p>
         <a href="#event-entry" className="event-cta">Enter Now</a>
       </section>
       <section className="event-how-it-works">
-        <h2>How to Participate</h2>
+        <h2 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">How to Participate</h2>
         <ol>
                         <li><strong>Follow</strong> <a href="https://instagram.com/facetandco.official" target="_blank" rel="noopener noreferrer">@facetandco.official</a> on Instagram or TikTok</li>
           <li><strong>Post</strong> a photo or video sharing your special moment with the hashtag <span className="hashtag">#ShineYourMoment</span></li>
@@ -21,7 +21,7 @@ const ShineYourMoment: React.FC = () => {
         </ol>
       </section>
       <section className="event-guidelines">
-        <h2>Content Guidelines</h2>
+        <h2 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">Content Guidelines</h2>
         <ul>
           <li>Showcase a meaningful, joyful, or inspiring moment in your life</li>
           <li>Include the hashtag <span className="hashtag">#ShineYourMoment</span> in your post caption</li>
@@ -36,7 +36,7 @@ const ShineYourMoment: React.FC = () => {
         </div>
       </section>
       <section className="event-prizes">
-        <h2>Prizes</h2>
+        <h2 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">Prizes</h2>
         <ul className="prize-list">
           <li><span className="prize-title">Grand Prize:</span> 1 Custom Lab Diamond Ring (worth $3,000+)</li>
           <li><span className="prize-title">Runner Ups:</span> 5x $200 Site Credits</li>
@@ -44,7 +44,7 @@ const ShineYourMoment: React.FC = () => {
         </ul>
       </section>
       <section className="event-timeline">
-        <h2>Timeline</h2>
+        <h2 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">Timeline</h2>
         <ul>
           <li><strong>Entries Open:</strong> January 15, 2025</li>
           <li><strong>Deadline:</strong> February 14, 2025</li>
@@ -52,8 +52,8 @@ const ShineYourMoment: React.FC = () => {
         </ul>
       </section>
       <section className="event-entry" id="event-entry">
-        <h2>Submit Your Entry</h2>
-        <form className="entry-form">
+        <h2 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">Submit Your Entry</h2>
+        <form className="entry-form flex-row gap-x-4 mt-editorial-md">
           <div className="form-group">
             <label>Name</label>
             <input type="text" name="name" required />
@@ -94,7 +94,7 @@ const ShineYourMoment: React.FC = () => {
         </form>
       </section>
       <section className="event-terms" id="event-terms">
-        <h2>Terms &amp; Conditions</h2>
+        <h2 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">Terms &amp; Conditions</h2>
         <ul>
           <li>Open to legal residents aged 18+ only. No purchase necessary.</li>
           <li>One entry per person. Multiple entries will be disqualified.</li>

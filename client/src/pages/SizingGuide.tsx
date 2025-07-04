@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const SizingGuide: React.FC = () => (
   <div className="min-h-screen bg-champagne py-20">
-    <div className="container mx-auto px-4 max-w-4xl">
+    <div className="container mx-auto px-6 md:px-16">
       <div className="bg-ivory rounded-xl shadow-lg p-8 lg:p-12">
-        <h1 className="text-4xl lg:text-5xl font-bold text-graphite mb-6 font-primary">
+        <h1 className="text-h1 text-charcoal">
           Jewelry Sizing Guide
         </h1>
         <p className="text-lg text-graphite/80 mb-10 leading-relaxed">

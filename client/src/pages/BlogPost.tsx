@@ -62,9 +62,9 @@ const BlogPost: React.FC = () => {
   }
 
   return (
-    <div className="content-page blog-post-detail">
-      <h1>{post.title}</h1>
-      <p className="post-date">Published on: {post.date}</p>
+    <div className="content-page blog-post-detail px-6 md:px-16 py-section bg-ivory">
+      <h1 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">{post.title}</h1>
+      <p className="post-date font-secondary text-graphite/80 text-left mb-editorial-sm">Published on: {post.date}</p>
       <div dangerouslySetInnerHTML={{ __html: post.content }} />
       <p><Link to="/blog">Back to Blog</Link></p>
     </div>

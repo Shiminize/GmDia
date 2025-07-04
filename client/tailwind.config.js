@@ -65,6 +65,13 @@ module.exports = {
       spacing: {
         '18': '4.5rem',
         '88': '22rem',
+        'section': '5.5rem',
+        'editorial-lg': '3.5rem',
+        'editorial-md': '2.25rem',
+        'editorial-sm': '1.25rem',
+      },
+      textAlign: {
+        'editorial': 'left',
       },
       animation: {
         'fadeIn': 'fadeIn 0.6s ease-in-out',
@@ -118,6 +125,12 @@ module.exports = {
         'lg': '16px',
         'xl': '24px',
       },
+    },
+    textAlign: {
+      DEFAULT: 'left',
+      center: 'center',
+      right: 'right',
+      justify: 'justify',
     },
   },
   plugins: [],

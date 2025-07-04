@@ -65,9 +65,9 @@ const Step2_Metal: React.FC<Step2_MetalProps> = ({ onSelectMetal, selectedMetal 
   ];
 
   return (
-    <div className="mb-8">
-      <h3 className="font-primary text-2xl font-light text-graphite mb-4">Step 2: Select Your Metal</h3>
-      <p className="font-secondary text-base text-graphite opacity-90 mb-8">Choose from our selection of premium metals, each carefully selected for both beauty and durability.</p>
+    <div className="px-6 py-editorial-md mb-8">
+      <h3 className="font-primary text-graphite text-lg md:text-xl font-semibold text-left mb-editorial-sm">Step 2: Select Your Metal</h3>
+      <p className="font-secondary text-graphite/80 text-left mb-editorial-sm">Choose from our selection of premium metals, each carefully selected for both beauty and durability.</p>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {metals.map((metal) => (
@@ -119,7 +119,7 @@ const Step2_Metal: React.FC<Step2_MetalProps> = ({ onSelectMetal, selectedMetal 
       </div>
 
       <div className="bg-gradient-to-br from-white to-champagne/50 rounded-xl p-8 border border-champagne">
-        <h4 className="font-primary text-xl font-medium text-graphite mb-4">About Our Metals</h4>
+        <h4 className="text-h4 text-charcoal">About Our Metals</h4>
         <p className="text-base text-graphite mb-6">All our metals are sourced from responsible suppliers and crafted to the highest standards. Each piece is stamped with its purity mark and comes with a certificate of authenticity.</p>
         <div className="bg-white/50 rounded-lg p-6 border border-champagne/50">
           <h5 className="font-primary text-lg font-medium text-graphite mb-4">Care Instructions</h5>

@@ -133,9 +133,9 @@ const OrderTable: React.FC<OrderTableProps> = ({
   return (
     <div className="space-y-6">
       {/* Controls */}
-      <div className="flex flex-wrap justify-between items-center gap-4">
-        <div className="flex items-center gap-4">
-          <label className="text-sm font-medium text-graphite">
+      <div className="flex flex-wrap justify-between items-center gap-2 sm:gap-4 p-2 sm:p-0">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <label className="text-xs sm:text-sm font-primary text-charcoal">
             Filter by Status:
           </label>
           <select
@@ -144,8 +144,8 @@ const OrderTable: React.FC<OrderTableProps> = ({
               setStatusFilter(e.target.value as StatusType | 'all');
               setCurrentPage(1);
             }}
-            className="px-4 py-2 rounded-lg border border-champagne bg-white text-sm focus:outline-none 
-              focus:ring-2 focus:ring-champagne focus:border-transparent"
+            className="px-3 py-1.5 rounded-lg border border-champagne bg-white text-xs sm:text-sm focus:outline-none \
+              focus:ring-2 focus:ring-champagne focus:border-transparent min-h-[36px]"
           >
             <option value="all">All Statuses</option>
             {getStatusOptions().map(status => (
@@ -168,7 +168,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
             <tr>
               <th 
                 onClick={() => handleSort('id')}
-                className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30 
+                className="p-2 sm:p-4 text-left text-xs sm:text-sm font-primary font-medium text-graphite border-b border-champagne/30 \
                   cursor-pointer select-none hover:bg-champagne/5"
               >
                 <div className="flex items-center gap-2">
@@ -177,7 +177,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
               </th>
               <th 
                 onClick={() => handleSort('date')}
-                className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30 
+                className="p-2 sm:p-4 text-left text-xs sm:text-sm font-primary font-medium text-graphite border-b border-champagne/30 \
                   cursor-pointer select-none hover:bg-champagne/5"
               >
                 <div className="flex items-center gap-2">
@@ -186,7 +186,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
               </th>
               <th 
                 onClick={() => handleSort('total')}
-                className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30 
+                className="p-2 sm:p-4 text-left text-xs sm:text-sm font-primary font-medium text-graphite border-b border-champagne/30 \
                   cursor-pointer select-none hover:bg-champagne/5"
               >
                 <div className="flex items-center gap-2">
@@ -195,14 +195,14 @@ const OrderTable: React.FC<OrderTableProps> = ({
               </th>
               <th 
                 onClick={() => handleSort('status')}
-                className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30 
+                className="p-2 sm:p-4 text-left text-xs sm:text-sm font-primary font-medium text-graphite border-b border-champagne/30 \
                   cursor-pointer select-none hover:bg-champagne/5"
               >
                 <div className="flex items-center gap-2">
                   Status {getSortIcon('status')}
                 </div>
               </th>
-              <th className="p-4 text-left text-sm font-medium text-graphite border-b border-champagne/30">
+              <th className="p-2 sm:p-4 text-left text-xs sm:text-sm font-primary font-medium text-graphite border-b border-champagne/30">
                 Actions
               </th>
             </tr>
@@ -213,24 +213,24 @@ const OrderTable: React.FC<OrderTableProps> = ({
                 key={order.id}
                 className="hover:bg-champagne/5 transition-colors duration-150"
               >
-                <td className="p-4 text-sm text-graphite border-b border-champagne/30">
+                <td className="p-2 sm:p-4 text-xs sm:text-sm text-graphite border-b border-champagne/30">
                   #{order.id}
                 </td>
-                <td className="p-4 text-sm text-graphite border-b border-champagne/30">
+                <td className="p-2 sm:p-4 text-xs sm:text-sm text-graphite border-b border-champagne/30">
                   {new Date(order.date).toLocaleDateString()}
                 </td>
-                <td className="p-4 text-sm text-graphite border-b border-champagne/30">
+                <td className="p-2 sm:p-4 text-xs sm:text-sm text-graphite border-b border-champagne/30">
                   ${order.total.toLocaleString()}
                 </td>
-                <td className="p-4 text-sm border-b border-champagne/30">
+                <td className="p-2 sm:p-4 text-xs sm:text-sm text-graphite border-b border-champagne/30">
                   <StatusBadge status={order.status} />
                 </td>
-                <td className="p-4 text-sm border-b border-champagne/30">
+                <td className="p-2 sm:p-4 text-xs sm:text-sm text-graphite border-b border-champagne/30">
                   {onViewOrder && (
                     <button
                       onClick={() => onViewOrder(order.id)}
-                      className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-graphite 
-                        bg-muted rounded-full hover:bg-secondary hover:text-secondary-foreground transition-colors duration-200"
+                      className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium text-graphite \
+                        bg-muted rounded-full hover:bg-secondary hover:text-secondary-foreground transition-colors duration-200 min-h-[36px]"
                     >
                       <FaEye className="w-3 h-3" />
                       View Details
@@ -245,26 +245,26 @@ const OrderTable: React.FC<OrderTableProps> = ({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-between items-center pt-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center pt-4 gap-2 sm:gap-0">
           <button
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-graphite bg-white 
-              rounded-lg border border-champagne disabled:opacity-50 disabled:cursor-not-allowed 
-              hover:bg-champagne/10 transition-colors duration-200"
+            className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium text-graphite bg-white \
+              rounded-lg border border-champagne disabled:opacity-50 disabled:cursor-not-allowed \
+              hover:bg-champagne/10 transition-colors duration-200 min-h-[36px]"
           >
             <FaChevronLeft className="w-3 h-3" />
             Previous
           </button>
-          <div className="text-sm text-warm-gray">
+          <div className="text-xs sm:text-sm text-warm-gray">
             Page {currentPage} of {totalPages}
           </div>
           <button
             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-graphite bg-white 
-              rounded-lg border border-champagne disabled:opacity-50 disabled:cursor-not-allowed 
-              hover:bg-champagne/10 transition-colors duration-200"
+            className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium text-graphite bg-white \
+              rounded-lg border border-champagne disabled:opacity-50 disabled:cursor-not-allowed \
+              hover:bg-champagne/10 transition-colors duration-200 min-h-[36px]"
           >
             Next
             <FaChevronRight className="w-3 h-3" />

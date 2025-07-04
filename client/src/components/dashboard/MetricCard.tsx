@@ -23,7 +23,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
   suffix = '',
   loading = false
 }) => {
-  const cardClasses = `relative bg-white rounded-xl shadow-sm border border-champagne/30 p-6 text-center 
+  const cardClasses = `relative bg-white rounded-xl shadow-sm border border-champagne/30 p-4 sm:p-6 text-center 
     transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 before:absolute before:inset-0 
     before:bg-gradient-to-br before:from-lavender/5 before:to-blush/5 before:rounded-xl before:opacity-0 
     hover:before:opacity-100 before:transition-opacity before:duration-300 ${className}`.trim();
@@ -47,12 +47,12 @@ const MetricCard: React.FC<MetricCardProps> = ({
 
   return (
     <div className={cardClasses}>
-      <span className="block text-3xl font-light text-graphite mb-2">
+      <span className="block text-2xl sm:text-3xl font-primary font-light text-graphite mb-2">
         {prefix}{formatValue(value)}{suffix}
       </span>
-      <div className="text-sm text-warm-gray uppercase tracking-wider">{label}</div>
+      <div className="text-xs sm:text-sm font-primary text-warm-gray uppercase tracking-wider">{label}</div>
       {trend && (
-        <div className={`mt-3 text-sm font-medium ${trend.isPositive ? 'text-emerald-500' : 'text-rose-500'}`}>
+        <div className={`mt-3 text-xs sm:text-sm font-medium ${trend.isPositive ? 'text-emerald-500' : 'text-rose-500'}`}>
           {trend.isPositive ? '↗' : '↘'} {Math.abs(trend.value)}%
           {trend.label && ` ${trend.label}`}
         </div>

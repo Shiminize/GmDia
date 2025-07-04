@@ -41,7 +41,7 @@ const Login: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-ivory to-champagne p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-12 w-full max-w-md border border-champagne">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-left mb-10">
           <h1 className="text-4xl font-light text-graphite mb-2 font-primary bg-gradient-to-r from-lavender to-graphite bg-clip-text text-transparent">
             Welcome Back
           </h1>
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
         </div>
 
         {/* Demo Credentials Info */}
-        <div className="bg-gradient-to-br from-secondary to-primary text-primary-foreground p-6 rounded-lg mb-8 text-center">
+        <div className="bg-gradient-to-br from-secondary to-primary text-primary-foreground p-6 rounded-lg mb-8 text-left">
           <h3 className="mb-4 text-lg font-primary">
             Demo Login Credentials
           </h3>
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-8 text-center border border-red-200">
+          <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-8 text-left border border-red-200">
             {error}
           </div>
         )}
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
           <div>
             <label 
               htmlFor="email"
-              className="block mb-2 font-medium text-graphite text-sm font-secondary"
+              className="text-body-sm text-charcoal"
             >
               Email Address
             </label>
@@ -137,7 +137,7 @@ const Login: React.FC = () => {
           </button>
         </form>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8 text-left">
           <p className="text-graphite/70 font-secondary">
             Don't have an account? {' '}
             <Link 
@@ -149,7 +149,7 @@ const Login: React.FC = () => {
           </p>
         </div>
 
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-left">
           <Link 
             to="/" 
             className="text-graphite/60 hover:text-graphite text-sm font-secondary transition-colors duration-200"

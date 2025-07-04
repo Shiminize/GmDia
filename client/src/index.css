@@ -43,8 +43,8 @@
     --graphite-light: hsl(0 0% 20%);
     --champagne-beige: hsl(37 41% 89.8%);
     --champagne-light: hsl(37 41% 94%);
-    --muted-blush: hsl(350 68% 91.2%);
-    --blush-light: hsl(350 68% 95%);
+    --muted-blush: rgb(251, 234, 236);
+    --blush-light: rgb(251, 234, 236);
     --pale-sage: hsl(130 25% 85%);
     --sage-light: hsl(130 25% 90%);
     --digital-lavender: hsl(278 35% 78%);
@@ -365,6 +365,28 @@
     animation-delay: 1000ms;
   }
 
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
   /* Mobile menu animations */
   .mobile-menu-enter {
     animation: mobileMenuSlideIn 300ms ease-out forwards;
@@ -561,10 +583,6 @@
   contain: layout style paint !important;
   backface-visibility: hidden !important;
   -webkit-overflow-scrolling: touch !important;
-  /* DEBUG STYLES - TEMPORARY */
-  border-left: 5px solid #ff0000 !important;
-  box-shadow: -20px 0 50px rgba(255, 0, 0, 0.5) !important;
-  outline: 3px solid #ff00ff !important;
 }
 
 .mobile-menu-nuclear-panel.open {

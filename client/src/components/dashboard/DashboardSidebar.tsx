@@ -92,7 +92,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ user }) => {
     <div className="bg-white rounded-xl shadow-sm p-8 h-fit sticky top-[100px] transition-all duration-300 
       hover:shadow-md animate-slideInLeft">
       {/* Profile Section */}
-      <div className="text-center pb-8 border-b border-champagne mb-8">
+      <div className="text-left pb-8 border-b border-champagne mb-8">
         <div className="w-20 h-20 rounded-full bg-gradient-to-br from-lavender to-blush flex items-center 
           justify-center mx-auto mb-4 shadow-sm text-primary-foreground text-2xl font-primary">
           {user.initials}
@@ -101,15 +101,15 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ user }) => {
         <p className="text-sm text-warm-gray mb-4">{user.email}</p>
         
         <div className="flex justify-around pt-4">
-          <div className="text-center">
-            <span className="block text-2xl font-medium text-graphite font-primary">{user.stats.orders}</span>
+          <div className="text-left">
+            <span className="block text-h2 text-charcoal">{user.stats.orders}</span>
             <span className="text-xs text-warm-gray uppercase tracking-wider">Orders</span>
           </div>
-          <div className="text-center">
+          <div className="text-left">
             <span className="block text-2xl font-medium text-graphite font-primary">{user.stats.designs}</span>
             <span className="text-xs text-warm-gray uppercase tracking-wider">Designs</span>
           </div>
-          <div className="text-center">
+          <div className="text-left">
             <span className="block text-2xl font-medium text-graphite font-primary">{user.stats.wishlist}</span>
             <span className="text-xs text-warm-gray uppercase tracking-wider">Wishlist</span>
           </div>

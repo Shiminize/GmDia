@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useCart } from '../../contexts/CartContext';
 import { Link } from 'react-router-dom';
 
@@ -8,8 +8,7 @@ interface CartSliderProps {
 }
 
 export const CartSlider: React.FC<CartSliderProps> = ({ isOpen, onClose }) => {
-  const { cartItems, updateQuantity, removeFromCart, clearCart, cartTotal } = useCart();
-  const [notes, setNotes] = useState('');
+  const { cartItems, updateQuantity, removeFromCart, cartTotal } = useCart();
 
   return (
     <>
@@ -26,7 +25,7 @@ export const CartSlider: React.FC<CartSliderProps> = ({ isOpen, onClose }) => {
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex items-center justify-between p-6 border-b border-champagne bg-ivory">
-          <h2 className="text-xl font-semibold text-graphite font-primary">Your Cart</h2>
+          <h2 className="text-h2 text-charcoal">Your Cart</h2>
           <button 
             className="w-8 h-8 flex items-center justify-center text-graphite hover:text-lavender transition-colors duration-200 text-2xl" 
             onClick={onClose} 
@@ -126,8 +125,7 @@ export const CartSlider: React.FC<CartSliderProps> = ({ isOpen, onClose }) => {
 };
 
 const Cart: React.FC = () => {
-  const { cartItems, updateQuantity, removeFromCart, clearCart, cartTotal } = useCart();
-  const [notes, setNotes] = useState('');
+  const { cartItems, updateQuantity, removeFromCart } = useCart();
 
   if (cartItems.length === 0) {
     return (
@@ -201,8 +199,6 @@ const Cart: React.FC = () => {
               </label>
               <textarea
                 id="cart-notes"
-                value={notes}
-                onChange={e => setNotes(e.target.value)}
                 placeholder="Let us know if you have any special instructions for your order..."
                 className="w-full h-24 px-4 py-2 border border-champagne rounded-lg focus:outline-none focus:ring-2 focus:ring-lavender focus:border-lavender resize-none"
               />
@@ -218,13 +214,12 @@ const Cart: React.FC = () => {
                 </div>
                 <div className="flex justify-between text-lg font-semibold text-graphite border-t border-champagne pt-2">
                   <span>Total:</span>
-                  <span>${cartTotal.toLocaleString()}</span>
+                  <span>${cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0).toLocaleString()}</span>
                 </div>
               </div>
               <div className="space-y-3">
                 <button 
-                  className="w-full bg-card border border-secondary text-secondary py-3 rounded-lg font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors duration-200" 
-                  onClick={clearCart}
+                  className="w-full bg-card border border-secondary text-secondary py-3 rounded-lg font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors duration-200"
                 >
                   Clear Cart
                 </button>

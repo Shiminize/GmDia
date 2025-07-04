@@ -1,14 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three-stdlib';
-import Step1_Setting from './Step1_Setting';
-import Step2_Metal from './Step2_Metal';
-import Step3_Diamond from './Step3_Diamond';
-import Step4_Personalization from './Step4_Personalization';
+import Step1Setting from './Step1_Setting';
+import Step2Metal from './Step2_Metal';
+import Step3Diamond from './Step3_Diamond';
+import Step4Personalization from './Step4_Personalization';
 import Button from '../common/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../services/api';
-import ThreeDViewer from './ThreeDViewer';
 
 const Configurator: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -26,15 +25,16 @@ const Configurator: React.FC = () => {
   const ringRef = useRef<THREE.Mesh | null>(null);
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    const localMountRef = mountRef.current;
+    if (!localMountRef) return;
 
     // Scene setup
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, mountRef.current.clientWidth / mountRef.current.clientHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, localMountRef.clientWidth / localMountRef.clientHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
 
-    renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
-    mountRef.current.appendChild(renderer.domElement);
+    renderer.setSize(localMountRef.clientWidth, localMountRef.clientHeight);
+    localMountRef.appendChild(renderer.domElement);
 
     // Add a simple ring (TorusGeometry) as a placeholder
     const geometry = new THREE.TorusGeometry(1, 0.3, 16, 100);
@@ -70,10 +70,10 @@ const Configurator: React.FC = () => {
 
     // Handle window resize
     const handleResize = () => {
-      if (mountRef.current) {
-        camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
+      if (localMountRef) {
+        camera.aspect = localMountRef.clientWidth / localMountRef.clientHeight;
         camera.updateProjectionMatrix();
-        renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+        renderer.setSize(localMountRef.clientWidth, localMountRef.clientHeight);
       }
     };
     window.addEventListener('resize', handleResize);
@@ -81,8 +81,8 @@ const Configurator: React.FC = () => {
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
+      if (localMountRef) {
+        localMountRef.removeChild(renderer.domElement);
       }
       controls.dispose();
     };
@@ -115,13 +115,13 @@ const Configurator: React.FC = () => {
   const renderStepComponent = () => {
     switch (currentStep) {
       case 1:
-        return <Step1_Setting onSelectSetting={setSelectedSetting} selectedSetting={selectedSetting} />;
+        return <Step1Setting onSelectSetting={setSelectedSetting} selectedSetting={selectedSetting} />;
       case 2:
-        return <Step2_Metal onSelectMetal={setSelectedMetal} selectedMetal={selectedMetal} />;
+        return <Step2Metal onSelectMetal={setSelectedMetal} selectedMetal={selectedMetal} />;
       case 3:
-        return <Step3_Diamond onSelectDiamondShape={setSelectedDiamondShape} selectedDiamondShape={selectedDiamondShape} />;
+        return <Step3Diamond onSelectDiamondShape={setSelectedDiamondShape} selectedDiamondShape={selectedDiamondShape} />;
       case 4:
-        return <Step4_Personalization onEngravingChange={setEngravingText} engravingText={engravingText} />;
+        return <Step4Personalization onEngravingChange={setEngravingText} engravingText={engravingText} />;
       default:
         return null;
     }

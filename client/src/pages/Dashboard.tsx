@@ -5,8 +5,8 @@ import api from '../services/api';
 import DashboardCard from '../components/dashboard/DashboardCard';
 import DashboardSidebar from '../components/dashboard/DashboardSidebar';
 import MetricCard from '../components/dashboard/MetricCard';
-import StatusBadge, { StatusType } from '../components/dashboard/StatusBadge';
 import OrderTable from '../components/dashboard/OrderTable';
+import { StatusType } from '../components/dashboard/StatusBadge';
 
 interface SavedDesign {
   _id: string;
@@ -20,7 +20,7 @@ interface SavedDesign {
   createdAt: string;
 }
 
-interface Order {
+type Order = {
   id: string;
   date: string;
   total: number;
@@ -65,7 +65,7 @@ const Dashboard: React.FC = () => {
         <div className="max-w-7xl mx-auto px-8">
           <DashboardCard title="Authentication Required">
             <div className="text-center py-8">
-              <h3 className="text-xl font-medium text-graphite mb-4">Please log in to access your dashboard</h3>
+              <h3 className="text-h3 text-charcoal">Please log in to access your dashboard</h3>
               <Link to="/login">
                 <button className="px-6 py-2 bg-champagne text-graphite text-sm font-medium uppercase tracking-wider 
                   rounded-full hover:bg-secondary hover:text-secondary-foreground transition-all duration-300">
@@ -97,7 +97,6 @@ const Dashboard: React.FC = () => {
   };
 
   const totalSpent = orderHistory.reduce((sum, order) => sum + order.total, 0);
-  const recentOrders = orderHistory.slice(0, 3);
 
   const handleDeleteDesign = async (designId: string) => {
     if (!user) return;

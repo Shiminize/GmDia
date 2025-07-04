@@ -1,28 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
-import ProductCarousel from '../components/products/ProductCarousel';
-import ProductCard from '../components/products/ProductCard';
-import TopBanner from '../components/common/TopBanner';
-import Button from '../components/common/Button';
-import { useAuth } from '../contexts/AuthContext';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Diamond, 
-  Hand, 
-  Settings, 
-  Heart,
-  Shield,
-  Leaf,
-  Gem,
+  Hand,
   Eye,
   ChevronDown,
   ChevronRight,
   MessageCircle,
   Sparkles,
   CheckCircle,
-  Play,
   ArrowRight,
-  Star,
-  ChevronLeft
+  Star
 } from 'lucide-react';
 
 // Sample product data for featured designs
@@ -133,7 +120,6 @@ const testimonials = [
 ];
 
 const HomePage: React.FC = () => {
-  const { user } = useAuth();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [videoError, setVideoError] = useState(false);
@@ -142,9 +128,7 @@ const HomePage: React.FC = () => {
   const [key, setKey] = useState(0);
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 3;
-  const [isDiamondVisible, setIsDiamondVisible] = useState(false);
   const diamondRef = useRef<HTMLDivElement>(null);
-  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Auto-rotate testimonials
   useEffect(() => {
@@ -157,10 +141,11 @@ const HomePage: React.FC = () => {
 
   // Intersection Observer for Diamond Animation
   useEffect(() => {
+    const localDiamondRef = diamondRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setIsDiamondVisible(entry.isIntersecting);
+          // setIsDiamondVisible(entry.isIntersecting);
         });
       },
       {
@@ -169,32 +154,16 @@ const HomePage: React.FC = () => {
       }
     );
 
-    if (diamondRef.current) {
-      observer.observe(diamondRef.current);
+    if (localDiamondRef) {
+      observer.observe(localDiamondRef);
     }
 
     return () => {
-      if (diamondRef.current) {
-        observer.unobserve(diamondRef.current);
+      if (localDiamondRef) {
+        observer.unobserve(localDiamondRef);
       }
     };
   }, []);
-
-  // Force video remount if not loaded after timeout
-  useEffect(() => {
-    if (isLoading && retryCount < maxRetries) {
-      const timeout = setTimeout(() => {
-        console.log(`🔄 Forcing video remount (attempt ${retryCount + 1} of ${maxRetries})...`);
-        setKey(prev => prev + 1);
-        setRetryCount(prev => prev + 1);
-      }, 5000);
-      return () => clearTimeout(timeout);
-    } else if (retryCount >= maxRetries) {
-      console.log('❌ Max retry attempts reached, falling back to static image');
-      setVideoError(true);
-      setIsLoading(false);
-    }
-  }, [isLoading, retryCount]);
 
   const handleQuizStart = () => {
     window.location.href = '/quiz';
@@ -204,18 +173,15 @@ const HomePage: React.FC = () => {
     console.log('Opening expert chat...');
   };
 
-  const handleVideoLoaded = () => {
+  const handleVideoLoaded = useCallback(() => {
     console.log('✅ Video loaded successfully');
     setVideoLoaded(true);
     setIsLoading(false);
-    
-    // Try to play the video
     if (videoRef.current) {
       const playPromise = videoRef.current.play();
       if (playPromise !== undefined) {
         playPromise.catch(error => {
           console.error('Failed to play video:', error);
-          // Only retry if it's an autoplay error
           if (error.name === 'NotAllowedError' && retryCount < maxRetries) {
             console.log(`🔄 Retrying video play with muted state (attempt ${retryCount + 1} of ${maxRetries})...`);
             if (videoRef.current) {
@@ -231,9 +197,9 @@ const HomePage: React.FC = () => {
         });
       }
     }
-  };
+  }, [retryCount, maxRetries]);
 
-  const handleVideoError = (error: any) => {
+  const handleVideoError = useCallback((error: any) => {
     console.error('❌ Video error:', error);
     if (retryCount < maxRetries) {
       console.log(`🔄 Retrying video load (attempt ${retryCount + 1} of ${maxRetries})...`);
@@ -244,7 +210,7 @@ const HomePage: React.FC = () => {
       setVideoError(true);
       setIsLoading(false);
     }
-  };
+  }, [retryCount, maxRetries]);
 
   // Debug video loading
   useEffect(() => {
@@ -299,12 +265,27 @@ const HomePage: React.FC = () => {
         });
       };
     }
-  }, [key, retryCount]);
+  }, [key, retryCount, handleVideoError, handleVideoLoaded]);
+
+  useEffect(() => {
+    if (isLoading && retryCount < maxRetries) {
+      const timeout = setTimeout(() => {
+        console.log(`🔄 Forcing video remount (attempt ${retryCount + 1} of ${maxRetries})...`);
+        setKey(prev => prev + 1);
+        setRetryCount(prev => prev + 1);
+      }, 5000);
+      return () => clearTimeout(timeout);
+    } else if (retryCount >= maxRetries) {
+      console.log('❌ Max retry attempts reached, falling back to static image');
+      setVideoError(true);
+      setIsLoading(false);
+    }
+  }, [isLoading, retryCount, handleVideoError, handleVideoLoaded]);
 
   return (
     <div className="min-h-screen flex flex-col bg-champagne">
       {/* Hero Section - Cinematic with Video */}
-      <section className="hero-section-isolated relative h-[100vh] w-full flex items-center justify-start overflow-hidden">
+      <section className="hero-section-isolated relative h-[100vh] w-full flex items-center justify-center overflow-hidden">
         <div className="video-container-isolated absolute inset-0 w-full h-full">
           {/* Background image that shows immediately - lowest layer */}
           <img 
@@ -323,7 +304,7 @@ const HomePage: React.FC = () => {
                 <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/20">
                   <div className="flex flex-col items-center gap-4">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
-                    <p className="text-primary-foreground text-sm font-medium">Loading video...</p>
+                    <p className="text-body-sm text-charcoal">Loading video...</p>
                   </div>
                 </div>
               )}
@@ -353,71 +334,36 @@ const HomePage: React.FC = () => {
           <div className="absolute inset-0 bg-black/30 z-20"></div>
         </div>
 
-        {/* Content overlay */}
-        <div className="relative container mx-auto px-4 sm:px-6 z-30">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-12">
-            {/* Left side - Main content */}
-            <div className="w-full max-w-md bg-ivory/95 p-4 sm:p-6 lg:p-8 rounded-lg shadow-2xl border border-border animate-fadeIn">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite leading-tight tracking-tight mb-3 sm:mb-4 lg:mb-6">
-                Ethical Brilliance,<br />
-                Timeless Design
-              </h1>
-              <p className="text-sm sm:text-base lg:text-lg text-graphite/80 leading-relaxed mb-4 sm:mb-6 lg:mb-8">
-                Discover our collection of lab-grown diamonds, crafted with precision and care for
-                the modern conscious consumer.
-              </p>
-              <div className="flex flex-col gap-3 sm:gap-4">
-                <button 
-                  onClick={handleQuizStart}
-                  className="inline-flex items-center justify-center px-4 sm:px-6 lg:px-8 py-3 lg:py-4 bg-primary text-primary-foreground text-xs sm:text-sm font-semibold 
-                    uppercase tracking-wider rounded-full shadow-md hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg 
-                    transition-all duration-300 w-full"
-                >
-                  Find Your Perfect Ring
-                  <ChevronRight className="ml-2" size={14} />
-                </button>
-                <button 
-                  onClick={handleChatExpert}
-                  className="inline-flex items-center justify-center px-4 sm:px-6 lg:px-8 py-3 lg:py-4 bg-white text-graphite text-xs sm:text-sm font-semibold 
-                    uppercase tracking-wider rounded-full border border-blush/30 hover:bg-accent/10 hover:text-accent 
-                    hover:border-accent transition-all duration-300 w-full"
-                >
-                  <MessageCircle className="mr-2" size={14} />
-                  Chat with Expert
-                </button>
-              </div>
-            </div>
-
-            {/* Right side - Packaging section */}
-            <div className="relative w-full max-w-md animate-fadeIn animation-delay-200">
-              {/* Packaging image card - responsive height */}
-              <div className="bg-champagne/95 rounded-lg overflow-hidden shadow-2xl border border-border mb-2 h-48 sm:h-56 lg:h-64">
-                <img
-                  src="/packaging.png"
-                  alt="Luxury Facet & Co. packaging with elegant black jewelry box"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // Fallback to a placeholder if packaging.png doesn't exist
-                    const target = e.target as HTMLImageElement;
-                    target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='16' font-family='Arial'%3EPackaging Image%3C/text%3E%3C/svg%3E";
-                  }}
-                />
-              </div>
-
-              {/* Description card below */}
-              <div className="bg-champagne/95 p-3 sm:p-4 rounded-lg shadow-lg border border-border">
-                <div className="flex items-center gap-2 mb-2">
-                  <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-accent" />
-                  <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-graphite">Complimentary Gift Wrapping</h3>
-                </div>
-                <p className="text-xs sm:text-sm text-graphite/80 mb-2 sm:mb-3">
-                  Every Facet & Co. piece arrives in our signature luxury packaging, ready to make your moment unforgettable.
-                </p>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-accent" />
-                  <span className="text-xs font-medium text-accent">Included with every order</span>
-                </div>
-              </div>
+        {/* Centered Content Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
+          <div className="bg-ivory/95 p-6 sm:p-8 rounded-lg shadow-2xl border border-border animate-fadeIn text-left max-w-md w-[90vw] pointer-events-auto">
+            <h1 className="font-primary text-graphite text-5xl md:text-6xl font-bold text-left leading-tight tracking-tight mb-4">
+              Ethical Brilliance,<br />
+              Timeless Design
+            </h1>
+            <p className="font-secondary text-graphite/80 text-lg md:text-xl mt-editorial-md text-left leading-relaxed mb-6">
+              Discover our collection of lab-grown diamonds, crafted with precision and care for
+              the modern conscious consumer.
+            </p>
+            <div className="flex flex-col gap-3">
+              <button 
+                onClick={handleQuizStart}
+                className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground text-sm font-semibold 
+                  uppercase tracking-wider rounded-full shadow-md hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg 
+                  transition-all duration-300 w-full"
+              >
+                Find Your Perfect Ring
+                <ChevronRight className="ml-2" size={16} />
+              </button>
+              <button 
+                onClick={handleChatExpert}
+                className="inline-flex items-center justify-center px-6 py-3 bg-white text-graphite text-sm font-semibold 
+                  uppercase tracking-wider rounded-full border border-blush/30 hover:bg-accent/10 hover:text-accent 
+                  hover:border-accent transition-all duration-300 w-full"
+              >
+                <MessageCircle className="mr-2" size={16} />
+                Design Your Own
+              </button>
             </div>
           </div>
         </div>
@@ -441,23 +387,6 @@ const HomePage: React.FC = () => {
               <p className="text-sm sm:text-base lg:text-lg text-graphite/70 mb-4 sm:mb-6 lg:mb-8">
                 Take a moment to reflect on what truly speaks to you. Our thoughtful quiz guides you through discovering your perfect ring, just like you.
               </p>
-              <div className="flex flex-wrap gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8 lg:mb-12 justify-center sm:justify-start">
-                {[
-                  { icon: Diamond, text: "Choose Style" },
-                  { icon: Settings, text: "Customize Design" },
-                  { icon: Heart, text: "Find Perfect Match" }
-                ].map((item, index) => (
-                  <div key={index} className="flex flex-col items-center">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full bg-muted flex items-center justify-center mb-2 sm:mb-3 lg:mb-4
-                      transform hover:rotate-12 transition-transform duration-300">
-                      <item.icon size={20} className="sm:hidden text-secondary" />
-                      <item.icon size={24} className="hidden sm:block lg:hidden text-secondary" />
-                      <item.icon size={28} className="hidden lg:block text-secondary" />
-                    </div>
-                    <span className="text-xs sm:text-sm font-medium text-graphite text-center">{item.text}</span>
-                  </div>
-                ))}
-              </div>
               <button
                 onClick={handleQuizStart}
                 className="w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-6 lg:px-8 py-3 lg:py-4 bg-secondary text-secondary-foreground 
@@ -549,10 +478,6 @@ const HomePage: React.FC = () => {
                     <div className="flex gap-4">
                       <button className="w-10 h-10 rounded-full bg-card flex items-center justify-center
                         hover:bg-secondary hover:text-secondary-foreground transition-colors duration-300">
-                        <Heart size={20} />
-                      </button>
-                      <button className="w-10 h-10 rounded-full bg-card flex items-center justify-center
-                        hover:bg-secondary hover:text-secondary-foreground transition-colors duration-300">
                         <Eye size={20} />
                       </button>
                     </div>
@@ -606,15 +531,6 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1">
               <div ref={diamondRef} className="relative w-full aspect-square">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className={`w-3/4 h-3/4 transition-all duration-500 ${
-                    isDiamondVisible 
-                      ? 'motion-safe:animate-spin-elegant motion-reduce:animate-pulse opacity-100' 
-                      : 'opacity-0'
-                  }`}>
-                    <Diamond size={64} className="text-blush absolute" />
-                  </div>
-                </div>
                 <img
                   src="/lab-diamond.jpg"
                   alt="Lab-grown diamond"
@@ -634,12 +550,12 @@ const HomePage: React.FC = () => {
                     text: "Lab-grown diamonds possess the same physical and optical properties as mined diamonds."
                   },
                   {
-                    icon: Leaf,
+                    icon: CheckCircle,
                     title: "Eco-Friendly Choice",
                     text: "Sustainable production with minimal environmental impact."
                   },
                   {
-                    icon: Shield,
+                    icon: CheckCircle,
                     title: "Ethical Sourcing",
                     text: "100% conflict-free with transparent origin and manufacturing process."
                   }
@@ -775,9 +691,8 @@ const HomePage: React.FC = () => {
               <div className="grid grid-cols-2 gap-6 mb-8">
                 {[
                   { icon: MessageCircle, text: "24/7 Live Chat" },
-                  { icon: Diamond, text: "Diamond Expertise" },
                   { icon: Hand, text: "Custom Design Help" },
-                  { icon: Gem, text: "Quality Assurance" }
+                  { icon: CheckCircle, text: "Quality Assurance" }
                 ].map((feature, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <feature.icon size={20} className="text-blush" />
@@ -826,9 +741,8 @@ const HomePage: React.FC = () => {
             </form>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
               {[
-                { icon: Shield, text: "Privacy Protected" },
                 { icon: CheckCircle, text: "No Spam" },
-                { icon: Heart, text: "Exclusive Benefits" }
+                { icon: CheckCircle, text: "Exclusive Benefits" }
               ].map((item, index) => (
                 <div key={index} className="flex items-center gap-2 text-graphite/60">
                   <item.icon size={16} />

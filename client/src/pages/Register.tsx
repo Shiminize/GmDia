@@ -71,7 +71,7 @@ const Register: React.FC = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-graphite mb-2 uppercase tracking-wide font-secondary">
+              <label htmlFor="name" className="text-body-sm text-charcoal">
                 Full Name
               </label>
               <input

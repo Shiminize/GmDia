@@ -9,15 +9,15 @@ const BlogPage: React.FC = () => {
   ];
 
   return (
-    <div className="content-page">
-      <h1>Our Blog</h1>
-      <p>Stay updated with the latest trends, insights, and stories from the world of lab-grown diamond jewelry.</p>
+    <div className="content-page px-6 md:px-16 py-section bg-ivory">
+      <h1 className="font-primary text-graphite text-3xl md:text-4xl font-bold text-left mb-editorial-sm">Our Blog</h1>
+      <p className="font-secondary text-graphite/80 text-left mb-editorial-sm">Stay updated with the latest trends, insights, and stories from the world of lab-grown diamond jewelry.</p>
       <div className="blog-posts-list">
         {blogPosts.map(post => (
           <div key={post.id} className="blog-post-preview">
-            <h2><Link to={`/blog/${post.id}`}>{post.title}</Link></h2>
-            <p className="post-date">{post.date}</p>
-            <p>{post.excerpt}</p>
+            <h2 className="font-primary text-graphite text-left mb-editorial-sm"><Link to={`/blog/${post.id}`}>{post.title}</Link></h2>
+            <p className="font-secondary text-graphite/80 text-left mb-editorial-sm post-date">{post.date}</p>
+            <p className="font-secondary text-graphite/80 text-left mb-editorial-sm">{post.excerpt}</p>
             <Link to={`/blog/${post.id}`} className="read-more-link">Read More</Link>
           </div>
         ))}

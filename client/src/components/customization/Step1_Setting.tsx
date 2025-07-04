@@ -17,9 +17,9 @@ const Step1_Setting: React.FC<Step1_SettingProps> = ({ onSelectSetting, selected
   ];
 
   return (
-    <div className="mb-8">
-      <h3 className="font-primary text-2xl font-light text-graphite mb-4">Step 1: Choose Setting/Base Style</h3>
-      <p className="font-secondary text-base text-graphite opacity-90 mb-8">Select your preferred jewelry setting or base style.</p>
+    <div className="mb-8 px-6 py-editorial-md bg-ivory">
+      <h3 className="font-primary text-graphite text-lg md:text-xl font-semibold text-left mb-editorial-sm">Step 1: Choose Setting/Base Style</h3>
+      <p className="font-secondary text-graphite/80 text-left mb-editorial-sm">Select your preferred jewelry setting or base style.</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {settings.map((setting) => (
           <div
@@ -43,7 +43,7 @@ const Step1_Setting: React.FC<Step1_SettingProps> = ({ onSelectSetting, selected
       </Button>
       {showEducation && (
         <div className="mt-8 bg-gradient-to-br from-white to-champagne/50 rounded-xl p-8 border border-champagne">
-          <h4 className="font-primary text-xl font-medium text-graphite mb-4">Understanding Jewelry Settings</h4>
+          <h4 className="text-h4 text-charcoal">Understanding Jewelry Settings</h4>
           <p className="text-base text-graphite mb-6">The setting is the metal structure that holds the diamond or gemstone in place. It significantly impacts the jewelry's overall look, durability, and how light interacts with the stone.</p>
           <ul className="space-y-4 my-6">
             <li className="relative pl-6 before:content-['•'] before:absolute before:left-0 before:text-lavender before:text-lg">

@@ -31,7 +31,6 @@ interface UserProfile {
 
 const AccountSettings: React.FC = () => {
   const { user } = useAuth();
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [showQRCode, setShowQRCode] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
@@ -63,10 +62,11 @@ const AccountSettings: React.FC = () => {
 
   useEffect(() => {
     // Simulate loading profile data
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
+    // Removed loading simulation as 'loading' is unused
+    // const timer = setTimeout(() => {
+    //   setLoading(false);
+    // }, 1000);
+    // return () => clearTimeout(timer);
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -153,10 +153,10 @@ const AccountSettings: React.FC = () => {
   }
 
   return (
-    <div className="dashboard-main fade-in">
+    <div className="dashboard-main fade-in px-4 py-4">
       <div className="dashboard-header">
-        <h1 className="dashboard-title">Account Settings</h1>
-        <p className="dashboard-subtitle">Manage your profile and preferences</p>
+        <h1 className="dashboard-title text-base">Account Settings</h1>
+        <p className="dashboard-subtitle text-sm">Manage your profile and preferences</p>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -166,14 +166,14 @@ const AccountSettings: React.FC = () => {
           action={
             <button 
               type="submit" 
-              className="card-action"
+              className="card-action min-h-[44px] px-4 py-2"
               disabled={saving}
             >
               {saving ? 'Saving...' : 'Save Changes'}
             </button>
           }
         >
-          <div className="form-section">
+          <div className="form-section flex-col w-full">
             <div className="form-group">
               <label htmlFor="name">
                 <FaUser className="form-icon" /> Full Name

@@ -5,20 +5,20 @@ const LabDiamondEducationPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-ivory to-champagne py-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-sm border border-champagne/30">
-          <h1 className="text-4xl md:text-5xl font-light text-graphite text-center mb-12 font-primary tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-light text-graphite text-left mb-12 font-primary tracking-tight">
             Lab Diamond Education
           </h1>
           
           <div className="space-y-8">
-            <p className="text-lg text-graphite/90 leading-relaxed text-center font-secondary">
+            <p className="text-lg text-graphite/90 leading-relaxed text-left font-secondary">
               Lab-grown diamonds are real diamonds, identical to mined diamonds in every way – physically, chemically, and optically. The only difference is their origin.
             </p>
             
             <div className="bg-champagne/10 rounded-xl p-6">
-              <h2 className="text-2xl md:text-3xl font-normal text-graphite mb-6 font-primary text-center">
+              <h2 className="text-2xl md:text-3xl font-normal text-graphite mb-6 font-primary text-left">
                 How Lab Diamonds Are Made
               </h2>
-              <p className="text-lg text-graphite/90 leading-relaxed mb-6 font-secondary text-center">
+              <p className="text-lg text-graphite/90 leading-relaxed mb-6 font-secondary text-left">
                 Lab-grown diamonds are created using advanced technological processes that replicate the conditions under which natural diamonds develop in the Earth's crust. The two primary methods are:
               </p>
               <ul className="space-y-4 max-w-3xl mx-auto">
@@ -40,7 +40,7 @@ const LabDiamondEducationPage: React.FC = () => {
             </div>
             
             <div className="bg-sage/10 rounded-xl p-6">
-              <h2 className="text-2xl md:text-3xl font-normal text-graphite mb-6 font-primary text-center">
+              <h2 className="text-2xl md:text-3xl font-normal text-graphite mb-6 font-primary text-left">
                 Benefits of Lab Diamonds
               </h2>
               <ul className="space-y-4 max-w-3xl mx-auto">
@@ -75,7 +75,7 @@ const LabDiamondEducationPage: React.FC = () => {
               </ul>
             </div>
             
-            <p className="text-lg text-graphite/90 leading-relaxed text-center font-secondary bg-blush/10 rounded-xl p-6">
+            <p className="text-lg text-graphite/90 leading-relaxed text-left font-secondary bg-blush/10 rounded-xl p-6">
               At Facet & Co., we are proud to offer beautiful, ethically-sourced lab-grown diamonds that align with modern values.
             </p>
           </div>

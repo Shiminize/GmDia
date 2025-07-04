@@ -102,8 +102,8 @@ const Checkout: React.FC = () => {
   };
 
   return (
-    <div className="checkout-page">
-      <h1>Checkout</h1>
+    <div className="checkout-page px-6 md:px-16 py-section bg-ivory">
+      <h1 className="font-primary text-graphite text-lg md:text-xl font-semibold text-left mb-editorial-sm">Checkout</h1>
       {renderCheckoutStep()}
     </div>
   );

@@ -9,18 +9,18 @@ const ContactPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-ivory to-champagne py-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl md:text-5xl font-light text-graphite text-center mb-8 font-primary tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-light text-graphite text-left mb-8 font-primary tracking-tight">
           Contact Us
         </h1>
         
-        <p className="text-lg text-graphite/90 leading-relaxed text-center mb-12 max-w-2xl mx-auto font-secondary">
+        <p className="text-lg text-graphite/90 leading-relaxed text-left mb-12 max-w-2xl mx-auto font-secondary">
           We'd love to hear from you. Send us a message and we'll respond as soon as possible.
         </p>
 
         <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-sm border border-champagne/30">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-graphite mb-2 uppercase tracking-wide font-secondary">
+              <label htmlFor="name" className="text-body-sm text-charcoal">
                 Name
               </label>
               <input 

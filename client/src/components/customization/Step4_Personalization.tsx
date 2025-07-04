@@ -7,9 +7,9 @@ interface Step4_PersonalizationProps {
 
 const Step4_Personalization: React.FC<Step4_PersonalizationProps> = ({ onEngravingChange, engravingText }) => {
   return (
-    <div className="mb-8">
-      <h3 className="font-primary text-2xl font-light text-graphite mb-4">Step 4: Add Personalization</h3>
-      <p className="font-secondary text-base text-graphite opacity-90 mb-8">Add a personal touch with engraving or birthstones.</p>
+    <div className="mb-8 px-6 py-editorial-md bg-ivory">
+      <h3 className="font-primary text-graphite text-lg md:text-xl font-semibold text-left mb-editorial-sm">Step 4: Add Personalization</h3>
+      <p className="font-secondary text-graphite/80 text-left mb-editorial-sm">Add a personal touch with engraving or birthstones.</p>
       <div className="space-y-4">
         <label 
           htmlFor="engraving-text" 

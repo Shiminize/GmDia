@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Sparkles, Heart, CheckCircle } from 'lucide-react';
 
@@ -7,7 +7,6 @@ interface QuizData {
   setting: string;
   shape: string;
   metal: string;
-  sustainability: string;
   budget: string;
 }
 
@@ -24,7 +23,6 @@ const RingQuizPage: React.FC = () => {
     setting: '',
     shape: '',
     metal: '',
-    sustainability: '',
     budget: ''
   });
   const [showResults, setShowResults] = useState(false);
@@ -71,13 +69,6 @@ const RingQuizPage: React.FC = () => {
     { value: 'Not Sure', label: 'Not Sure Yet', description: 'We\'ll help you decide' }
   ];
 
-  const sustainabilityOptions = [
-    { value: 'Very Important', icon: '💯', label: 'Very important', description: 'Sustainability is a priority' },
-    { value: 'Somewhat Important', icon: '💚', label: 'Somewhat important', description: 'I care but it\'s not everything' },
-    { value: 'Just Learning', icon: '🤔', label: 'Just learning', description: 'Tell me more about it' },
-    { value: 'Not Important', icon: '🤷', label: 'Not important', description: 'Not a deciding factor for me' }
-  ];
-
   const budgetOptions = [
     { value: 'under-1000', label: 'Under $1,000', description: 'Beautiful starter options' },
     { value: '1000-2500', label: '$1,000–$2,500', description: 'Quality and value' },
@@ -107,7 +98,7 @@ const RingQuizPage: React.FC = () => {
   };
 
   const getResultMessage = () => {
-    const { vibe, setting, shape, metal, sustainability } = quizData;
+    const { vibe, setting, shape, metal } = quizData;
     return `Based on your ${vibe.toLowerCase()} style, ${setting.toLowerCase()} setting preference, and love for ${shape.toLowerCase()} diamonds in ${metal.toLowerCase()}, we've found the perfect matches for you!`;
   };
 
@@ -133,7 +124,7 @@ const RingQuizPage: React.FC = () => {
             />
             <div className="text-center">
               <div className="text-4xl mb-2">{option.icon}</div>
-              <div className="font-medium text-graphite mb-1">{option.label}</div>
+              <div className="text-body text-charcoal">{option.label}</div>
               <div className="text-sm text-graphite/70">{option.description}</div>
             </div>
           </label>
@@ -171,7 +162,7 @@ const RingQuizPage: React.FC = () => {
                   loading="lazy"
                 />
               </div>
-              <div className="font-medium text-graphite mb-1">{option.label}</div>
+              <div className="text-body text-charcoal">{option.label}</div>
               <div className="text-sm text-graphite/70">{option.description}</div>
             </div>
           </label>
@@ -239,38 +230,7 @@ const RingQuizPage: React.FC = () => {
               className="sr-only"
             />
             <div className="text-center">
-              <div className="font-medium text-graphite mb-1">{option.label}</div>
-              <div className="text-sm text-graphite/70">{option.description}</div>
-            </div>
-          </label>
-        ))}
-      </div>
-    </div>
-  );
-
-  const renderSustainabilityStep = () => (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {sustainabilityOptions.map((option) => (
-          <label
-            key={option.value}
-            className={`cursor-pointer p-6 border-2 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${
-              quizData.sustainability === option.value
-                ? 'border-blush bg-blush/10 shadow-md'
-                : 'border-champagne hover:border-blush/50'
-            }`}
-          >
-            <input
-              type="radio"
-              name="sustainability"
-              value={option.value}
-              checked={quizData.sustainability === option.value}
-              onChange={(e) => handleInputChange('sustainability', e.target.value)}
-              className="sr-only"
-            />
-            <div className="text-center">
-              <div className="text-3xl mb-2">{option.icon}</div>
-              <div className="font-medium text-graphite mb-1">{option.label}</div>
+              <div className="text-body text-charcoal">{option.label}</div>
               <div className="text-sm text-graphite/70">{option.description}</div>
             </div>
           </label>
@@ -300,7 +260,7 @@ const RingQuizPage: React.FC = () => {
               className="sr-only"
             />
             <div className="text-center">
-              <div className="font-medium text-graphite mb-1">{option.label}</div>
+              <div className="text-body text-charcoal">{option.label}</div>
               <div className="text-sm text-graphite/70">{option.description}</div>
             </div>
           </label>
@@ -329,7 +289,6 @@ const RingQuizPage: React.FC = () => {
           <div><strong>Setting:</strong> {quizData.setting}</div>
           <div><strong>Shape:</strong> {quizData.shape}</div>
           <div><strong>Metal:</strong> {quizData.metal}</div>
-          <div><strong>Sustainability:</strong> {quizData.sustainability}</div>
           {quizData.budget && <div><strong>Budget:</strong> {budgetOptions.find(opt => opt.value === quizData.budget)?.label}</div>}
         </div>
       </div>
@@ -350,7 +309,6 @@ const RingQuizPage: React.FC = () => {
               setting: '',
               shape: '',
               metal: '',
-              sustainability: '',
               budget: ''
             });
           }}
@@ -368,8 +326,7 @@ const RingQuizPage: React.FC = () => {
       case 2: return quizData.setting;
       case 3: return quizData.shape;
       case 4: return quizData.metal;
-      case 5: return quizData.sustainability;
-      case 6: return quizData.budget;
+      case 5: return quizData.budget;
       default: return '';
     }
   };
@@ -390,9 +347,9 @@ const RingQuizPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-champagne py-20">
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-6 md:px-16 py-section bg-ivory">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-left mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blush rounded-full mb-6">
                           <Sparkles className="w-8 h-8 text-primary-foreground" />
           </div>
@@ -420,7 +377,7 @@ const RingQuizPage: React.FC = () => {
 
         {/* Quiz Content */}
         <div className="bg-ivory rounded-xl shadow-lg p-8 lg:p-12">
-          <div className="text-center mb-8">
+          <div className="text-left mb-8">
             <h2 className="text-2xl lg:text-3xl font-bold text-graphite mb-2 font-primary">
               {steps[currentStep - 1].title}
             </h2>
@@ -435,8 +392,7 @@ const RingQuizPage: React.FC = () => {
             {currentStep === 2 && renderSettingStep()}
             {currentStep === 3 && renderShapeStep()}
             {currentStep === 4 && renderMetalStep()}
-            {currentStep === 5 && renderSustainabilityStep()}
-            {currentStep === 6 && renderBudgetStep()}
+            {currentStep === 5 && renderBudgetStep()}
           </div>
 
           {/* Navigation */}

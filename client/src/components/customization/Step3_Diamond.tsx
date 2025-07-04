@@ -63,9 +63,9 @@ const Step3_Diamond: React.FC<Step3_DiamondProps> = ({ onSelectDiamondShape, sel
   ];
 
   return (
-    <div className="mb-8">
-      <h3 className="font-primary text-2xl font-light text-graphite mb-4">Step 3: Choose Lab Diamond</h3>
-      <p className="font-secondary text-base text-graphite opacity-90 mb-8">Select the perfect lab-grown diamond for your piece.</p>
+    <div className="px-6 py-editorial-md bg-ivory">
+      <h3 className="font-primary text-graphite text-lg md:text-xl font-semibold text-left mb-editorial-sm">Step 3: Choose Lab Diamond</h3>
+      <p className="font-secondary text-graphite/80 text-left mb-editorial-sm">Select the perfect lab-grown diamond for your piece.</p>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-8">
         {diamondShapes.map((shape) => (
           <div
@@ -92,7 +92,7 @@ const Step3_Diamond: React.FC<Step3_DiamondProps> = ({ onSelectDiamondShape, sel
       </Button>
       {showEducation && (
         <div className="mt-8 bg-gradient-to-br from-white to-champagne/50 rounded-xl p-8 border border-champagne">
-          <h4 className="font-primary text-xl font-medium text-graphite mb-4">The 4 C's of Diamonds</h4>
+          <h4 className="text-h4 text-charcoal">The 4 C's of Diamonds</h4>
           <p className="text-base text-graphite mb-6">Understanding the 4 C's (Cut, Color, Clarity, and Carat Weight) is crucial when choosing a diamond. They collectively determine a diamond's beauty and value.</p>
           <ul className="space-y-4 my-6">
             <li className="relative pl-6 before:content-['•'] before:absolute before:left-0 before:text-lavender before:text-lg">

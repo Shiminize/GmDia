@@ -23,8 +23,8 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ currentProductId }) =
   }
 
   return (
-    <div className="related-products-section">
-      <h2>You Might Also Like</h2>
+    <div className="related-products-section px-6 md:px-16 py-section bg-ivory">
+      <h2 className="font-primary text-graphite text-lg md:text-xl font-semibold text-left mb-editorial-sm">You Might Also Like</h2>
       <div className="related-products-list">
         {relatedProducts.map(product => (
           <ProductCard key={product.id} product={product} />
