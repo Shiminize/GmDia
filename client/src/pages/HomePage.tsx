@@ -17,7 +17,8 @@ import {
   CheckCircle,
   ChevronRight,
   Play,
-  Eye
+  Eye,
+  ChevronDown
 } from 'lucide-react';
 
 // Sample product data for featured designs
@@ -137,13 +138,41 @@ const HomePage: React.FC = () => {
   const [key, setKey] = useState(0);
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 3;
+  const [isDiamondVisible, setIsDiamondVisible] = useState(false);
+  const diamondRef = useRef<HTMLDivElement>(null);
 
   // Auto-rotate testimonials
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
     }, 5000);
+    
     return () => clearInterval(interval);
+  }, []);
+
+  // Intersection Observer for Diamond Animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsDiamondVisible(entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the element is visible
+        rootMargin: '50px' // Start animation 50px before entering viewport
+      }
+    );
+
+    if (diamondRef.current) {
+      observer.observe(diamondRef.current);
+    }
+
+    return () => {
+      if (diamondRef.current) {
+        observer.unobserve(diamondRef.current);
+      }
+    };
   }, []);
 
   // Force video remount if not loaded after timeout
@@ -171,29 +200,27 @@ const HomePage: React.FC = () => {
   };
 
   const handleVideoLoaded = () => {
-    console.log('✅ Video loaded successfully in HomePage');
+    console.log('✅ Video loaded successfully');
     setVideoLoaded(true);
     setIsLoading(false);
+    
     // Try to play the video
     if (videoRef.current) {
       const playPromise = videoRef.current.play();
       if (playPromise !== undefined) {
-        playPromise.then(() => {
-          console.log('🎥 Video started playing successfully');
-        }).catch(e => {
-          console.error('Failed to play video:', e);
-          if (retryCount < maxRetries) {
-            console.log(`🔄 Retrying video play (attempt ${retryCount + 1} of ${maxRetries})...`);
-            setTimeout(() => {
-              if (videoRef.current) {
-                videoRef.current.play().catch(e => {
-                  console.error('Failed to play video on retry:', e);
-                  setRetryCount(prev => prev + 1);
-                });
-              }
-            }, 1000);
+        playPromise.catch(error => {
+          console.error('Failed to play video:', error);
+          // Only retry if it's an autoplay error
+          if (error.name === 'NotAllowedError' && retryCount < maxRetries) {
+            console.log(`🔄 Retrying video play with muted state (attempt ${retryCount + 1} of ${maxRetries})...`);
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              videoRef.current.play().catch(e => {
+                console.error('Failed to play muted video:', e);
+                setVideoError(true);
+              });
+            }
           } else {
-            console.log('❌ Max retry attempts reached, falling back to static image');
             setVideoError(true);
           }
         });
@@ -201,8 +228,8 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const handleVideoError = (e: any) => {
-    console.error('❌ Video error in HomePage:', e);
+  const handleVideoError = (error: any) => {
+    console.error('❌ Video error:', error);
     if (retryCount < maxRetries) {
       console.log(`🔄 Retrying video load (attempt ${retryCount + 1} of ${maxRetries})...`);
       setKey(prev => prev + 1);
@@ -214,44 +241,16 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const handleVideoCanPlay = () => {
-    console.log('🎬 Video can play in HomePage');
-    if (videoRef.current) {
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(e => {
-          console.error('Failed to play video on canplay:', e);
-          if (retryCount < maxRetries) {
-            setTimeout(() => {
-              if (videoRef.current) {
-                videoRef.current.play().catch(e => {
-                  console.error('Failed to play video on retry:', e);
-                  setRetryCount(prev => prev + 1);
-                });
-              }
-            }, 1000);
-          } else {
-            setVideoError(true);
-          }
-        });
-      }
-    }
-  };
-
   // Debug video loading
   useEffect(() => {
     const videoElement = videoRef.current;
     if (videoElement) {
-      console.log('Video element found:', {
-        readyState: videoElement.readyState,
-        networkState: videoElement.networkState,
-        error: videoElement.error,
-        currentSrc: videoElement.currentSrc,
-        src: videoElement.src,
-      });
-
       const debugVideoState = () => {
         console.log('Video state:', {
+          readyState: videoElement.readyState,
+          networkState: videoElement.networkState,
+          error: videoElement.error,
+          currentSrc: videoElement.currentSrc,
           paused: videoElement.paused,
           currentTime: videoElement.currentTime,
           duration: videoElement.duration,
@@ -264,31 +263,29 @@ const HomePage: React.FC = () => {
       // Add event listeners
       const eventHandlers = {
         loadstart: () => {
-          console.log('Video loadstart event fired');
+          console.log('🔄 Video load started');
           setIsLoading(true);
         },
-        durationchange: () => console.log('Video duration changed:', videoElement.duration),
-        loadedmetadata: () => console.log('Video metadata loaded'),
-        loadeddata: () => console.log('Video data loaded'),
-        progress: () => console.log('Video loading progress event'),
-        canplay: () => console.log('Video canplay event fired'),
-        canplaythrough: () => console.log('Video canplaythrough event fired'),
-        play: () => console.log('Video play event fired'),
-        pause: () => console.log('Video pause event fired'),
-        timeupdate: debugVideoState,
+        loadedmetadata: () => console.log('📋 Video metadata loaded'),
+        loadeddata: () => handleVideoLoaded(),
+        canplay: () => console.log('▶️ Video can play'),
+        playing: () => console.log('🎬 Video started playing'),
+        pause: () => console.log('⏸️ Video paused'),
         error: (e: Event) => {
           const error = (e.target as HTMLVideoElement).error;
-          console.error('Video error event:', {
-            code: error?.code,
-            message: error?.message
-          });
-        }
+          handleVideoError(error);
+        },
+        stalled: () => console.log('⚠️ Video stalled'),
+        waiting: () => console.log('⏳ Video buffering'),
       };
 
       // Add all event listeners
       Object.entries(eventHandlers).forEach(([event, handler]) => {
         videoElement.addEventListener(event, handler);
       });
+
+      // Initial debug log
+      debugVideoState();
 
       // Clean up event listeners
       return () => {
@@ -297,7 +294,7 @@ const HomePage: React.FC = () => {
         });
       };
     }
-  }, [key]); // Add key dependency to rerun effect on remount
+  }, [key, retryCount]);
 
   return (
     <div className="min-h-screen flex flex-col bg-champagne">
@@ -308,76 +305,74 @@ const HomePage: React.FC = () => {
           <img 
             src="/hero-ring-hand.jpg" 
             alt="Lab-grown diamond engagement ring on elegant hand"
-            className="absolute inset-0 w-full h-full object-cover z-0"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+              videoLoaded ? 'opacity-0' : 'opacity-100'
+            }`}
           />
           
           {/* Video overlay */}
           {!videoError && (
             <>
+              {/* Loading spinner */}
               {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+                <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/20 backdrop-blur-sm">
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+                    <p className="text-primary-foreground text-sm font-medium">Loading video...</p>
+                  </div>
                 </div>
               )}
+              
+              {/* Video element */}
               <video 
                 ref={videoRef}
                 key={`hero-video-${key}`}
-                className={`absolute inset-0 w-full h-full object-cover z-10 ${
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
                   videoLoaded ? 'opacity-100' : 'opacity-0'
-                } transition-opacity duration-1000`}
+                }`}
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="auto"
+                poster="/hero-ring-hand.jpg"
                 aria-label="Luxury diamond ad video"
-                onLoadStart={() => {
-                  console.log('🔄 Video load started');
-                  setIsLoading(true);
-                }}
-                onLoadedData={handleVideoLoaded}
-                onError={(e) => {
-                  console.error('❌ Video error details:', e.currentTarget.error);
-                  handleVideoError(e);
-                }}
-                onCanPlay={handleVideoCanPlay}
-                style={{ pointerEvents: 'none' }}
               >
                 <source src="/hero-video/video_creation_luxury_diamond_ad.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </>
           )}
-          
+
           {/* Dark overlay */}
-          <div className="absolute inset-0 bg-graphite/40 z-20"></div>
+          <div className="absolute inset-0 bg-black/30 z-20"></div>
         </div>
-        
-        {/* Content */}
+
+        {/* Content overlay */}
         <div className="relative container mx-auto px-4 z-30">
-          <div className="max-w-xl bg-ivory/90 backdrop-blur-sm p-10 rounded-lg animate-fadeIn">
-            <h1 className="text-5xl font-bold text-graphite leading-tight tracking-tight mb-6">
+          <div className="max-w-xl bg-ivory/90 backdrop-blur-sm p-6 sm:p-10 rounded-lg animate-fadeIn">
+            <h1 className="text-3xl sm:text-5xl font-bold text-graphite leading-tight tracking-tight mb-4 sm:mb-6">
               Ethical Brilliance,<br />
               Timeless Design
             </h1>
-            <p className="text-lg text-graphite/80 leading-relaxed mb-8">
+            <p className="text-base sm:text-lg text-graphite/80 leading-relaxed mb-6 sm:mb-8">
               Discover our collection of lab-grown diamonds, crafted with precision and care for the modern conscious consumer.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button 
                 onClick={handleQuizStart}
-                className="inline-flex items-center justify-center px-8 py-4 bg-graphite text-white text-sm font-semibold 
-                  uppercase tracking-wider rounded-full shadow-md hover:bg-blush hover:-translate-y-0.5 hover:shadow-lg 
-                  transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground text-sm font-semibold 
+                  uppercase tracking-wider rounded-full shadow-md hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg 
+                  transition-all duration-300 w-full sm:w-auto"
               >
                 Find Your Perfect Ring
                 <ChevronRight className="ml-2" size={16} />
               </button>
               <button 
                 onClick={handleChatExpert}
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-graphite text-sm font-semibold 
+                className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-graphite text-sm font-semibold 
                   uppercase tracking-wider rounded-full border border-blush/30 hover:bg-lavender/10 hover:text-lavender 
-                  hover:border-lavender transition-all duration-300"
+                  hover:border-lavender transition-all duration-300 w-full sm:w-auto"
               >
                 Chat with Expert
                 <MessageCircle className="ml-2" size={16} />
@@ -387,34 +382,34 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
-          <div className="w-0.5 h-16 bg-white/30 rounded-full">
-            <div className="w-full h-1/2 bg-white rounded-full animate-pulse"></div>
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+          <div className="animate-bounce">
+            <ChevronDown className="text-primary-foreground w-6 h-6" />
           </div>
         </div>
       </section>
 
       {/* Quiz Preview Section */}
-      <section className="py-20 bg-ivory">
+      <section className="py-12 sm:py-20 bg-ivory">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12">
             <div className="flex-1 max-w-xl">
-              <h2 className="text-4xl font-bold text-graphite mb-6">
+              <h2 className="text-3xl sm:text-4xl font-bold text-graphite mb-4 sm:mb-6">
                 Find Your Dream Ring in Minutes
               </h2>
-              <p className="text-lg text-graphite/70 mb-8">
-                Answer a few simple questions and let our intelligent ring finder guide you to your perfect match.
+              <p className="text-base sm:text-lg text-graphite/70 mb-6 sm:mb-8">
+                Take a moment to reflect on what truly speaks to you. Our thoughtful quiz guides you through discovering your perfect ring, just like you.
               </p>
-              <div className="flex flex-wrap gap-8 mb-12">
+              <div className="flex flex-wrap gap-6 sm:gap-8 mb-8 sm:mb-12 justify-center sm:justify-start">
                 {[
                   { icon: Diamond, text: "Choose Style" },
                   { icon: Settings, text: "Customize Design" },
                   { icon: Heart, text: "Find Perfect Match" }
                 ].map((item, index) => (
                   <div key={index} className="flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-full bg-champagne flex items-center justify-center mb-4
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-muted flex items-center justify-center mb-3 sm:mb-4
                       transform hover:rotate-12 transition-transform duration-300">
-                      <item.icon size={32} className="text-blush" />
+                      <item.icon size={28} className="text-secondary" />
                     </div>
                     <span className="text-sm font-medium text-graphite">{item.text}</span>
                   </div>
@@ -422,26 +417,42 @@ const HomePage: React.FC = () => {
               </div>
               <button
                 onClick={handleQuizStart}
-                className="inline-flex items-center justify-center px-8 py-4 bg-blush text-white text-sm font-semibold 
-                  uppercase tracking-wider rounded-full shadow-md hover:bg-blush/90 hover:-translate-y-0.5 
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-secondary text-secondary-foreground 
+                  text-sm font-semibold uppercase tracking-wider rounded-full shadow-md hover:bg-secondary/90 hover:-translate-y-0.5 
                   hover:shadow-lg transition-all duration-300"
               >
                 Start Ring Finder Quiz
                 <ArrowRight className="ml-2" size={16} />
               </button>
             </div>
-            <div className="flex-1 relative">
-              <img
-                src="/quiz-preview.jpg"
-                alt="Ring customization interface"
-                className="rounded-lg shadow-xl"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-white rounded-lg p-4 shadow-lg">
-                <div className="flex items-center gap-2 mb-2">
-                  <Star className="text-blush" size={20} />
-                  <span className="text-sm font-semibold text-graphite">96% Match Rate</span>
+            <div className="flex-1 relative w-full max-w-md lg:max-w-none">
+              {/* Main contemplative image */}
+              <div className="relative">
+                <img
+                  src="/Quiz_photo.png"
+                  alt="Thoughtful woman contemplating her perfect ring choice"
+                  className="w-full rounded-2xl shadow-2xl"
+                />
+                {/* Elegant overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-2xl"></div>
+                
+                {/* Floating quiz preview card */}
+                <div className="absolute -bottom-6 -left-6 bg-card/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-border">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="text-secondary" size={16} />
+                    <span className="text-sm font-semibold text-foreground">Personalized Match</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">Based on your unique style</p>
                 </div>
-                <p className="text-xs text-graphite/60">Based on 10,000+ successful matches</p>
+                
+                {/* Success stats card */}
+                <div className="absolute -top-4 -right-4 bg-card/95 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-border">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Star className="text-secondary" size={16} />
+                    <span className="text-sm font-semibold text-foreground">96% Match Rate</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">10,000+ happy couples</p>
+                </div>
               </div>
             </div>
           </div>
@@ -449,19 +460,20 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Featured Designs Section */}
-      <section className="py-20 bg-champagne">
+      <section className="py-12 sm:py-20 bg-champagne">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-graphite mb-4">Featured Designs</h2>
-            <p className="text-lg text-graphite/70">Discover our most loved and newest creations</p>
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-graphite mb-3 sm:mb-4">Featured Designs</h2>
+            <p className="text-base sm:text-lg text-graphite/70">Discover our most loved and newest creations</p>
           </div>
 
-          <div className="flex justify-center gap-4 mb-12">
+          <div className="flex justify-start sm:justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 overflow-x-auto pb-4 sm:pb-0 
+            scrollbar-thin scrollbar-thumb-blush/20 scrollbar-track-transparent">
             {['All', 'Bestsellers', 'New Arrivals', 'Solitaire', 'Halo'].map((filter, index) => (
               <button
                 key={index}
-                className={`px-6 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
-                  index === 0 ? 'bg-blush text-white' : 'bg-white/80 text-graphite hover:bg-blush/10'
+                className={`px-4 sm:px-6 py-2 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap ${
+                  index === 0 ? 'bg-secondary text-secondary-foreground' : 'bg-white/80 text-foreground hover:bg-secondary/10'
                 }`}
               >
                 {filter}
@@ -469,17 +481,17 @@ const HomePage: React.FC = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {featuredProducts.map((product) => (
               <div key={product.id} className="group relative bg-white rounded-lg overflow-hidden shadow-lg
                 hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
                 {product.isNew && (
-                  <span className="absolute top-4 left-4 bg-lavender text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="absolute top-4 left-4 bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">
                     New
                   </span>
                 )}
                 {product.isBestseller && (
-                  <span className="absolute top-4 right-4 bg-blush text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="absolute top-4 right-4 bg-secondary text-secondary-foreground text-xs font-semibold px-3 py-1 rounded-full">
                     Bestseller
                   </span>
                 )}
@@ -492,24 +504,24 @@ const HomePage: React.FC = () => {
                   <div className="absolute inset-0 bg-graphite/40 opacity-0 group-hover:opacity-100
                     transition-opacity duration-300 flex items-center justify-center">
                     <div className="flex gap-4">
-                      <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center
-                        hover:bg-blush hover:text-white transition-colors duration-300">
+                      <button className="w-10 h-10 rounded-full bg-card flex items-center justify-center
+                        hover:bg-secondary hover:text-secondary-foreground transition-colors duration-300">
                         <Heart size={20} />
                       </button>
-                      <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center
-                        hover:bg-blush hover:text-white transition-colors duration-300">
+                      <button className="w-10 h-10 rounded-full bg-card flex items-center justify-center
+                        hover:bg-secondary hover:text-secondary-foreground transition-colors duration-300">
                         <Eye size={20} />
                       </button>
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <h3 className="text-lg font-semibold text-graphite mb-2">{product.name}</h3>
-                  <div className="flex items-center gap-4 text-sm text-graphite/70 mb-4">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-graphite/70 mb-4">
                     <span>{product.metal}</span>
-                    <span>•</span>
+                    <span className="hidden sm:inline">•</span>
                     <span>{product.shape}</span>
-                    <span>•</span>
+                    <span className="hidden sm:inline">•</span>
                     <span>{product.carat}</span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -521,8 +533,8 @@ const HomePage: React.FC = () => {
                         </span>
                       )}
                     </div>
-                    <button className="px-4 py-2 bg-graphite text-white text-sm font-medium rounded-full
-                      hover:bg-blush transition-colors duration-300">
+                    <button className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-full
+                      hover:bg-secondary transition-colors duration-300">
                       View Details
                     </button>
                   </div>
@@ -531,12 +543,12 @@ const HomePage: React.FC = () => {
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-12">
             <Link
               to="/products"
-              className="inline-flex items-center justify-center px-8 py-4 border border-graphite text-graphite
-                text-sm font-semibold uppercase tracking-wider rounded-full hover:bg-graphite hover:text-white
-                transition-all duration-300"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border border-primary text-foreground
+                text-sm font-semibold uppercase tracking-wider rounded-full hover:bg-primary hover:text-primary-foreground
+                transition-all duration-300 w-full sm:w-auto"
             >
               View All Designs
               <ArrowRight className="ml-2" size={16} />
@@ -550,9 +562,13 @@ const HomePage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1">
-              <div className="relative w-full aspect-square">
+              <div ref={diamondRef} className="relative w-full aspect-square">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-3/4 h-3/4 animate-spin-slow">
+                  <div className={`w-3/4 h-3/4 transition-all duration-500 ${
+                    isDiamondVisible 
+                      ? 'motion-safe:animate-spin-elegant motion-reduce:animate-pulse opacity-100' 
+                      : 'opacity-0'
+                  }`}>
                     <Diamond size={64} className="text-blush absolute" />
                   </div>
                 </div>
@@ -728,9 +744,9 @@ const HomePage: React.FC = () => {
               </div>
               <button
                 onClick={handleChatExpert}
-                className="inline-flex items-center justify-center px-8 py-4 bg-graphite text-white
+                className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground
                   text-sm font-semibold uppercase tracking-wider rounded-full shadow-md
-                  hover:bg-blush hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+                  hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
               >
                 Chat with Expert Now
                 <MessageCircle className="ml-2" size={16} />
@@ -741,31 +757,31 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-20 bg-champagne">
+      <section className="py-12 sm:py-20 bg-champagne">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-graphite mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-graphite mb-3 sm:mb-4">
               Stay Updated with GmDia
             </h2>
-            <p className="text-lg text-graphite/70 mb-8">
+            <p className="text-base sm:text-lg text-graphite/70 mb-6 sm:mb-8">
               Subscribe to receive exclusive offers, new design launches, and expert jewelry tips.
             </p>
-            <form className="flex gap-4 mb-8">
+            <form className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-full border border-blush/30 focus:outline-none
-                  focus:ring-2 focus:ring-blush focus:border-transparent"
+                className="flex-1 px-4 sm:px-6 py-3 sm:py-4 rounded-full border border-blush/30 focus:outline-none
+                  focus:ring-2 focus:ring-blush focus:border-transparent text-base"
               />
               <button
                 type="submit"
-                className="px-8 py-4 bg-graphite text-white text-sm font-semibold uppercase
-                  tracking-wider rounded-full hover:bg-blush transition-colors duration-300"
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground text-sm font-semibold uppercase
+                  tracking-wider rounded-full hover:bg-secondary transition-colors duration-300 w-full sm:w-auto"
               >
                 Subscribe
               </button>
             </form>
-            <div className="flex flex-wrap justify-center gap-8">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
               {[
                 { icon: Shield, text: "Privacy Protected" },
                 { icon: CheckCircle, text: "No Spam" },
