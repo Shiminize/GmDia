@@ -59,22 +59,49 @@ const Header: React.FC = () => {
 
   const toggleMobileMenu = () => {
     const newState = !isMobileMenuOpen;
+    
+    // Device detection for debugging
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isAndroid = /Android/.test(navigator.userAgent);
+    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+    
     console.log('🚀 NUCLEAR MENU TOGGLE:', { 
       from: isMobileMenuOpen, 
       to: newState,
       timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent.substring(0, 50)
+      userAgent: navigator.userAgent.substring(0, 50),
+      device: { isIOS, isAndroid, isSafari },
+      viewport: { width: window.innerWidth, height: window.innerHeight },
+      screen: { width: screen.width, height: screen.height }
     });
     setIsMobileMenuOpen(newState);
     
-    // Lock/unlock body scroll
+    // Lock/unlock body scroll with device-specific handling
     if (newState) {
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
+      
+      // iOS Safari specific fixes
+      if (isIOS) {
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.top = `-${window.scrollY}px`;
+      }
+      
       console.log('🔒 Body scroll locked, menu should be visible with z-index 9999999');
     } else {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
+      
+      // iOS Safari specific cleanup
+      if (isIOS) {
+        const scrollY = document.body.style.top;
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
+      
       console.log('🔓 Body scroll unlocked, menu closed');
     }
   };
@@ -98,6 +125,23 @@ const Header: React.FC = () => {
       console.error('Logout error:', error);
     }
   };
+
+  // iOS Safari viewport height fix
+  useEffect(() => {
+    const setVH = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+    
+    return () => {
+      window.removeEventListener('resize', setVH);
+      window.removeEventListener('orientationchange', setVH);
+    };
+  }, []);
 
   // Cleanup effect for body scroll lock
   useEffect(() => {

@@ -581,6 +581,41 @@
   transform: translateZ(0);
 }
 
+/* Mobile Safari and WebKit specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .mobile-menu-nuclear-panel {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    -webkit-transform: translate3d(100%, 0, 0) !important;
+  }
+  
+  .mobile-menu-nuclear-panel.open {
+    -webkit-transform: translate3d(0, 0, 0) !important;
+  }
+}
+
+/* iOS Safari viewport fix */
+@media screen and (max-width: 768px) {
+  .mobile-menu-nuclear-panel {
+    height: 100vh !important;
+    height: calc(var(--vh, 1vh) * 100) !important;
+  }
+}
+
+/* Android Chrome specific fixes */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+  .mobile-menu-nuclear-overlay {
+    -webkit-backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+  }
+  
+  .mobile-menu-nuclear-panel {
+    -webkit-backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    -webkit-transform-style: preserve-3d !important;
+  }
+}
+
 /* Hero section isolation */
 .hero-section-isolated {
   isolation: isolate !important;
