@@ -24,7 +24,7 @@
     --muted: 37 41% 89.8%; /* Champagne Beige */
     --muted-foreground: 0 0% 30%;
 
-    --accent: 275 47% 84.9%; /* Digital Lavender */
+    --accent: 278 35% 78%; /* Digital Lavender #CDB4DB */
     --accent-foreground: 0 0% 10.2%;
 
     --destructive: 0 84.2% 60.2%;
@@ -32,7 +32,7 @@
 
     --border: 37 41% 85.8%; /* Lighter Champagne Beige */
     --input: 37 41% 85.8%;
-    --ring: 275 47% 84.9%; /* Digital Lavender */
+    --ring: 278 35% 78%; /* Digital Lavender #CDB4DB */
 
     --radius: 0.5rem;
 
@@ -47,8 +47,8 @@
     --blush-light: hsl(350 68% 95%);
     --pale-sage: hsl(130 25% 85%);
     --sage-light: hsl(130 25% 90%);
-    --digital-lavender: hsl(275 47% 84.9%);
-    --lavender-light: hsl(275 47% 90%);
+    --digital-lavender: hsl(278 35% 78%);
+    --lavender-light: hsl(278 35% 85%);
     --deep-navy: hsl(210 29% 24%);
     --warm-gray: hsl(0 0% 55%);
     --error-color: hsl(0 84.2% 60.2%);
@@ -263,5 +263,14 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Animation delays */
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-1000 {
+    animation-delay: 1000ms;
   }
 }

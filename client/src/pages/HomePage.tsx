@@ -350,33 +350,82 @@ const HomePage: React.FC = () => {
 
         {/* Content overlay */}
         <div className="relative container mx-auto px-4 z-30">
-          <div className="max-w-xl bg-ivory/90 backdrop-blur-sm p-6 sm:p-10 rounded-lg animate-fadeIn">
-            <h1 className="text-3xl sm:text-5xl font-bold text-graphite leading-tight tracking-tight mb-4 sm:mb-6">
-              Ethical Brilliance,<br />
-              Timeless Design
-            </h1>
-            <p className="text-base sm:text-lg text-graphite/80 leading-relaxed mb-6 sm:mb-8">
-              Discover our collection of lab-grown diamonds, crafted with precision and care for the modern conscious consumer.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <button 
-                onClick={handleQuizStart}
-                className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground text-sm font-semibold 
-                  uppercase tracking-wider rounded-full shadow-md hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg 
-                  transition-all duration-300 w-full sm:w-auto"
-              >
-                Find Your Perfect Ring
-                <ChevronRight className="ml-2" size={16} />
-              </button>
-              <button 
-                onClick={handleChatExpert}
-                className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-graphite text-sm font-semibold 
-                  uppercase tracking-wider rounded-full border border-blush/30 hover:bg-lavender/10 hover:text-lavender 
-                  hover:border-lavender transition-all duration-300 w-full sm:w-auto"
-              >
-                Chat with Expert
-                <MessageCircle className="ml-2" size={16} />
-              </button>
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+            {/* Left side - Main content */}
+            <div className="max-w-xl bg-ivory/90 backdrop-blur-sm p-6 sm:p-10 rounded-lg animate-fadeIn">
+              <h1 className="text-3xl sm:text-5xl font-bold text-graphite leading-tight tracking-tight mb-4 sm:mb-6">
+                Ethical Brilliance,<br />
+                Timeless Design
+              </h1>
+              <p className="text-base sm:text-lg text-graphite/80 leading-relaxed mb-6 sm:mb-8">
+                Discover our collection of lab-grown diamonds, crafted with precision and care for the modern conscious consumer.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <button 
+                  onClick={handleQuizStart}
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground text-sm font-semibold 
+                    uppercase tracking-wider rounded-full shadow-md hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg 
+                    transition-all duration-300 w-full sm:w-auto"
+                >
+                  Find Your Perfect Ring
+                  <ChevronRight className="ml-2" size={16} />
+                </button>
+                <button 
+                  onClick={handleChatExpert}
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-graphite text-sm font-semibold 
+                    uppercase tracking-wider rounded-full border border-blush/30 hover:bg-accent/10 hover:text-accent 
+                    hover:border-accent transition-all duration-300 w-full sm:w-auto"
+                >
+                  Chat with Expert
+                  <MessageCircle className="ml-2" size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Right side - Packaging section */}
+            <div className="relative max-w-sm lg:max-w-md animate-fadeIn animation-delay-200">
+              <div className="relative">
+                {/* Packaging image */}
+                <div className="bg-card/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-2xl border border-border">
+                  <img
+                    src="/packaging.png"
+                    alt="Luxury Facet & Co. packaging with elegant black jewelry box"
+                    className="w-full h-64 sm:h-80 object-cover"
+                    onError={(e) => {
+                      // Fallback to a placeholder if packaging.png doesn't exist
+                      const target = e.target as HTMLImageElement;
+                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='16' font-family='Arial'%3EPackaging Image%3C/text%3E%3C/svg%3E";
+                    }}
+                  />
+                  
+                  {/* Overlay content */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end">
+                    <div className="p-6 w-full">
+                      <div className="bg-card/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-border">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                            <Sparkles className="text-accent" size={16} />
+                          </div>
+                          <h3 className="text-sm font-semibold text-foreground">
+                            Complimentary Gift Wrapping
+                          </h3>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          Every Facet & Co. piece arrives in our signature luxury packaging, ready to make your moment unforgettable
+                        </p>
+                        <div className="flex items-center gap-2 mt-3 text-xs text-accent">
+                          <CheckCircle size={12} />
+                          <span>Included with every order</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Decorative elements */}
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-accent/20 rounded-full animate-pulse"></div>
+                <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-secondary/20 rounded-full animate-pulse animation-delay-1000"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -710,9 +759,9 @@ const HomePage: React.FC = () => {
             <div className="flex-1">
               <div className="relative">
                 <img
-                  src="/expert-support.jpg"
+                  src="/expert.png"
                   alt="Jewelry expert"
-                  className="rounded-lg shadow-xl"
+                  className="rounded-lg shadow-xl w-full h-full object-cover"
                 />
                 <div className="absolute -bottom-6 -right-6 bg-white rounded-lg p-4 shadow-lg">
                   <div className="flex items-center gap-2">
