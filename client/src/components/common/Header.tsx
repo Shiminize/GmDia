@@ -309,14 +309,14 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation Overlay */}
         <div
-          className={`mobile-menu-overlay transition-all duration-300 ${
+          className={`mobile-menu-nuclear-overlay transition-all duration-300 ${
             isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
           }`}
           onClick={closeMobileMenu}
         >
           {/* Mobile Menu Panel */}
           <div
-            className={`mobile-menu-panel ${isMobileMenuOpen ? 'open' : ''}`}
+            className={`mobile-menu-nuclear-panel ${isMobileMenuOpen ? 'open' : ''}`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}

@@ -526,6 +526,73 @@
   }
 }
 
+/* NUCLEAR MOBILE MENU FIX - HIGHEST PRIORITY */
+.mobile-menu-nuclear-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 999999 !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  will-change: opacity, visibility !important;
+  transform: translateZ(0) !important;
+  isolation: isolate !important;
+}
+
+.mobile-menu-nuclear-panel {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 24rem !important;
+  height: 100vh !important;
+  height: 100dvh !important; /* Dynamic viewport height */
+  background: white !important;
+  z-index: 9999999 !important;
+  transform: translate3d(100%, 0, 0) !important;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  will-change: transform !important;
+  isolation: isolate !important;
+  contain: layout style paint !important;
+  backface-visibility: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.mobile-menu-nuclear-panel.open {
+  transform: translate3d(0, 0, 0) !important;
+}
+
+/* Force hardware acceleration and isolation */
+.mobile-menu-nuclear-overlay,
+.mobile-menu-nuclear-panel {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Hero section isolation */
+.hero-section-isolated {
+  isolation: isolate !important;
+  contain: layout style !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Video container isolation */
+.video-container-isolated {
+  isolation: isolate !important;
+  contain: strict !important;
+  position: relative !important;
+  z-index: auto !important;
+}
+
 /* Mobile menu z-index hierarchy - highest priority */
 .mobile-menu-overlay {
   z-index: 9999 !important;

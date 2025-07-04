@@ -304,8 +304,8 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-champagne">
       {/* Hero Section - Cinematic with Video */}
-      <section className="relative h-[100vh] w-full flex items-center justify-start overflow-hidden">
-        <div className="absolute inset-0 w-full h-full">
+      <section className="hero-section-isolated relative h-[100vh] w-full flex items-center justify-start overflow-hidden">
+        <div className="video-container-isolated absolute inset-0 w-full h-full">
           {/* Background image that shows immediately - lowest layer */}
           <img 
             src="/hero-ring-hand.jpg" 
