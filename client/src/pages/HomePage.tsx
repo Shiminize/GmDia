@@ -390,42 +390,36 @@ const HomePage: React.FC = () => {
 
             {/* Right side - Packaging section */}
             <div className="relative max-w-md animate-fadeIn animation-delay-200">
-              {/* Packaging image card */}
-              <div className="bg-ivory/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-4 h-80">
-                <img
-                  src="/packaging.png"
-                  alt="Luxury Facet & Co. packaging with elegant black jewelry box"
-                  className="w-full h-full object-contain"
-                  onError={(e) => {
-                    // Fallback to a placeholder if packaging.png doesn't exist
-                    const target = e.target as HTMLImageElement;
-                    target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='16' font-family='Arial'%3EPackaging Image%3C/text%3E%3C/svg%3E";
-                  }}
-                />
-              </div>
-              
-              {/* Description card */}
-              <div className="bg-ivory/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-border">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Sparkles className="text-accent" size={16} />
-                  </div>
-                  <h3 className="text-base font-semibold text-graphite">
-                    Complimentary Gift Wrapping
-                  </h3>
+              {/* Packaging image card - compact with no empty space */}
+              <div className="bg-ivory/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-4">
+                <div className="h-64 flex items-center justify-center p-2">
+                  <img
+                    src="/packaging.png"
+                    alt="Luxury Facet & Co. packaging with elegant black jewelry box"
+                    className="max-w-full max-h-full object-contain"
+                    onError={(e) => {
+                      // Fallback to a placeholder if packaging.png doesn't exist
+                      const target = e.target as HTMLImageElement;
+                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='16' font-family='Arial'%3EPackaging Image%3C/text%3E%3C/svg%3E";
+                    }}
+                  />
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                  Every Facet & Co. piece arrives in our signature luxury packaging
+              </div>
+
+              {/* Description card below */}
+              <div className="bg-ivory/95 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-border">
+                <div className="flex items-center gap-2 mb-2">
+                  <Sparkles className="w-4 h-4 text-accent" />
+                  <h3 className="text-lg font-semibold text-graphite">Complimentary Gift Wrapping</h3>
+                </div>
+                <p className="text-sm text-graphite/80 mb-3">
+                  Every Facet & Co. piece arrives in our signature luxury packaging, ready to make your moment unforgettable.
                 </p>
-                <div className="flex items-center gap-2 text-sm text-accent">
-                  <CheckCircle size={16} />
-                  <span className="font-medium">Included with every order</span>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-accent" />
+                  <span className="text-xs font-medium text-accent">Included with every order</span>
                 </div>
               </div>
-              
-              {/* Decorative elements */}
-              <div className="absolute top-4 right-4 w-2 h-2 bg-accent/30 rounded-full animate-pulse animation-delay-1000"></div>
-              <div className="absolute bottom-4 left-4 w-1 h-1 bg-accent/20 rounded-full animate-pulse"></div>
             </div>
           </div>
         </div>
