@@ -354,44 +354,44 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Content overlay */}
-        <div className="relative container mx-auto px-4 z-30">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+        <div className="relative container mx-auto px-4 sm:px-6 z-30">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-12">
             {/* Left side - Main content */}
-            <div className="max-w-md bg-ivory/90 backdrop-blur-sm p-6 sm:p-8 rounded-lg shadow-2xl border border-border animate-fadeIn">
-              <h1 className="text-3xl sm:text-4xl font-bold text-graphite leading-tight tracking-tight mb-4 sm:mb-6">
+            <div className="w-full max-w-md bg-ivory/90 backdrop-blur-sm p-4 sm:p-6 lg:p-8 rounded-lg shadow-2xl border border-border animate-fadeIn">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite leading-tight tracking-tight mb-3 sm:mb-4 lg:mb-6">
                 Ethical Brilliance,<br />
                 Timeless Design
               </h1>
-              <p className="text-base sm:text-lg text-graphite/80 leading-relaxed mb-6 sm:mb-8">
+              <p className="text-sm sm:text-base lg:text-lg text-graphite/80 leading-relaxed mb-4 sm:mb-6 lg:mb-8">
                 Discover our collection of lab-grown diamonds, crafted with precision and care for
                 the modern conscious consumer.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <div className="flex flex-col gap-3 sm:gap-4">
                 <button 
                   onClick={handleQuizStart}
-                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground text-sm font-semibold 
+                  className="inline-flex items-center justify-center px-4 sm:px-6 lg:px-8 py-3 lg:py-4 bg-primary text-primary-foreground text-xs sm:text-sm font-semibold 
                     uppercase tracking-wider rounded-full shadow-md hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg 
-                    transition-all duration-300 w-full sm:w-auto"
+                    transition-all duration-300 w-full"
                 >
                   Find Your Perfect Ring
-                  <ChevronRight className="ml-2" size={16} />
+                  <ChevronRight className="ml-2" size={14} />
                 </button>
                 <button 
                   onClick={handleChatExpert}
-                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-graphite text-sm font-semibold 
+                  className="inline-flex items-center justify-center px-4 sm:px-6 lg:px-8 py-3 lg:py-4 bg-white text-graphite text-xs sm:text-sm font-semibold 
                     uppercase tracking-wider rounded-full border border-blush/30 hover:bg-accent/10 hover:text-accent 
-                    hover:border-accent transition-all duration-300 w-full sm:w-auto"
+                    hover:border-accent transition-all duration-300 w-full"
                 >
-                  <MessageCircle className="mr-2" size={16} />
+                  <MessageCircle className="mr-2" size={14} />
                   Chat with Expert
                 </button>
               </div>
             </div>
 
             {/* Right side - Packaging section */}
-            <div className="relative max-w-md animate-fadeIn animation-delay-200">
-              {/* Packaging image card - compact with no empty space */}
-              <div className="bg-champagne/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-2 h-64">
+            <div className="relative w-full max-w-md animate-fadeIn animation-delay-200">
+              {/* Packaging image card - responsive height */}
+              <div className="bg-champagne/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-2 h-48 sm:h-56 lg:h-64">
                 <img
                   src="/packaging.png"
                   alt="Luxury Facet & Co. packaging with elegant black jewelry box"
@@ -405,16 +405,16 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* Description card below */}
-              <div className="bg-champagne/95 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-border">
+              <div className="bg-champagne/95 backdrop-blur-sm p-3 sm:p-4 rounded-lg shadow-lg border border-border">
                 <div className="flex items-center gap-2 mb-2">
-                  <Sparkles className="w-2 h-2 text-accent" />
-                  <h3 className="text-lg font-semibold text-graphite">Complimentary Gift Wrapping</h3>
+                  <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-accent" />
+                  <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-graphite">Complimentary Gift Wrapping</h3>
                 </div>
-                <p className="text-sm text-graphite/80 mb-3">
+                <p className="text-xs sm:text-sm text-graphite/80 mb-2 sm:mb-3">
                   Every Facet & Co. piece arrives in our signature luxury packaging, ready to make your moment unforgettable.
                 </p>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-accent" />
+                  <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-accent" />
                   <span className="text-xs font-medium text-accent">Included with every order</span>
                 </div>
               </div>
@@ -431,66 +431,68 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Quiz Preview Section */}
-      <section className="py-12 sm:py-20 bg-ivory">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12">
+      <section className="py-8 sm:py-12 lg:py-20 bg-ivory">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12">
             <div className="flex-1 max-w-xl">
-              <h2 className="text-3xl sm:text-4xl font-bold text-graphite mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite mb-3 sm:mb-4 lg:mb-6">
                 Find Your Dream Ring in Minutes
               </h2>
-              <p className="text-base sm:text-lg text-graphite/70 mb-6 sm:mb-8">
+              <p className="text-sm sm:text-base lg:text-lg text-graphite/70 mb-4 sm:mb-6 lg:mb-8">
                 Take a moment to reflect on what truly speaks to you. Our thoughtful quiz guides you through discovering your perfect ring, just like you.
               </p>
-              <div className="flex flex-wrap gap-6 sm:gap-8 mb-8 sm:mb-12 justify-center sm:justify-start">
+              <div className="flex flex-wrap gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8 lg:mb-12 justify-center sm:justify-start">
                 {[
                   { icon: Diamond, text: "Choose Style" },
                   { icon: Settings, text: "Customize Design" },
                   { icon: Heart, text: "Find Perfect Match" }
                 ].map((item, index) => (
                   <div key={index} className="flex flex-col items-center">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-muted flex items-center justify-center mb-3 sm:mb-4
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full bg-muted flex items-center justify-center mb-2 sm:mb-3 lg:mb-4
                       transform hover:rotate-12 transition-transform duration-300">
-                      <item.icon size={28} className="text-secondary" />
+                      <item.icon size={20} className="sm:hidden text-secondary" />
+                      <item.icon size={24} className="hidden sm:block lg:hidden text-secondary" />
+                      <item.icon size={28} className="hidden lg:block text-secondary" />
                     </div>
-                    <span className="text-sm font-medium text-graphite">{item.text}</span>
+                    <span className="text-xs sm:text-sm font-medium text-graphite text-center">{item.text}</span>
                   </div>
                 ))}
               </div>
               <button
                 onClick={handleQuizStart}
-                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-secondary text-secondary-foreground 
-                  text-sm font-semibold uppercase tracking-wider rounded-full shadow-md hover:bg-secondary/90 hover:-translate-y-0.5 
+                className="w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-6 lg:px-8 py-3 lg:py-4 bg-secondary text-secondary-foreground 
+                  text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-full shadow-md hover:bg-secondary/90 hover:-translate-y-0.5 
                   hover:shadow-lg transition-all duration-300"
               >
                 Start Ring Finder Quiz
-                <ArrowRight className="ml-2" size={16} />
+                <ArrowRight className="ml-2" size={14} />
               </button>
             </div>
-            <div className="flex-1 relative w-full max-w-md lg:max-w-none">
+            <div className="flex-1 relative w-full max-w-sm sm:max-w-md lg:max-w-none order-first lg:order-last">
               {/* Main contemplative image */}
               <div className="relative">
                 <img
                   src="/Quiz_photo.png"
                   alt="Thoughtful woman contemplating her perfect ring choice"
-                  className="w-full rounded-2xl shadow-2xl"
+                  className="w-full rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl"
                 />
                 {/* Elegant overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-xl sm:rounded-2xl"></div>
                 
-                {/* Floating quiz preview card */}
-                <div className="absolute -bottom-6 -left-6 bg-card/95 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-border">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Sparkles className="text-secondary" size={16} />
-                    <span className="text-sm font-semibold text-foreground">Personalized Match</span>
+                {/* Floating quiz preview card - mobile optimized */}
+                <div className="absolute -bottom-3 -left-3 sm:-bottom-6 sm:-left-6 bg-card/95 backdrop-blur-sm rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-lg border border-border">
+                  <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
+                    <Sparkles className="text-secondary" size={12} />
+                    <span className="text-xs sm:text-sm font-semibold text-foreground">Personalized Match</span>
                   </div>
                   <p className="text-xs text-muted-foreground">Based on your unique style</p>
                 </div>
                 
-                {/* Success stats card */}
-                <div className="absolute -top-4 -right-4 bg-card/95 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-border">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Star className="text-secondary" size={16} />
-                    <span className="text-sm font-semibold text-foreground">96% Match Rate</span>
+                {/* Success stats card - mobile optimized */}
+                <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-card/95 backdrop-blur-sm rounded-lg p-2 sm:p-3 shadow-lg border border-border">
+                  <div className="flex items-center gap-1 sm:gap-2 mb-1">
+                    <Star className="text-secondary" size={12} />
+                    <span className="text-xs sm:text-sm font-semibold text-foreground">96% Match Rate</span>
                   </div>
                   <p className="text-xs text-muted-foreground">10,000+ happy couples</p>
                 </div>
@@ -501,19 +503,19 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Featured Designs Section */}
-      <section className="py-12 sm:py-20 bg-champagne">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-graphite mb-3 sm:mb-4">Featured Designs</h2>
-            <p className="text-base sm:text-lg text-graphite/70">Discover our most loved and newest creations</p>
+      <section className="py-8 sm:py-12 lg:py-20 bg-champagne">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8 lg:mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite mb-2 sm:mb-3 lg:mb-4">Featured Designs</h2>
+            <p className="text-sm sm:text-base lg:text-lg text-graphite/70">Discover our most loved and newest creations</p>
           </div>
 
-          <div className="flex justify-start sm:justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 overflow-x-auto pb-4 sm:pb-0 
+          <div className="flex justify-start gap-2 sm:gap-3 lg:gap-4 mb-6 sm:mb-8 lg:mb-12 overflow-x-auto pb-2 sm:pb-4 lg:pb-0 
             scrollbar-thin scrollbar-thumb-blush/20 scrollbar-track-transparent">
             {['All', 'Bestsellers', 'New Arrivals', 'Solitaire', 'Halo'].map((filter, index) => (
               <button
                 key={index}
-                className={`px-4 sm:px-6 py-2 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap ${
+                className={`px-3 sm:px-4 lg:px-6 py-2 text-xs sm:text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap ${
                   index === 0 ? 'bg-secondary text-secondary-foreground' : 'bg-white/80 text-foreground hover:bg-secondary/10'
                 }`}
               >
@@ -522,7 +524,7 @@ const HomePage: React.FC = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {featuredProducts.map((product) => (
               <div key={product.id} className="group relative bg-white rounded-lg overflow-hidden shadow-lg
                 hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
