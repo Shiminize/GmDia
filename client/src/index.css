@@ -387,6 +387,18 @@
     -webkit-line-clamp: 3;
   }
 
+  /* Notification animation */
+  @keyframes slideInFade {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
   /* Mobile menu animations */
   .mobile-menu-enter {
     animation: mobileMenuSlideIn 300ms ease-out forwards;
