@@ -6,33 +6,33 @@
   /* CSS Custom Properties for backwards compatibility */
   :root {
     /* Primary Color Palette - Updated to match target design */
-    --background: 40 33% 97.5%; /* Ivory White */
-    --foreground: 0 0% 10.2%; /* Graphite Black */
+    --background: 360 100% 98%;
+    --foreground: 200 15% 8%;
 
-    --card: 40 33% 97.5%;
-    --card-foreground: 0 0% 10.2%;
+    --card: 360 100% 100%;
+    --card-foreground: 200 15% 8%;
 
-    --popover: 40 33% 97.5%;
-    --popover-foreground: 0 0% 10.2%;
+    --popover: 360 100% 100%;
+    --popover-foreground: 200 15% 8%;
 
-    --primary: 0 0% 10.2%; /* Graphite Black */
-    --primary-foreground: 40 33% 97.5%; /* Ivory White */
+    --primary: 200 15% 8%;
+    --primary-foreground: 360 100% 98%;
 
-    --secondary: 350 68% 91.2%; /* Muted Blush */
-    --secondary-foreground: 0 0% 10.2%; /* Graphite Black */
+    --secondary: 278 35% 78%;
+    --secondary-foreground: 200 15% 8%;
 
-    --muted: 37 41% 89.8%; /* Champagne Beige */
-    --muted-foreground: 0 0% 30%;
+    --muted: 200 5% 96%;
+    --muted-foreground: 200 8% 46%;
 
-    --accent: 278 35% 78%; /* Digital Lavender #CDB4DB */
-    --accent-foreground: 0 0% 10.2%;
+    --accent: 340 82% 52%;
+    --accent-foreground: 360 100% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 360 100% 98%;
 
-    --border: 37 41% 85.8%; /* Lighter Champagne Beige */
-    --input: 37 41% 85.8%;
-    --ring: 278 35% 78%; /* Digital Lavender #CDB4DB */
+    --border: 200 20% 82%;
+    --input: 200 20% 82%;
+    --ring: 278 35% 78%;
 
     --radius: 0.5rem;
 
@@ -50,8 +50,8 @@
     --digital-lavender: hsl(278 35% 78%);
     --lavender-light: hsl(278 35% 85%);
     --deep-navy: hsl(210 29% 24%);
-    --warm-gray: hsl(0 0% 55%);
-    --error-color: hsl(0 84.2% 60.2%);
+    --warm-gray: hsl(30 5% 85%);
+    --error-color: hsl(0 84% 60%);
     
     /* Spacing */
     --space-1: 0.25rem;
@@ -63,8 +63,8 @@
     --space-8: 2rem;
     
     /* Typography */
-    --font-primary: 'Playfair Display', serif;
-    --font-secondary: 'Inter', sans-serif;
+    --font-primary: 'Lato', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-secondary: 'Playfair Display', serif;
     --text-base: 1rem;
     --text-lg: 1.125rem;
     
@@ -76,42 +76,83 @@
     
     /* Shadows */
     --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 8px 15px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.04);
     --shadow-heavy: 0 25px 50px rgba(0, 0, 0, 0.25);
     
     /* Touch targets */
     --touch-target-min: 44px;
+
+    /* New color variables */
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    /* Custom color variables */
+    --graphite: 200 15% 8%;
+    --ivory: 60 29% 96%;
+    --champagne: 45 56% 88%;
+    --blush: 340 82% 52%;
+    --sage: 158 58% 39%;
+
+    /* Layout */
+    --header-height: 4rem;
+    --nav-width: 16rem;
+    --container-max-width: 1280px;
+
+    /* Animation */
+    --transition-fast: 150ms;
+    --transition-normal: 300ms;
+    --transition-slow: 500ms;
+
+    /* Spacing */
+    --section-padding: 6rem;
+    --card-padding: 2rem;
+
+    /* Effects */
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.04);
+    --shadow-luxury: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.06);
+    --backdrop-blur: blur(10px);
   }
 
   html {
     @apply scroll-smooth antialiased;
     -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
   
   body {
     @apply font-secondary text-base bg-background text-foreground overflow-x-hidden;
     text-rendering: optimizeLegibility;
+    font-family: var(--font-primary);
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-primary);
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    line-height: 1.2;
   }
 
   /* Mobile-first responsive typography */
   h1 {
-    @apply text-3xl sm:text-4xl md:text-5xl font-bold font-primary;
+    @apply text-4xl sm:text-5xl lg:text-6xl;
   }
 
   h2 {
-    @apply text-2xl sm:text-3xl md:text-4xl font-bold font-primary;
+    @apply text-3xl sm:text-4xl lg:text-5xl;
   }
 
   h3 {
-    @apply text-xl sm:text-2xl md:text-3xl font-bold font-primary;
+    @apply text-2xl sm:text-3xl lg:text-4xl;
   }
 
   h4 {
-    @apply text-lg sm:text-xl md:text-2xl font-bold font-primary;
+    @apply text-xl sm:text-2xl lg:text-3xl;
   }
 }
 
@@ -159,6 +200,35 @@
     @apply bg-secondary/10 text-secondary;
   }
 
+  /* Enhanced mobile menu styles */
+  .mobile-menu-item {
+    @apply block w-full py-4 px-4 text-lg font-medium rounded-lg transition-all duration-200
+      text-graphite hover:bg-champagne/50 hover:text-blush active:bg-champagne/70
+      focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+  }
+
+  .mobile-menu-item.active {
+    @apply bg-secondary/10 text-secondary border-l-4 border-secondary;
+  }
+
+  .mobile-menu-section-title {
+    @apply text-xs font-semibold text-graphite/60 uppercase tracking-wider mb-4;
+  }
+
+  .mobile-menu-overlay {
+    @apply lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm transition-all duration-300 z-40;
+  }
+
+  .mobile-menu-panel {
+    @apply fixed top-0 right-0 w-full max-w-sm h-full bg-white transform transition-transform 
+      duration-300 ease-out overflow-y-auto;
+  }
+
+  .mobile-menu-header {
+    @apply sticky top-0 flex items-center justify-between p-6 border-b border-champagne/20 
+      bg-white/95 backdrop-blur-sm;
+  }
+
   /* Card styles */
   .product-card {
     @apply bg-card rounded-lg overflow-hidden shadow-lg hover:-translate-y-1 hover:shadow-xl 
@@ -183,6 +253,22 @@
   .btn-icon {
     @apply inline-flex items-center justify-center p-2 rounded-full transition-colors duration-300
       hover:bg-secondary/10 focus:outline-none focus:ring-2 focus:ring-ring;
+  }
+
+  /* Mobile-optimized button styles */
+  .btn-mobile {
+    @apply w-full py-4 px-6 rounded-lg font-medium text-center transition-all duration-300 
+      touch-manipulation active:transform active:scale-95 min-h-[48px];
+  }
+
+  .btn-mobile-primary {
+    @apply btn-mobile bg-gradient-to-r from-secondary to-accent text-white 
+      hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+  }
+
+  .btn-mobile-secondary {
+    @apply btn-mobile border-2 border-secondary text-secondary 
+      hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
   }
 }
 
@@ -243,6 +329,11 @@
     @apply min-h-[44px] min-w-[44px];
   }
 
+  /* Enhanced touch targets for mobile */
+  .touch-target-large {
+    @apply min-h-[48px] min-w-[48px];
+  }
+
   /* Responsive spacing utilities */
   .container {
     @apply px-4 sm:px-6 lg:px-8;
@@ -272,6 +363,24 @@
   
   .animation-delay-1000 {
     animation-delay: 1000ms;
+  }
+
+  /* Mobile menu animations */
+  .mobile-menu-enter {
+    animation: mobileMenuSlideIn 300ms ease-out forwards;
+  }
+
+  .mobile-menu-exit {
+    animation: mobileMenuSlideOut 300ms ease-in forwards;
+  }
+
+  /* Mobile hamburger animation */
+  .hamburger-icon {
+    @apply transition-all duration-300;
+  }
+
+  .hamburger-icon.open {
+    @apply rotate-90 scale-75;
   }
 
   /* Mobile optimizations */
@@ -305,6 +414,23 @@
       padding-left: 1rem;
       padding-right: 1rem;
     }
+
+    /* Mobile menu specific optimizations */
+    .mobile-menu-panel {
+      max-width: 100vw;
+    }
+
+    .mobile-menu-item {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      touch-action: manipulation;
+    }
+
+    /* Larger touch targets for mobile menu */
+    .mobile-menu-close-btn {
+      min-height: 48px;
+      min-width: 48px;
+    }
   }
 
   /* Touch device optimizations */
@@ -313,5 +439,89 @@
     button:active {
       transform: scale(0.98);
     }
+
+    .mobile-menu-item:active {
+      background-color: rgba(158, 123, 168, 0.15);
+    }
+
+    /* Remove hover effects on touch devices */
+    .hover\:bg-champagne\/50:hover {
+      background-color: transparent;
+    }
+
+    /* Enhanced touch feedback */
+    .btn-mobile:active {
+      transform: scale(0.96);
+      transition-duration: 100ms;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .mobile-menu-item {
+      border: 1px solid currentColor;
+    }
+
+    .mobile-menu-item.active {
+      background-color: hsl(var(--secondary));
+      color: hsl(var(--secondary-foreground));
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu-panel {
+      transition: none;
+    }
+
+    .hamburger-icon {
+      transition: none;
+    }
+
+    button:active {
+      transform: none;
+    }
+  }
+}
+
+/* Keyframe animations for mobile menu */
+@keyframes mobileMenuSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes mobileMenuSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Mobile menu backdrop animation */
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes backdropFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

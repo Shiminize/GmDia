@@ -19,6 +19,14 @@ const Header: React.FC = () => {
 
   const isActivePath = (path: string) => location.pathname === path;
 
+  // Navigation items - using actual existing routes
+  const navigationItems = [
+    { name: 'Products', path: '/products' },
+    { name: 'Customize', path: '/customize' },
+    { name: 'Education', path: '/education' },
+    { name: 'Our Story', path: '/about' }
+  ];
+
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -37,6 +45,8 @@ const Header: React.FC = () => {
   // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    // Reset body overflow when route changes
+    document.body.style.overflow = '';
   }, [location]);
 
   useEffect(() => {
@@ -48,9 +58,15 @@ const Header: React.FC = () => {
   }, []);
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+    const newState = !isMobileMenuOpen;
+    setIsMobileMenuOpen(newState);
     // Prevent body scroll when menu is open
-    document.body.style.overflow = !isMobileMenuOpen ? 'hidden' : '';
+    document.body.style.overflow = newState ? 'hidden' : '';
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+    document.body.style.overflow = '';
   };
 
   const toggleSearchOverlay = () => setIsSearchOverlayOpen(!isSearchOverlayOpen);
@@ -59,11 +75,18 @@ const Header: React.FC = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      setIsMobileMenuOpen(false);
+      closeMobileMenu();
     } catch (error) {
       console.error('Logout error:', error);
     }
   };
+
+  // Cleanup on component unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   return (
     <>
@@ -91,12 +114,7 @@ const Header: React.FC = () => {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center justify-center flex-1 max-w-2xl mx-auto">
               <div className="flex items-center space-x-12">
-                {[
-                  { name: 'Rings', path: '/rings' },
-                  { name: 'Necklaces', path: '/necklaces' },
-                  { name: 'Tennis Bands', path: '/tennis-bands' },
-                  { name: 'Our Story', path: '/about' }
-                ].map((item) => (
+                {navigationItems.map((item) => (
                   <Link
                     key={item.name}
                     to={item.path}
@@ -260,150 +278,187 @@ const Header: React.FC = () => {
               <button
                 onClick={toggleMobileMenu}
                 className="p-2 text-graphite hover:text-blush hover:bg-blush/10 rounded-lg 
-                  transition-all duration-300 touch-target"
+                  transition-all duration-300 touch-target relative"
                 aria-label="Toggle mobile menu"
               >
-                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                <div className="relative">
+                  <Menu 
+                    size={24} 
+                    className={`transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0 rotate-90 scale-75' : 'opacity-100 rotate-0 scale-100'}`}
+                  />
+                  <X 
+                    size={24} 
+                    className={`absolute inset-0 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-75'}`}
+                  />
+                </div>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Overlay */}
         <div
-          className={`lg:hidden fixed inset-0 bg-graphite/50 backdrop-blur-sm transition-opacity duration-300 z-40
-            ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-          onClick={toggleMobileMenu}
+          className={`lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm transition-all duration-300 z-40
+            ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+          onClick={closeMobileMenu}
         >
+          {/* Mobile Menu Panel */}
           <div
-            className={`fixed top-0 right-0 w-[85%] max-w-[320px] h-full bg-white transform transition-transform 
-              duration-300 ease-in-out overflow-y-auto safe-bottom ${
+            className={`fixed top-0 right-0 w-full max-w-sm h-full bg-white transform transition-transform 
+              duration-300 ease-out overflow-y-auto ${
               isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}
-            <div className="sticky top-0 flex items-center justify-between p-4 border-b border-champagne/30 
-              bg-white/95 backdrop-blur-sm safe-top">
+            <div className="sticky top-0 flex items-center justify-between p-6 border-b border-champagne/20 
+              bg-white/95 backdrop-blur-sm">
               <Link 
                 to="/" 
-                className="flex items-center space-x-2 touch-target" 
-                onClick={toggleMobileMenu}
+                className="flex items-center space-x-3 touch-target" 
+                onClick={closeMobileMenu}
               >
                 <img 
                   src="/Logo.png" 
                   alt="Facet & Co. Logo" 
-                  className="w-8 h-8 sm:w-10 sm:h-10 object-contain group-hover:scale-105 transition-transform duration-300"
+                  className="w-8 h-8 object-contain"
                 />
                 <span className="text-lg font-bold text-graphite font-primary">Facet & Co.</span>
               </Link>
               <button
-                onClick={toggleMobileMenu}
-                className="p-2 text-graphite hover:text-blush rounded-lg touch-target"
+                onClick={closeMobileMenu}
+                className="p-2 text-graphite hover:text-blush rounded-lg touch-target transition-colors duration-200"
                 aria-label="Close menu"
               >
-                <X size={20} />
+                <X size={24} />
               </button>
             </div>
 
             {/* Mobile Menu Content */}
-            <div className="p-4 space-y-4">
-              {/* Mobile Navigation Links */}
-              <nav className="space-y-2">
-                {[
-                  { name: 'Rings', path: '/rings' },
-                  { name: 'Necklaces', path: '/necklaces' },
-                  { name: 'Tennis Bands', path: '/tennis-bands' },
-                  { name: 'Our Story', path: '/about' }
-                ].map((item, index) => (
+            <div className="px-6 py-8">
+              {/* Main Navigation */}
+              <nav className="space-y-1 mb-8">
+                <h3 className="text-xs font-semibold text-graphite/60 uppercase tracking-wider mb-4">
+                  Navigation
+                </h3>
+                {navigationItems.map((item) => (
                   <Link
-                    key={index}
+                    key={item.name}
                     to={item.path}
-                    onClick={toggleMobileMenu}
-                    className={`mobile-menu-link ${isActivePath(item.path) ? 'active' : ''}`}
+                    onClick={closeMobileMenu}
+                    className={`block py-3 px-4 text-lg font-medium rounded-lg transition-all duration-200
+                      ${isActivePath(item.path) 
+                        ? 'bg-secondary/10 text-secondary border-l-4 border-secondary' 
+                        : 'text-graphite hover:bg-champagne/50 hover:text-blush'
+                      }`}
                   >
                     {item.name}
                   </Link>
                 ))}
               </nav>
 
-              <div className="h-px bg-champagne/30 my-4"></div>
+              {/* Quick Actions */}
+              <div className="space-y-3 mb-8">
+                <h3 className="text-xs font-semibold text-graphite/60 uppercase tracking-wider mb-4">
+                  Quick Actions
+                </h3>
+                <Link
+                  to="/quiz"
+                  onClick={closeMobileMenu}
+                  className="block w-full bg-gradient-to-r from-secondary to-accent text-white text-center 
+                    py-4 px-6 rounded-lg font-medium transition-all duration-300 hover:shadow-lg 
+                    active:transform active:scale-95"
+                >
+                  Take Ring Quiz
+                </Link>
+                <Link
+                  to="/contact"
+                  onClick={closeMobileMenu}
+                  className="block w-full border-2 border-secondary text-secondary text-center 
+                    py-4 px-6 rounded-lg font-medium transition-all duration-300 hover:bg-secondary 
+                    hover:text-white active:transform active:scale-95"
+                >
+                  Contact Expert
+                </Link>
+              </div>
 
-              {/* Mobile CTA */}
-              <Link
-                to="/customize"
-                onClick={toggleMobileMenu}
-                className="block w-full bg-secondary text-secondary-foreground text-center py-3 px-6 rounded-lg font-medium
-                  transition-all duration-300 hover:bg-secondary/90 active:transform active:scale-95 touch-target"
-              >
-                How It Works
-              </Link>
-
-              <div className="h-px bg-champagne/30 my-4"></div>
-
-              {/* Mobile Account Links */}
-              <div className="space-y-2">
+              {/* Account Section */}
+              <div className="space-y-3 border-t border-champagne/30 pt-8">
+                <h3 className="text-xs font-semibold text-graphite/60 uppercase tracking-wider mb-4">
+                  Account
+                </h3>
                 {user ? (
                   <>
+                    <div className="flex items-center space-x-3 p-4 bg-champagne/30 rounded-lg mb-4">
+                      <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
+                        <User size={20} className="text-white" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-graphite">{user.name}</p>
+                        <p className="text-sm text-graphite/60">{user.email}</p>
+                      </div>
+                    </div>
                     <Link
                       to="/dashboard"
-                      onClick={toggleMobileMenu}
-                      className="mobile-menu-link"
+                      onClick={closeMobileMenu}
+                      className="flex items-center space-x-3 py-3 px-4 text-graphite hover:bg-champagne/50 
+                        rounded-lg transition-colors duration-200"
                     >
-                      <div className="flex items-center space-x-2">
-                        <User size={18} className="text-blush" />
-                        <span>Dashboard</span>
-                      </div>
+                      <User size={20} className="text-blush" />
+                      <span className="font-medium">Dashboard</span>
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="mobile-menu-link w-full text-left"
+                      className="flex items-center space-x-3 w-full py-3 px-4 text-graphite hover:bg-champagne/50 
+                        rounded-lg transition-colors duration-200 text-left"
                     >
-                      <div className="flex items-center space-x-2">
-                        <LogOut size={18} className="text-blush" />
-                        <span>Sign Out</span>
-                      </div>
+                      <LogOut size={20} className="text-blush" />
+                      <span className="font-medium">Sign Out</span>
                     </button>
                   </>
                 ) : (
                   <>
                     <Link
                       to="/login"
-                      onClick={toggleMobileMenu}
-                      className="mobile-menu-link"
+                      onClick={closeMobileMenu}
+                      className="flex items-center space-x-3 py-3 px-4 text-graphite hover:bg-champagne/50 
+                        rounded-lg transition-colors duration-200"
                     >
-                      <div className="flex items-center space-x-2">
-                        <LogIn size={18} className="text-blush" />
-                        <span>Sign In</span>
-                      </div>
+                      <LogIn size={20} className="text-blush" />
+                      <span className="font-medium">Sign In</span>
                     </Link>
                     <Link
                       to="/register"
-                      onClick={toggleMobileMenu}
-                      className="mobile-menu-link"
+                      onClick={closeMobileMenu}
+                      className="flex items-center space-x-3 py-3 px-4 text-graphite hover:bg-champagne/50 
+                        rounded-lg transition-colors duration-200"
                     >
-                      <div className="flex items-center space-x-2">
-                        <UserPlus size={18} className="text-blush" />
-                        <span>Create Account</span>
-                      </div>
+                      <UserPlus size={20} className="text-blush" />
+                      <span className="font-medium">Create Account</span>
                     </Link>
                   </>
                 )}
               </div>
 
-              {/* Mobile Chat Button */}
-              <button
-                onClick={() => {
-                  toggleMobileMenu();
-                  // Add your chat functionality here
-                }}
-                className="fixed bottom-4 left-4 right-4 bg-primary text-primary-foreground py-3 px-6 rounded-lg 
-                  font-medium transition-all duration-300 hover:bg-primary/90 flex items-center justify-center 
-                  space-x-2 touch-target safe-bottom"
-              >
-                <MessageCircle size={20} />
-                <span>Chat with Expert</span>
-              </button>
+              {/* Support Section */}
+              <div className="mt-8 p-4 bg-gradient-to-br from-champagne/20 to-blush/10 rounded-lg">
+                <h4 className="font-medium text-graphite mb-2">Need Help?</h4>
+                <p className="text-sm text-graphite/70 mb-3">
+                  Chat with our jewelry experts for personalized assistance.
+                </p>
+                <button
+                  onClick={() => {
+                    closeMobileMenu();
+                    // Add chat functionality here
+                  }}
+                  className="flex items-center justify-center space-x-2 w-full bg-primary text-white 
+                    py-3 px-4 rounded-lg font-medium transition-all duration-300 hover:bg-primary/90 
+                    active:transform active:scale-95"
+                >
+                  <MessageCircle size={18} />
+                  <span>Start Chat</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
