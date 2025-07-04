@@ -321,11 +321,45 @@ const Header: React.FC = () => {
           className={`mobile-menu-nuclear-overlay transition-all duration-300 ${
             isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
           }`}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 999999,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backdropFilter: 'blur(4px)',
+            WebkitBackdropFilter: 'blur(4px)',
+            isolation: 'isolate',
+            transform: 'translateZ(0)'
+          }}
           onClick={closeMobileMenu}
         >
           {/* Mobile Menu Panel */}
           <div
             className={`mobile-menu-nuclear-panel ${isMobileMenuOpen ? 'open' : ''}`}
+            style={{
+              position: 'fixed',
+              top: 0,
+              right: 0,
+              width: '100%',
+              maxWidth: '24rem',
+              height: '100vh',
+              background: 'white',
+              zIndex: 9999999,
+              transform: isMobileMenuOpen ? 'translate3d(0, 0, 0)' : 'translate3d(100%, 0, 0)',
+              transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+              overflowY: 'auto',
+              willChange: 'transform',
+              isolation: 'isolate',
+              contain: 'layout style paint',
+              backfaceVisibility: 'hidden',
+              WebkitOverflowScrolling: 'touch',
+              borderLeft: '5px solid #ff0000', // DEBUG
+              boxShadow: '-20px 0 50px rgba(255, 0, 0, 0.5)', // DEBUG
+              outline: '3px solid #ff00ff' // DEBUG
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}
