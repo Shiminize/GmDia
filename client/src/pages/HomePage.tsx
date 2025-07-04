@@ -390,20 +390,18 @@ const HomePage: React.FC = () => {
 
             {/* Right side - Packaging section */}
             <div className="relative max-w-md animate-fadeIn animation-delay-200">
-              {/* Packaging image card - compact with no empty space */}
+              {/* Packaging image card - no empty space */}
               <div className="bg-ivory/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-4">
-                <div className="h-64 flex items-center justify-center p-2">
-                  <img
-                    src="/packaging.png"
-                    alt="Luxury Facet & Co. packaging with elegant black jewelry box"
-                    className="max-w-full max-h-full object-contain"
-                    onError={(e) => {
-                      // Fallback to a placeholder if packaging.png doesn't exist
-                      const target = e.target as HTMLImageElement;
-                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='16' font-family='Arial'%3EPackaging Image%3C/text%3E%3C/svg%3E";
-                    }}
-                  />
-                </div>
+                <img
+                  src="/packaging.png"
+                  alt="Luxury Facet & Co. packaging with elegant black jewelry box"
+                  className="w-full h-auto block"
+                  onError={(e) => {
+                    // Fallback to a placeholder if packaging.png doesn't exist
+                    const target = e.target as HTMLImageElement;
+                    target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236b7280' font-size='16' font-family='Arial'%3EPackaging Image%3C/text%3E%3C/svg%3E";
+                  }}
+                />
               </div>
 
               {/* Description card below */}
