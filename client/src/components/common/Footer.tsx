@@ -12,8 +12,12 @@ const Footer: React.FC = () => {
             {/* Brand Section */}
             <div className="space-y-6">
               <Link to="/" className="flex items-center space-x-3">
-                <Diamond className="w-8 h-8 text-blush" />
-                <span className="text-2xl font-bold tracking-tight font-primary">GmDia</span>
+                <img 
+                  src="/Logo.png" 
+                  alt="Facet & Co. Logo" 
+                  className="w-8 h-8 object-contain brightness-0 invert"
+                />
+                <span className="text-2xl font-bold tracking-tight font-primary">Facet & Co.</span>
               </Link>
               <p className="text-ivory/80 leading-relaxed">
                 Crafting ethical brilliance with lab-grown diamonds. 
@@ -97,8 +101,8 @@ const Footer: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-blush" />
-                  <a href="mailto:hello@gmdia.com" className="text-ivory/80 hover:text-blush transition-colors">
-                    hello@gmdia.com
+                  <a href="mailto:hello@facetandco.com" className="text-ivory/80 hover:text-blush transition-colors">
+                    hello@facetandco.com
                   </a>
                 </div>
               </div>
@@ -110,7 +114,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-ivory/20 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-ivory/60 text-sm">
-              &copy; {new Date().getFullYear()} GmDia. All rights reserved.
+              &copy; {new Date().getFullYear()} Facet & Co. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
               <Link to="/privacy" className="text-ivory/60 hover:text-blush transition-colors">

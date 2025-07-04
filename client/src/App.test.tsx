@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders welcome message', () => {
   render(<App />);
-  const welcomeElement = screen.getByText(/Welcome to GemDia/i);
+  const welcomeElement = screen.getByText(/Welcome to Facet & Co\./i);
   expect(welcomeElement).toBeInTheDocument();
 });

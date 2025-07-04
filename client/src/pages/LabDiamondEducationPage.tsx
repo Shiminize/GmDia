@@ -76,7 +76,7 @@ const LabDiamondEducationPage: React.FC = () => {
             </div>
             
             <p className="text-lg text-graphite/90 leading-relaxed text-center font-secondary bg-blush/10 rounded-xl p-6">
-              At GemDia, we are proud to offer beautiful, ethically-sourced lab-grown diamonds that align with modern values.
+              At Facet & Co., we are proud to offer beautiful, ethically-sourced lab-grown diamonds that align with modern values.
             </p>
           </div>
         </div>

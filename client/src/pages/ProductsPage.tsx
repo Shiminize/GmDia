@@ -225,7 +225,7 @@ const ProductsPage: React.FC = () => {
             <button 
               onClick={handleApplyFilters}
               disabled={!hasFilterChanges}
-              className="flex-1 px-6 py-3 text-sm font-medium text-white bg-graphite rounded-full 
+                              className="flex-1 px-6 py-3 text-sm font-medium text-primary-foreground bg-primary rounded-full 
                 hover:bg-blush disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
             >
               Apply Filters {productCount > 0 && `(${productCount})`}

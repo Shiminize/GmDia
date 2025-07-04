@@ -68,7 +68,7 @@ const Dashboard: React.FC = () => {
               <h3 className="text-xl font-medium text-graphite mb-4">Please log in to access your dashboard</h3>
               <Link to="/login">
                 <button className="px-6 py-2 bg-champagne text-graphite text-sm font-medium uppercase tracking-wider 
-                  rounded-full hover:bg-blush hover:text-white transition-all duration-300">
+                  rounded-full hover:bg-secondary hover:text-secondary-foreground transition-all duration-300">
                   Go to Login
                 </button>
               </Link>
@@ -160,7 +160,7 @@ const Dashboard: React.FC = () => {
                 title="Account Information"
                 action={
                   <button className="px-4 py-2 bg-champagne text-graphite text-sm font-medium uppercase 
-                    tracking-wider rounded-full hover:bg-blush hover:text-white transition-all duration-300">
+                    tracking-wider rounded-full hover:bg-secondary hover:text-secondary-foreground transition-all duration-300">
                     Edit Profile
                   </button>
                 }
@@ -177,8 +177,8 @@ const Dashboard: React.FC = () => {
               <DashboardCard 
                 title="Order History"
                 action={
-                  <Link to="/dashboard/orders" className="px-4 py-2 bg-champagne text-graphite text-sm font-medium 
-                    uppercase tracking-wider rounded-full hover:bg-blush hover:text-white transition-all duration-300">
+                  <Link to="/dashboard/orders" className="px-4 py-2 bg-muted text-foreground text-sm font-medium 
+                    uppercase tracking-wider rounded-full hover:bg-secondary hover:text-secondary-foreground transition-all duration-300">
                     View All Orders
                   </Link>
                 }
@@ -198,8 +198,8 @@ const Dashboard: React.FC = () => {
             <DashboardCard 
               title="Saved Designs"
               action={
-                <Link to="/design" className="px-4 py-2 bg-champagne text-graphite text-sm font-medium 
-                  uppercase tracking-wider rounded-full hover:bg-blush hover:text-white transition-all duration-300">
+                <Link to="/design" className="px-4 py-2 bg-muted text-foreground text-sm font-medium 
+                  uppercase tracking-wider rounded-full hover:bg-secondary hover:text-secondary-foreground transition-all duration-300">
                   Create New Design
                 </Link>
               }
@@ -242,8 +242,8 @@ const Dashboard: React.FC = () => {
                           </button>
                           <Link
                             to={`/design/${design._id}`}
-                            className="px-4 py-2 bg-graphite text-white text-sm font-medium rounded-full 
-                              hover:bg-blush transition-all duration-300"
+                            className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-full 
+                              hover:bg-secondary transition-all duration-300"
                           >
                             Edit Design
                           </Link>
@@ -257,8 +257,8 @@ const Dashboard: React.FC = () => {
                   <p className="text-warm-gray mb-4">You haven't saved any designs yet.</p>
                   <Link
                     to="/design"
-                    className="inline-flex items-center px-6 py-3 bg-graphite text-white text-sm font-medium 
-                      rounded-full hover:bg-blush transition-all duration-300"
+                    className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground text-sm font-medium 
+                      rounded-full hover:bg-secondary transition-all duration-300"
                   >
                     Start Designing
                   </Link>

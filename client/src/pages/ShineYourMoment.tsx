@@ -15,7 +15,7 @@ const ShineYourMoment: React.FC = () => {
       <section className="event-how-it-works">
         <h2>How to Participate</h2>
         <ol>
-          <li><strong>Follow</strong> <a href="https://instagram.com/gemdia.official" target="_blank" rel="noopener noreferrer">@gemdia.official</a> on Instagram or TikTok</li>
+                        <li><strong>Follow</strong> <a href="https://instagram.com/facetandco.official" target="_blank" rel="noopener noreferrer">@facetandco.official</a> on Instagram or TikTok</li>
           <li><strong>Post</strong> a photo or video sharing your special moment with the hashtag <span className="hashtag">#ShineYourMoment</span></li>
           <li><strong>Submit</strong> your entry using the form below</li>
         </ol>
@@ -25,13 +25,13 @@ const ShineYourMoment: React.FC = () => {
         <ul>
           <li>Showcase a meaningful, joyful, or inspiring moment in your life</li>
           <li>Include the hashtag <span className="hashtag">#ShineYourMoment</span> in your post caption</li>
-          <li>Tag <strong>@gemdia.official</strong> in your post</li>
+                      <li>Tag <strong>@facetandco.official</strong> in your post</li>
           <li>Profile must be public for entry verification</li>
         </ul>
         <div className="ugc-template">
           <strong>Sample Caption:</strong>
           <div className="ugc-box">
-            "This moment means the world to me! Thank you @gemdia.official for helping me shine. #ShineYourMoment"
+            "This moment means the world to me! Thank you @facetandco.official for helping me shine. #ShineYourMoment"
           </div>
         </div>
       </section>
@@ -81,7 +81,7 @@ const ShineYourMoment: React.FC = () => {
           <div className="form-group checkbox">
             <label>
               <input type="checkbox" name="newsletter" />
-              Subscribe to GemDia newsletter for updates &amp; offers
+                              Subscribe to Facet & Co. newsletter for updates &amp; offers
             </label>
           </div>
           <div className="form-group checkbox">
@@ -99,7 +99,7 @@ const ShineYourMoment: React.FC = () => {
           <li>Open to legal residents aged 18+ only. No purchase necessary.</li>
           <li>One entry per person. Multiple entries will be disqualified.</li>
           <li>Winners will be contacted via email and must respond within 5 days to claim prize.</li>
-          <li>By entering, you grant GemDia permission to share your content for promotional purposes.</li>
+                      <li>By entering, you grant Facet & Co. permission to share your content for promotional purposes.</li>
           <li>See full rules on our website.</li>
         </ul>
       </section>

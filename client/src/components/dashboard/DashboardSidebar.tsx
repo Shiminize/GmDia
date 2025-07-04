@@ -94,7 +94,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ user }) => {
       {/* Profile Section */}
       <div className="text-center pb-8 border-b border-champagne mb-8">
         <div className="w-20 h-20 rounded-full bg-gradient-to-br from-lavender to-blush flex items-center 
-          justify-center mx-auto mb-4 shadow-sm text-white text-2xl font-primary">
+          justify-center mx-auto mb-4 shadow-sm text-primary-foreground text-2xl font-primary">
           {user.initials}
         </div>
         <h4 className="text-xl text-graphite mb-2 font-primary">{user.name}</h4>

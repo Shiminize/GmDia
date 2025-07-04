@@ -86,7 +86,7 @@ const Step3_Diamond: React.FC<Step3_DiamondProps> = ({ onSelectDiamondShape, sel
       </div>
       <Button 
         onClick={() => setShowEducation(!showEducation)} 
-        className="w-full bg-gradient-to-r from-champagne/50 to-white border border-champagne text-graphite font-medium py-4 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-lavender hover:to-blush hover:border-lavender hover:text-white"
+        className="w-full bg-gradient-to-r from-muted/50 to-card border border-muted text-foreground font-medium py-4 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-secondary hover:to-secondary hover:border-secondary hover:text-secondary-foreground"
       >
         {showEducation ? "Hide Details" : "Learn More About Diamonds (4 C's)"}
       </Button>

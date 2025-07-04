@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       id: product.id,
       name: product.name,
       price: product.price,
-      imageUrl: product.imageUrl
+      image: product.imageUrl
     });
     
     // Create a subtle notification instead of alert
@@ -132,7 +132,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors duration-200 ${
               product.inStock === false 
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                : 'bg-lavender text-white hover:bg-lavender/90'
+                                  : 'bg-secondary text-secondary-foreground hover:bg-secondary/90'
             }`}
             disabled={product.inStock === false}
           >

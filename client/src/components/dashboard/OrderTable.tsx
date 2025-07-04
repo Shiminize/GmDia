@@ -230,7 +230,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
                     <button
                       onClick={() => onViewOrder(order.id)}
                       className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-graphite 
-                        bg-champagne rounded-full hover:bg-blush hover:text-white transition-colors duration-200"
+                        bg-muted rounded-full hover:bg-secondary hover:text-secondary-foreground transition-colors duration-200"
                     >
                       <FaEye className="w-3 h-3" />
                       View Details

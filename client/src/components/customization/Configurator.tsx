@@ -222,9 +222,9 @@ const Configurator: React.FC = () => {
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
                     ${currentStep === step
-                      ? 'bg-lavender text-white'
+                                                ? 'bg-secondary text-secondary-foreground'
                       : step < currentStep
-                        ? 'bg-sage text-white'
+                                                  ? 'bg-accent text-accent-foreground'
                         : 'bg-gray-100 text-warm-gray'
                     }`}
                 >
@@ -264,7 +264,7 @@ const Configurator: React.FC = () => {
               className={`px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200
                 ${currentStep === 4
                   ? 'bg-gray-100 text-warm-gray cursor-not-allowed'
-                  : 'bg-lavender text-white hover:bg-lavender/90'
+                  : 'bg-secondary text-secondary-foreground hover:bg-secondary/90'
                 }`}
             >
               Next
@@ -281,7 +281,7 @@ const Configurator: React.FC = () => {
                   className={`flex-1 px-6 py-3 rounded-lg text-sm font-medium transition-colors duration-200
                     ${!isConfigurationComplete || saving
                       ? 'bg-gray-100 text-warm-gray cursor-not-allowed'
-                      : 'bg-sage text-white hover:bg-sage/90'
+                      : 'bg-accent text-accent-foreground hover:bg-accent/90'
                     }`}
                 >
                   {saving ? 'Saving...' : 'Save Design'}

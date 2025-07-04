@@ -140,13 +140,13 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
         rounded-xl border border-champagne">
         <div className="relative">
           <div className="w-20 h-20 rounded-full bg-gradient-to-br from-lavender to-graphite 
-            flex items-center justify-center text-white text-3xl font-bold border-3 border-white 
+                          flex items-center justify-center text-primary-foreground text-3xl font-bold border-3 border-primary-foreground 
             shadow-lg">
             {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
           </div>
           <button 
             className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-lavender border-2 
-              border-white flex items-center justify-center text-white hover:bg-lavender/90 
+              border-primary-foreground flex items-center justify-center text-primary-foreground hover:bg-secondary/90 
               transition-colors duration-200"
           >
             <FaCamera className="w-3.5 h-3.5" />
@@ -379,7 +379,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2 rounded-lg bg-lavender text-white text-sm font-medium 
+              className="px-6 py-2 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium 
                 hover:bg-lavender/90 transition-colors duration-200 
                 disabled:opacity-50 disabled:cursor-not-allowed"
             >

@@ -14,7 +14,7 @@ const AboutPage: React.FC = () => {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="order-2 md:order-1">
                 <p className="text-lg text-graphite/90 leading-relaxed mb-6 font-secondary text-center md:text-left">
-                  Welcome to GemDia, where modern alchemy meets personal radiance. We are dedicated to crafting exquisite, custom lab-grown diamond jewelry that tells your unique story.
+                  Welcome to Facet & Co., where modern alchemy meets personal radiance. We are dedicated to crafting exquisite, custom lab-grown diamond jewelry that tells your unique story.
                 </p>
                 <p className="text-lg text-graphite/90 leading-relaxed font-secondary text-center md:text-left">
                   Our vision is to create an intuitive, visually stunning, and highly personal digital experience that empowers you to design and purchase ethically-sourced, high-quality lab diamond jewelry that reflects your unique identity and story.
@@ -23,7 +23,7 @@ const AboutPage: React.FC = () => {
               <div className="order-1 md:order-2">
                 <img 
                   src="/Band-1.png" 
-                  alt="GemDia Craftsmanship" 
+                  alt="Facet & Co. Craftsmanship" 
                   className="w-full h-64 md:h-80 object-cover rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
                 />
               </div>

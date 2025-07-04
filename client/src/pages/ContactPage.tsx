@@ -74,7 +74,7 @@ const ContactPage: React.FC = () => {
             <div className="text-center pt-4">
               <button 
                 type="submit" 
-                className="px-8 py-3 bg-lavender text-white rounded-full font-secondary font-semibold text-base uppercase tracking-wide transition-all duration-300 hover:bg-lavender/90 hover:transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-lavender/50"
+                className="px-8 py-3 bg-secondary text-secondary-foreground rounded-full font-secondary font-semibold text-base uppercase tracking-wide transition-all duration-300 hover:bg-secondary/90 hover:transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-lavender/50"
               >
                 Send Message
               </button>

@@ -11,25 +11,25 @@ const createDemoUsers = async () => {
     console.log('Connected! Creating demo users...');
     
     // Check if admin user already exists
-    const existingAdmin = await User.findOne({ email: 'admin@gemdia.com' });
+    const existingAdmin = await User.findOne({ email: 'admin@facetandco.com' });
     
     if (existingAdmin) {
       console.log('Admin user already exists!');
     } else {
       // Create admin user
       const adminUser = await User.create({
-        name: 'GemDia Admin',
-        email: 'admin@gemdia.com',
+        name: 'Facet & Co. Admin',
+        email: 'admin@facetandco.com',
         password: 'admin123',
         isAdmin: true
       });
       console.log('Admin user created successfully!');
-      console.log('Email: admin@gemdia.com');
+      console.log('Email: admin@facetandco.com');
       console.log('Password: admin123');
     }
 
     // Check if demo customer exists
-    const existingCustomer = await User.findOne({ email: 'customer@gemdia.com' });
+    const existingCustomer = await User.findOne({ email: 'customer@facetandco.com' });
     
     if (existingCustomer) {
       console.log('Demo customer already exists!');
@@ -37,21 +37,21 @@ const createDemoUsers = async () => {
       // Create demo customer
       const customerUser = await User.create({
         name: 'Demo Customer',
-        email: 'customer@gemdia.com',
+        email: 'customer@facetandco.com',
         password: 'customer123',
         isAdmin: false
       });
       console.log('Demo customer created successfully!');
-      console.log('Email: customer@gemdia.com');
+      console.log('Email: customer@facetandco.com');
       console.log('Password: customer123');
     }
 
     console.log('\n=== DEMO CREDENTIALS ===');
     console.log('Admin Login:');
-    console.log('  Email: admin@gemdia.com');
+    console.log('  Email: admin@facetandco.com');
     console.log('  Password: admin123');
     console.log('\nCustomer Login:');
-    console.log('  Email: customer@gemdia.com');
+    console.log('  Email: customer@facetandco.com');
     console.log('  Password: customer123');
     console.log('========================\n');
     

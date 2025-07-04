@@ -46,18 +46,18 @@ const Login: React.FC = () => {
             Welcome Back
           </h1>
           <p className="text-graphite/70 text-lg leading-relaxed font-secondary">
-            Sign in to your GemDia account to continue your jewelry journey.
+                            Sign in to your Facet & Co. account to continue your jewelry journey.
           </p>
         </div>
 
         {/* Demo Credentials Info */}
-        <div className="bg-gradient-to-br from-lavender to-graphite text-white p-6 rounded-lg mb-8 text-center">
+        <div className="bg-gradient-to-br from-secondary to-primary text-primary-foreground p-6 rounded-lg mb-8 text-center">
           <h3 className="mb-4 text-lg font-primary">
             Demo Login Credentials
           </h3>
           <div className="font-secondary leading-relaxed">
             <p className="mb-2">
-              <strong>Email:</strong> admin@gemdia.com
+                              <strong>Email:</strong> admin@facetandco.com
             </p>
             <p className="mb-2">
               <strong>Password:</strong> admin123
@@ -67,11 +67,11 @@ const Login: React.FC = () => {
             type="button"
             onClick={() => {
               setFormData({
-                email: 'admin@gemdia.com',
+                email: 'admin@facetandco.com',
                 password: 'admin123'
               });
             }}
-            className="bg-white/20 border border-white/30 text-white px-4 py-2 rounded text-sm cursor-pointer mt-2 transition-all duration-200 hover:bg-white/30"
+                            className="bg-primary-foreground/20 border border-primary-foreground/30 text-primary-foreground px-4 py-2 rounded text-sm cursor-pointer mt-2 transition-all duration-200 hover:bg-primary-foreground/30"
           >
             Auto-fill credentials
           </button>
@@ -130,8 +130,8 @@ const Login: React.FC = () => {
             className={`w-full p-4 rounded-lg font-semibold text-base transition-all duration-300 ${
               loading 
                 ? 'bg-gray-400 cursor-not-allowed' 
-                : 'bg-lavender hover:bg-lavender/90 hover:transform hover:-translate-y-0.5 hover:shadow-lg'
-            } text-white font-secondary`}
+                : 'bg-secondary hover:bg-secondary/90 hover:transform hover:-translate-y-0.5 hover:shadow-lg'
+            } text-secondary-foreground font-secondary`}
           >
             {loading ? 'Signing In...' : 'Sign In'}
           </button>

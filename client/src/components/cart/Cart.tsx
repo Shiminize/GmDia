@@ -41,7 +41,7 @@ export const CartSlider: React.FC<CartSliderProps> = ({ isOpen, onClose }) => {
             <p className="text-graphite mb-6 font-secondary text-lg">Your cart is empty</p>
             <button 
               onClick={onClose} 
-              className="bg-lavender text-white px-6 py-3 rounded-lg font-medium hover:bg-lavender/90 transition-colors duration-200"
+              className="bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors duration-200"
             >
               Continue Shopping
             </button>
@@ -53,7 +53,7 @@ export const CartSlider: React.FC<CartSliderProps> = ({ isOpen, onClose }) => {
               {cartItems.map((item) => (
                 <div key={item.id} className="flex gap-4 p-4 bg-white rounded-lg border border-champagne">
                   <div className="w-20 h-20 flex-shrink-0">
-                    <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover rounded-md" />
+                    <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded-md" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium text-graphite truncate font-primary">{item.name}</h4>
@@ -112,7 +112,7 @@ export const CartSlider: React.FC<CartSliderProps> = ({ isOpen, onClose }) => {
                 <Link 
                   to="/checkout" 
                   onClick={onClose} 
-                  className="block w-full text-center bg-lavender text-white py-3 rounded-lg font-medium hover:bg-lavender/90 transition-colors duration-200"
+                  className="block w-full text-center bg-secondary text-secondary-foreground py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors duration-200"
                 >
                   Checkout
                 </Link>
@@ -155,7 +155,7 @@ const Cart: React.FC = () => {
               <div key={item.id} className="bg-white rounded-xl shadow-sm border border-champagne p-6">
                 <div className="flex items-center gap-6">
                   <div className="w-24 h-24 flex-shrink-0">
-                    <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover rounded-lg" />
+                    <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded-lg" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-xl font-medium text-graphite font-primary">{item.name}</h3>
@@ -223,13 +223,13 @@ const Cart: React.FC = () => {
               </div>
               <div className="space-y-3">
                 <button 
-                  className="w-full bg-white border border-lavender text-lavender py-3 rounded-lg font-medium hover:bg-lavender hover:text-white transition-colors duration-200" 
+                  className="w-full bg-card border border-secondary text-secondary py-3 rounded-lg font-medium hover:bg-secondary hover:text-secondary-foreground transition-colors duration-200" 
                   onClick={clearCart}
                 >
                   Clear Cart
                 </button>
                 <Link to="/checkout">
-                  <button className="w-full bg-lavender text-white py-3 rounded-lg font-medium hover:bg-lavender/90 transition-colors duration-200">
+                  <button className="w-full bg-secondary text-secondary-foreground py-3 rounded-lg font-medium hover:bg-secondary/90 transition-colors duration-200">
                     Proceed to Checkout
                   </button>
                 </Link>

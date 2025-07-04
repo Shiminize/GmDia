@@ -61,7 +61,7 @@ const ShineYourMomentEvent: React.FC = () => {
             <div className="step">
               <div className="step-icon">🏷️</div>
               <h3>2. Tag & Hashtag</h3>
-              <p>Use hashtag <strong>#ShineYourMoment</strong> and tag <strong>@GemDiaOfficial</strong> in your post</p>
+                                <p>Use hashtag <strong>#ShineYourMoment</strong> and tag <strong>@FacetAndCoOfficial</strong> in your post</p>
             </div>
             <div className="step">
               <div className="step-icon">📝</div>
@@ -97,7 +97,7 @@ const ShineYourMomentEvent: React.FC = () => {
               <h4>💡 Need inspiration? Try this template:</h4>
               <blockquote>
                 "What would you say if someone proposed to you in public while holding a coffee cup? ☕💍 
-                Well, here's what happened to me... #ShineYourMoment @GemDiaOfficial"
+                Well, here's what happened to me... #ShineYourMoment @FacetAndCoOfficial"
               </blockquote>
             </div>
           </div>
@@ -291,12 +291,12 @@ const ShineYourMomentEvent: React.FC = () => {
               <ul>
                 <li>Contest open to residents of the United States, 18 years or older</li>
                 <li>Entries must be original content created by the participant</li>
-                <li>Posts must use #ShineYourMoment and tag @GemDiaOfficial</li>
+                <li>Posts must use #ShineYourMoment and tag @FacetAndCoOfficial</li>
                 <li>Content must be appropriate and family-friendly</li>
-                <li>By entering, participants grant GemDia rights to use submitted content for marketing purposes</li>
+                                  <li>By entering, participants grant Facet & Co. rights to use submitted content for marketing purposes</li>
                 <li>Winners will be selected by our panel of judges based on creativity and authenticity</li>
                 <li>Prize has no cash value and cannot be transferred</li>
-                <li>GemDia reserves the right to disqualify entries that violate these terms</li>
+                                  <li>Facet & Co. reserves the right to disqualify entries that violate these terms</li>
               </ul>
               
               <h4>Privacy Policy</h4>

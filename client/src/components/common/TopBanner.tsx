@@ -7,7 +7,7 @@ const TopBanner: React.FC = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="relative bg-gradient-to-r from-blush to-lavender text-white py-3 px-4 z-40">
+    <div className="relative bg-gradient-to-r from-secondary to-accent text-foreground py-3 px-4 z-40">
       <div className="max-w-7xl mx-auto flex items-center justify-center">
         <div className="text-center">
           <p className="text-sm font-medium">
@@ -17,7 +17,7 @@ const TopBanner: React.FC = () => {
         
         <button
           onClick={() => setIsVisible(false)}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-white/80 transition-colors duration-300"
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-foreground hover:text-muted-foreground transition-colors duration-300"
           aria-label="Close banner"
         >
           <X size={18} />

@@ -312,7 +312,7 @@ const RingQuizPage: React.FC = () => {
   const renderResults = () => (
     <div className="text-center space-y-8">
       <div className="inline-flex items-center justify-center w-20 h-20 bg-blush rounded-full mb-6">
-        <CheckCircle className="w-10 h-10 text-white" />
+                        <CheckCircle className="w-10 h-10 text-primary-foreground" />
       </div>
       
       <div>
@@ -394,7 +394,7 @@ const RingQuizPage: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blush rounded-full mb-6">
-            <Sparkles className="w-8 h-8 text-white" />
+                          <Sparkles className="w-8 h-8 text-primary-foreground" />
           </div>
           <h1 className="text-4xl lg:text-5xl font-bold text-graphite mb-4 font-primary">
             Find Your Perfect Ring
@@ -473,8 +473,8 @@ const RingQuizPage: React.FC = () => {
                 disabled={!isStepComplete()}
                 className={`flex items-center gap-2 px-8 py-3 rounded-lg font-medium transition-all duration-300 ${
                   isStepComplete()
-                    ? 'bg-blush text-white hover:bg-blush/90 hover:-translate-y-0.5'
-                    : 'bg-blush/50 text-white/50 cursor-not-allowed'
+                    ? 'bg-secondary text-secondary-foreground hover:bg-secondary/90 hover:-translate-y-0.5'
+                    : 'bg-secondary/50 text-secondary-foreground/50 cursor-not-allowed'
                 }`}
               >
                 <Heart className="w-4 h-4" />

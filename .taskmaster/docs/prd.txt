@@ -1,111 +1,85 @@
-GemDia Luxury Dashboard - Phase 2 PRD
+# GmDia UI Bug Fix & Tailwind CSS Optimization PRD
 
-Project Overview:
-GemDia is a luxury jewelry e-commerce platform that requires an enhanced dashboard experience for both customers and administrators. Phase 1 has established the core dashboard structure with basic components and pages. Phase 2 will focus on enhancing the user experience, adding analytics features, and implementing advanced functionality.
+## Project Overview
+Fix critical CSS import errors and conduct comprehensive UI optimization for the GmDia luxury jewelry e-commerce website. The application is currently broken due to missing CSS file imports and needs a complete Tailwind CSS implementation review and optimization.
 
-Current Implementation:
-- Dashboard layout with responsive design
-- Core components (DashboardCard, MetricCard, StatusBadge)
-- Basic pages (Overview, Account Settings, Order History, Saved Designs)
-- Authentication system with demo users
-- Luxury styling with champagne beige, graphite black, and digital lavender colors
+## Current Critical Issues
 
-Phase 2 Requirements:
+### 1. Missing CSS File Imports (Priority: Critical)
+- `./src/index.tsx` references deleted `./assets/styles/index.css`
+- `./src/pages/SizingGuide.tsx` references deleted `../assets/styles/index.css`
+- These imports prevent the application from compiling
 
-1. Analytics & Reporting
-   - Implement AnalyticsChart component for visualizing sales and engagement data
-   - Add trend analysis for key metrics (orders, designs, revenue)
-   - Create downloadable reports in PDF format
-   - Add date range selection for metrics filtering
+### 2. UI Layout Inconsistencies (Priority: High)
+- Navigation layout issues potentially still present
+- Component styling conflicts between legacy CSS and Tailwind
+- Responsive design inconsistencies across components
 
-2. Wishlist Enhancement
-   - Design and implement the Wishlist page
-   - Add drag-and-drop functionality for reordering items
-   - Implement sharing functionality for wishlist items
-   - Add price tracking and notifications for wishlist items
+### 3. Tailwind CSS Integration (Priority: High)
+- Ensure all components use Tailwind classes consistently
+- Verify custom color palette implementation
+- Optimize utility class usage for performance
 
-3. Advanced Order Management
-   - Add order tracking integration
-   - Implement order cancellation functionality
-   - Add order notes and special instructions
-   - Create order-specific chat/support feature
-   - Implement order reordering functionality
+## Technical Requirements
 
-4. Design Customization Improvements
-   - Add 3D preview for saved designs
-   - Implement design version history
-   - Add design sharing via social media
-   - Create design templates/presets
-   - Add collaborative design feature
+### Technology Stack
+- React 18+ with TypeScript
+- Tailwind CSS v4.1.11 (current implementation)
+- React Router for navigation
+- Luxury jewelry brand aesthetic with colors:
+  - Ivory White (#FFFFFF)
+  - Graphite Black (#1A1A1A) 
+  - Champagne Beige (#EFE7DD)
+  - Muted Blush (#F5DADF)
+  - Pale Sage (#DCEDE4)
+  - Digital Lavender (#CDB4DB)
 
-5. Profile & Settings Enhancement
-   - Add two-factor authentication
-   - Implement notification preferences
-   - Add address book management
-   - Create saved payment methods section
-   - Add account activity log
+### Component Architecture
+- Fully responsive mobile-first design
+- Reusable component library with Tailwind
+- Consistent typography (Georgia primary, Inter secondary)
+- Luxury brand animations and interactions
 
-6. Admin Dashboard Features
-   - Create order management interface
-   - Add customer management section
-   - Implement inventory tracking
-   - Add sales analytics dashboard
-   - Create promotion management system
+## Deliverables
 
-Technical Requirements:
-- TypeScript for all new components
-- React Query for data fetching and caching
-- Responsive design for all new features
-- Accessibility compliance (WCAG 2.1)
-- Performance optimization for large datasets
-- Unit tests for all new components
-- E2E tests for critical flows
+1. **Critical Bug Fixes**
+   - Remove all broken CSS imports
+   - Ensure application compiles successfully
+   - Verify development server runs without errors
 
-Design System Requirements:
-- Maintain luxury aesthetic with existing color palette
-- Consistent use of animations and transitions
-- High-quality imagery and icons
-- Responsive typography system
-- Loading states and error handling
-- Empty state designs
-- Toast notifications for actions
+2. **Component Audit & Optimization**
+   - Review all React components for Tailwind compliance
+   - Standardize component styling patterns
+   - Optimize responsive design implementation
 
-Security Requirements:
-- Implement rate limiting for API calls
-- Add input validation and sanitization
-- Secure file upload handling
-- API authentication and authorization
-- Data encryption for sensitive information
+3. **UI/UX Enhancement**
+   - Ensure luxury brand aesthetic consistency
+   - Optimize navigation and layout structure
+   - Implement proper spacing and typography hierarchy
 
-Performance Targets:
-- Page load time under 2 seconds
-- First contentful paint under 1 second
-- Time to interactive under 3 seconds
-- Lighthouse score > 90 for all metrics
+4. **Quality Assurance**
+   - TypeScript compilation verification
+   - Cross-browser compatibility testing
+   - Performance optimization review
 
-Browser Support:
-- Latest versions of Chrome, Firefox, Safari
-- Edge (Chromium-based)
-- Mobile browsers (iOS Safari, Chrome for Android)
+5. **Code Organization**
+   - Clean up unused files and imports
+   - Standardize component structure
+   - Document styling patterns for maintainability
 
-Dependencies:
-- React Query for data management
-- Chart.js for analytics visualization
-- React DnD for drag-and-drop
-- React PDF for report generation
-- Three.js for 3D previews
-- Socket.io for real-time features
+## Success Criteria
+- Application compiles without errors
+- All components render correctly with Tailwind styling
+- Navigation and layouts display properly across all screen sizes
+- Development server runs successfully
+- No TypeScript compilation errors
+- Luxury brand aesthetic maintained throughout
 
-Timeline:
-- Phase 2 development: 6-8 weeks
-- Testing and QA: 2 weeks
-- Performance optimization: 1 week
-- Security audit: 1 week
-- Deployment and monitoring: 1 week
+## Timeline
+Immediate completion required - this is blocking all development work.
 
-Success Metrics:
-- User engagement increase by 30%
-- Order completion rate increase by 20%
-- Customer support inquiries decrease by 25%
-- Design customization usage increase by 40%
-- Page load performance improvement by 25% 
+## Notes
+- Maintain existing functionality while fixing styling issues
+- Preserve luxury jewelry brand identity and user experience
+- Focus on code maintainability and scalability
+- Ensure mobile-first responsive design principles 

@@ -58,7 +58,7 @@ const ProductDetail: React.FC = () => {
       id: product.id,
         name: `${product.name} (${selectedMetal}, ${selectedShape})`,
       price: product.price,
-        imageUrl: product.imageUrl
+        image: product.imageUrl
     });
     alert(`${product.name} added to cart!`);
     }

@@ -110,7 +110,7 @@ const ProductList: React.FC<ProductListProps> = ({
         description: product.description,
         metal: product.metalOptions[0] || 'Yellow Gold',
         shape: product.diamondShapeOptions[0] || 'Round',
-        brand: 'GemDia',
+        brand: 'Facet & Co.',
         inStock: true,
         stockCount: Math.floor(Math.random() * 10) + 1, // Simulate stock count
       };

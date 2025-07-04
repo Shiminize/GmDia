@@ -55,7 +55,7 @@ const Register: React.FC = () => {
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-light text-graphite mb-4 font-primary tracking-tight">
-            Join GemDia
+                            Join Facet & Co.
           </h1>
           <p className="text-lg text-graphite/90 leading-relaxed max-w-xl mx-auto font-secondary">
             Create your account and start designing your perfect piece of jewelry.
@@ -146,9 +146,9 @@ const Register: React.FC = () => {
                 disabled={loading}
                 className={`px-8 py-3 rounded-full font-secondary font-semibold text-base uppercase tracking-wide transition-all duration-300 ${
                   loading 
-                    ? 'bg-gray-400 cursor-not-allowed text-white' 
-                    : 'bg-lavender text-white hover:bg-lavender/90 hover:transform hover:-translate-y-0.5 hover:shadow-lg'
-                } focus:outline-none focus:ring-2 focus:ring-lavender/50`}
+                    ? 'bg-gray-400 cursor-not-allowed text-secondary-foreground' 
+                    : 'bg-secondary text-secondary-foreground hover:bg-secondary/90 hover:transform hover:-translate-y-0.5 hover:shadow-lg'
+                } focus:outline-none focus:ring-2 focus:ring-secondary/50`}
               >
                 {loading ? 'Creating Account...' : 'Create Account'}
               </button>

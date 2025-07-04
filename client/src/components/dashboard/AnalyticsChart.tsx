@@ -126,8 +126,8 @@ const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
               onClick={() => setChartType('line')}
               className={`p-2 rounded transition-all duration-200 ${
                 chartType === 'line' 
-                  ? 'bg-lavender text-white' 
-                  : 'text-warm-gray hover:bg-lavender/10'
+                  ? 'bg-secondary text-secondary-foreground' 
+                  : 'text-warm-gray hover:bg-secondary/10'
               }`}
             >
               <FaChartLine className="w-4 h-4" />
@@ -136,8 +136,8 @@ const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
               onClick={() => setChartType('bar')}
               className={`p-2 rounded transition-all duration-200 ${
                 chartType === 'bar' 
-                  ? 'bg-lavender text-white' 
-                  : 'text-warm-gray hover:bg-lavender/10'
+                  ? 'bg-secondary text-secondary-foreground' 
+                  : 'text-warm-gray hover:bg-secondary/10'
               }`}
             >
               <FaChartBar className="w-4 h-4" />
