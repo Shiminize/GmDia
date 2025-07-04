@@ -59,23 +59,19 @@ const Header: React.FC = () => {
 
   const toggleMobileMenu = () => {
     const newState = !isMobileMenuOpen;
-    console.log('🍔 Mobile menu toggle:', { from: isMobileMenuOpen, to: newState });
     setIsMobileMenuOpen(newState);
     
     // Lock/unlock body scroll
     if (newState) {
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
-      console.log('🔒 Body scroll locked');
     } else {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
-      console.log('🔓 Body scroll unlocked');
     }
   };
 
   const closeMobileMenu = () => {
-    console.log('❌ Closing mobile menu');
     setIsMobileMenuOpen(false);
     // Unlock body scroll
     document.body.style.overflow = '';
