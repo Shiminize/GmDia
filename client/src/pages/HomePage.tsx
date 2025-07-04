@@ -390,12 +390,12 @@ const HomePage: React.FC = () => {
 
             {/* Right side - Packaging section */}
             <div className="relative max-w-md animate-fadeIn animation-delay-200">
-              {/* Packaging image card - no empty space */}
-              <div className="bg-ivory/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-4">
+              {/* Packaging image card - compact with no empty space */}
+              <div className="bg-champagne/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-2 h-64">
                 <img
                   src="/packaging.png"
                   alt="Luxury Facet & Co. packaging with elegant black jewelry box"
-                  className="w-full h-auto block"
+                  className="w-full h-full object-cover"
                   onError={(e) => {
                     // Fallback to a placeholder if packaging.png doesn't exist
                     const target = e.target as HTMLImageElement;
@@ -405,9 +405,9 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* Description card below */}
-              <div className="bg-ivory/95 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-border">
+              <div className="bg-champagne/95 backdrop-blur-sm p-4 rounded-lg shadow-lg border border-border">
                 <div className="flex items-center gap-2 mb-2">
-                  <Sparkles className="w-4 h-4 text-accent" />
+                  <Sparkles className="w-2 h-2 text-accent" />
                   <h3 className="text-lg font-semibold text-graphite">Complimentary Gift Wrapping</h3>
                 </div>
                 <p className="text-sm text-graphite/80 mb-3">
