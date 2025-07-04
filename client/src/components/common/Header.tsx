@@ -309,16 +309,14 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation Overlay */}
         <div
-          className={`lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm transition-all duration-300 z-[60]
-            ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+          className={`mobile-menu-overlay transition-all duration-300 ${
+            isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+          }`}
           onClick={closeMobileMenu}
         >
           {/* Mobile Menu Panel */}
           <div
-            className={`fixed top-0 right-0 w-full max-w-sm h-full bg-white transform transition-transform 
-              duration-300 ease-out overflow-y-auto z-[70] ${
-              isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-            }`}
+            className={`mobile-menu-panel ${isMobileMenuOpen ? 'open' : ''}`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}
