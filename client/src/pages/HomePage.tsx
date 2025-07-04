@@ -320,7 +320,7 @@ const HomePage: React.FC = () => {
             <>
               {/* Loading spinner */}
               {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/20 backdrop-blur-sm">
+                <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/20">
                   <div className="flex flex-col items-center gap-4">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
                     <p className="text-primary-foreground text-sm font-medium">Loading video...</p>
@@ -357,7 +357,7 @@ const HomePage: React.FC = () => {
         <div className="relative container mx-auto px-4 sm:px-6 z-30">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-12">
             {/* Left side - Main content */}
-            <div className="w-full max-w-md bg-ivory/90 backdrop-blur-sm p-4 sm:p-6 lg:p-8 rounded-lg shadow-2xl border border-border animate-fadeIn">
+            <div className="w-full max-w-md bg-ivory/95 p-4 sm:p-6 lg:p-8 rounded-lg shadow-2xl border border-border animate-fadeIn">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite leading-tight tracking-tight mb-3 sm:mb-4 lg:mb-6">
                 Ethical Brilliance,<br />
                 Timeless Design
@@ -391,7 +391,7 @@ const HomePage: React.FC = () => {
             {/* Right side - Packaging section */}
             <div className="relative w-full max-w-md animate-fadeIn animation-delay-200">
               {/* Packaging image card - responsive height */}
-              <div className="bg-champagne/90 backdrop-blur-sm rounded-lg overflow-hidden shadow-2xl border border-border mb-2 h-48 sm:h-56 lg:h-64">
+              <div className="bg-champagne/95 rounded-lg overflow-hidden shadow-2xl border border-border mb-2 h-48 sm:h-56 lg:h-64">
                 <img
                   src="/packaging.png"
                   alt="Luxury Facet & Co. packaging with elegant black jewelry box"
@@ -405,7 +405,7 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* Description card below */}
-              <div className="bg-champagne/95 backdrop-blur-sm p-3 sm:p-4 rounded-lg shadow-lg border border-border">
+              <div className="bg-champagne/95 p-3 sm:p-4 rounded-lg shadow-lg border border-border">
                 <div className="flex items-center gap-2 mb-2">
                   <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-accent" />
                   <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-graphite">Complimentary Gift Wrapping</h3>
@@ -480,7 +480,7 @@ const HomePage: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-xl sm:rounded-2xl"></div>
                 
                 {/* Floating quiz preview card - mobile optimized */}
-                <div className="absolute -bottom-3 -left-3 sm:-bottom-6 sm:-left-6 bg-card/95 backdrop-blur-sm rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-lg border border-border">
+                <div className="absolute -bottom-3 -left-3 sm:-bottom-6 sm:-left-6 bg-card/95 rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-lg border border-border">
                   <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
                     <Sparkles className="text-secondary" size={12} />
                     <span className="text-xs sm:text-sm font-semibold text-foreground">Personalized Match</span>
@@ -489,7 +489,7 @@ const HomePage: React.FC = () => {
                 </div>
                 
                 {/* Success stats card - mobile optimized */}
-                <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-card/95 backdrop-blur-sm rounded-lg p-2 sm:p-3 shadow-lg border border-border">
+                <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-card/95 rounded-lg p-2 sm:p-3 shadow-lg border border-border">
                   <div className="flex items-center gap-1 sm:gap-2 mb-1">
                     <Star className="text-secondary" size={12} />
                     <span className="text-xs sm:text-sm font-semibold text-foreground">96% Match Rate</span>

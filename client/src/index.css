@@ -561,6 +561,10 @@
   contain: layout style paint !important;
   backface-visibility: hidden !important;
   -webkit-overflow-scrolling: touch !important;
+  /* DEBUG STYLES - TEMPORARY */
+  border-left: 5px solid #ff0000 !important;
+  box-shadow: -20px 0 50px rgba(255, 0, 0, 0.5) !important;
+  outline: 3px solid #ff00ff !important;
 }
 
 .mobile-menu-nuclear-panel.open {
