@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ProductCarousel from '../components/products/ProductCarousel';
-import { ProductCard } from '../components/products/ProductCard';
-import { TopBanner } from '../components/common/TopBanner';
+import ProductCard from '../components/products/ProductCard';
+import TopBanner from '../components/common/TopBanner';
 import Button from '../components/common/Button';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
