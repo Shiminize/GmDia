@@ -11,6 +11,7 @@ import {
   ArrowRight,
   Star
 } from 'lucide-react';
+import ProductCard from '../components/ProductCard';
 
 // Sample product data for featured designs
 const featuredProducts = [
@@ -455,59 +456,7 @@ const HomePage: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {featuredProducts.map((product) => (
-              <div key={product.id} className="group relative bg-white rounded-lg overflow-hidden shadow-lg
-                hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
-                {product.isNew && (
-                  <span className="absolute top-4 left-4 bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                    New
-                  </span>
-                )}
-                {product.isBestseller && (
-                  <span className="absolute top-4 right-4 bg-secondary text-secondary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                    Bestseller
-                  </span>
-                )}
-                <div className="relative aspect-square">
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-graphite/40 opacity-0 group-hover:opacity-100
-                    transition-opacity duration-300 flex items-center justify-center">
-                    <div className="flex gap-4">
-                      <button className="w-10 h-10 rounded-full bg-card flex items-center justify-center
-                        hover:bg-secondary hover:text-secondary-foreground transition-colors duration-300">
-                        <Eye size={20} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4 sm:p-6">
-                  <h3 className="text-lg font-semibold text-graphite mb-2">{product.name}</h3>
-                  <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-graphite/70 mb-4">
-                    <span>{product.metal}</span>
-                    <span className="hidden sm:inline">•</span>
-                    <span>{product.shape}</span>
-                    <span className="hidden sm:inline">•</span>
-                    <span>{product.carat}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-xl font-bold text-graphite">${product.price}</span>
-                      {product.originalPrice && (
-                        <span className="ml-2 text-sm line-through text-graphite/50">
-                          ${product.originalPrice}
-                        </span>
-                      )}
-                    </div>
-                    <button className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-full
-                      hover:bg-secondary transition-colors duration-300">
-                      View Details
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <ProductCard key={product.id} product={product} />
             ))}
           </div>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductList from '../components/products/ProductList';
+import ProductCard from '../components/ProductCard';
 
 const ProductsPage: React.FC = () => {
   // State for active filters
@@ -240,7 +241,10 @@ const ProductsPage: React.FC = () => {
         shapeFilter={shapeFilter}
         sortBy={sortBy}
         onProductCountChange={handleProductCountChange}
-      />
+      >
+        {/* In the product grid, map over your products and render <ProductCard product={product} /> */}
+        {/* Adjust the product object to include id, name, imageUrl, videoUrl, isBestseller, reviewCount, rating, price, oldPrice as needed. */}
+      </ProductList>
     </div>
   );
 };
