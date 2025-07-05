@@ -241,10 +241,7 @@ const ProductsPage: React.FC = () => {
         shapeFilter={shapeFilter}
         sortBy={sortBy}
         onProductCountChange={handleProductCountChange}
-      >
-        {/* In the product grid, map over your products and render <ProductCard product={product} /> */}
-        {/* Adjust the product object to include id, name, imageUrl, videoUrl, isBestseller, reviewCount, rating, price, oldPrice as needed. */}
-      </ProductList>
+      />
     </div>
   );
 };
