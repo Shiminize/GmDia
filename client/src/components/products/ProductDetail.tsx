@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Button from '../common/Button';
+
 import RelatedProducts from './RelatedProducts';
 import { useCart } from '../../contexts/CartContext';
 import api from '../../services/api';

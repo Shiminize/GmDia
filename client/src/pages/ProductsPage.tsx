@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductList from '../components/products/ProductList';
-import ProductCard from '../components/ProductCard';
+
 
 const ProductsPage: React.FC = () => {
   // State for active filters

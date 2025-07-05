@@ -6,7 +6,6 @@
     "server": "pnpm --filter server"
   },
   "dependencies": {
-    "@react-three/fiber": "^9.1.4",
     "bcryptjs": "^3.0.2",
     "mongodb": "^6.17.0",
     "three": "^0.178.0"

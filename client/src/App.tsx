@@ -20,11 +20,11 @@ import SustainabilityPage from './pages/SustainabilityPage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
 import BlogPost from './pages/BlogPost';
-import Button from './components/common/Button';
+
 import SizingGuide from './pages/SizingGuide';
 import ShineYourMomentEvent from './pages/ShineYourMomentEvent';
 import TopBanner from './components/common/TopBanner';
-import { useAuth } from './contexts/AuthContext';
+
 import RingQuizPage from './pages/RingQuizPage';
 
 interface ChatMessage {
@@ -36,7 +36,6 @@ interface ChatMessage {
 }
 
 function App() {
-  const { user } = useAuth();
   const [showChat, setShowChat] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {

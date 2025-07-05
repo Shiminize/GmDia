@@ -37,21 +37,21 @@
     --radius: 0.5rem;
 
     /* Legacy color variables for backward compatibility */
-    --ivory-white: hsl(40 33% 97.5%);
-    --ivory-light: hsl(40 33% 98.5%);
-    --graphite-black: hsl(0 0% 10.2%);
-    --graphite-light: hsl(0 0% 20%);
-    --champagne-beige: hsl(37 41% 89.8%);
-    --champagne-light: hsl(37 41% 94%);
-    --muted-blush: rgb(251, 234, 236);
-    --blush-light: rgb(251, 234, 236);
-    --pale-sage: hsl(130 25% 85%);
-    --sage-light: hsl(130 25% 90%);
-    --digital-lavender: hsl(278 35% 78%);
-    --lavender-light: hsl(278 35% 85%);
-    --deep-navy: hsl(210 29% 24%);
-    --warm-gray: hsl(30 5% 85%);
-    --error-color: hsl(0 84% 60%);
+    --ivory-white: #fbf9f7;
+    --ivory-light: #fcfcfa;
+    --graphite-black: #1a1a1a;
+    --graphite-light: #2a2a2a;
+    --champagne-beige: #f5f5f5;
+    --champagne-light: #fafafa;
+    --muted-blush: #fbeaece6;
+    --blush-light: #fbeaece6;
+    --pale-sage: #858585;
+    --sage-light: #909090;
+    --digital-lavender: #787878;
+    --lavender-light: #858585;
+    --deep-navy: #181818;
+    --warm-gray: #858585;
+    --error-color: #606060;
     
     /* Spacing */
     --space-1: 0.25rem;
@@ -269,6 +269,13 @@
   .btn-mobile-secondary {
     @apply btn-mobile border-2 border-secondary text-secondary 
       hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+  }
+
+  /* Three.js viewer optimization */
+  canvas {
+    outline: none !important;
+    touch-action: none;
+    user-select: none;
   }
 }
 
@@ -688,4 +695,12 @@
 
 .mobile-menu-panel.open {
   transform: translateX(0) !important;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  canvas {
+    image-rendering: optimizeSpeed;
+    image-rendering: -webkit-optimize-contrast;
+  }
 }

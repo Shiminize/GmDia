@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Hand,
-  Eye,
   ChevronDown,
   ChevronRight,
   MessageCircle,

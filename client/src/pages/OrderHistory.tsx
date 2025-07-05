@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import DashboardCard from '../components/dashboard/DashboardCard';
-import OrderTable from '../components/dashboard/OrderTable';
+
 import StatusBadge from '../components/dashboard/StatusBadge';
 import { FaMagnifyingGlass, FaCalendar, FaFilter } from 'react-icons/fa6';
 

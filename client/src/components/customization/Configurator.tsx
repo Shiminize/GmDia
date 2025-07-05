@@ -1,6 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
-import * as THREE from 'three';
-import { OrbitControls } from 'three-stdlib';
+import React, { useState } from 'react';
 import Step1Setting from './Step1_Setting';
 import Step2Metal from './Step2_Metal';
 import Step3Diamond from './Step3_Diamond';
@@ -8,9 +6,9 @@ import Step4Personalization from './Step4_Personalization';
 import Button from '../common/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../services/api';
+import ThreeJSViewer from './ThreeJSViewer';
 
 const Configurator: React.FC = () => {
-  const mountRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedSetting, setSelectedSetting] = useState<string>('');
   const [selectedMetal, setSelectedMetal] = useState<string>('');
@@ -20,97 +18,6 @@ const Configurator: React.FC = () => {
   const [saveMessage, setSaveMessage] = useState('');
 
   const { user } = useAuth();
-
-  // Ref to store the Three.js ring object
-  const ringRef = useRef<THREE.Mesh | null>(null);
-
-  useEffect(() => {
-    const localMountRef = mountRef.current;
-    if (!localMountRef) return;
-
-    // Scene setup
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, localMountRef.clientWidth / localMountRef.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-
-    renderer.setSize(localMountRef.clientWidth, localMountRef.clientHeight);
-    localMountRef.appendChild(renderer.domElement);
-
-    // Add a simple ring (TorusGeometry) as a placeholder
-    const geometry = new THREE.TorusGeometry(1, 0.3, 16, 100);
-    const material = new THREE.MeshStandardMaterial({ color: 0xffd700 }); // Default Gold color
-    const ring = new THREE.Mesh(geometry, material);
-    scene.add(ring);
-    ringRef.current = ring; // Store the ring object in ref
-
-    // Add lighting
-    const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5); // white light
-    directionalLight.position.set(1, 1, 1).normalize();
-    scene.add(directionalLight);
-
-    camera.position.z = 3;
-
-    // OrbitControls
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true; // an animation loop is required when damping is enabled
-    controls.dampingFactor = 0.25;
-    controls.screenSpacePanning = false;
-    controls.maxPolarAngle = Math.PI / 2;
-
-    // Animation loop
-    const animate = () => {
-      requestAnimationFrame(animate);
-      controls.update(); // only required if controls.enableDamping is set to true
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    // Handle window resize
-    const handleResize = () => {
-      if (localMountRef) {
-        camera.aspect = localMountRef.clientWidth / localMountRef.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(localMountRef.clientWidth, localMountRef.clientHeight);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (localMountRef) {
-        localMountRef.removeChild(renderer.domElement);
-      }
-      controls.dispose();
-    };
-  }, []); // Empty dependency array means this effect runs once on mount
-
-  // Effect to update ring color based on selectedMetal
-  useEffect(() => {
-    if (ringRef.current) {
-      let color;
-      switch (selectedMetal) {
-        case 'yellow-gold':
-          color = 0xffd700; // Gold
-          break;
-        case 'white-gold':
-          color = 0xF0F8FF; // AliceBlue (close to white gold)
-          break;
-        case 'rose-gold':
-          color = 0xB76E79; // Rose Gold
-          break;
-        case 'platinum':
-          color = 0xE5E4E2; // Platinum
-          break;
-        default:
-          color = 0xffd700; // Default to gold
-      }
-      (ringRef.current.material as THREE.MeshStandardMaterial).color.setHex(color);
-    }
-  }, [selectedMetal]); // Rerun this effect when selectedMetal changes
 
   const renderStepComponent = () => {
     switch (currentStep) {
@@ -206,8 +113,10 @@ const Configurator: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* 3D Viewer */}
-        <div className="bg-white rounded-xl shadow-sm border border-champagne p-6">
-          <div ref={mountRef} className="w-full aspect-square rounded-lg overflow-hidden" />
+        <div className="bg-white rounded-xl shadow-sm border border-champagne p-6 sticky top-8 h-[600px]">
+          <div className="w-full h-full rounded-lg overflow-hidden">
+            <ThreeJSViewer />
+          </div>
         </div>
 
         {/* Configuration Panel */}
@@ -222,9 +131,9 @@ const Configurator: React.FC = () => {
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
                     ${currentStep === step
-                                                ? 'bg-secondary text-secondary-foreground'
+                      ? 'bg-secondary text-secondary-foreground'
                       : step < currentStep
-                                                  ? 'bg-accent text-accent-foreground'
+                        ? 'bg-accent text-accent-foreground'
                         : 'bg-gray-100 text-warm-gray'
                     }`}
                 >
