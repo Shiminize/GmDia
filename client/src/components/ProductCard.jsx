@@ -61,11 +61,11 @@ export default function ProductCard({ product }) {
           </span>
         )}
         <button
-          className="absolute top-3 right-3 bg-white/80 rounded-full p-2 hover:bg-blush transition-colors z-10 btn-icon"
+          className="absolute top-3 right-3 bg-white/80 rounded-full p-2 hover:bg-champagne transition-colors z-10 btn-icon"
           onClick={handleWishlistClick}
           aria-label="Add to wishlist"
         >
-          <Heart size={20} className="text-blush" fill="none" />
+          <Heart size={20} className="text-champagne" fill="none" />
         </button>
       </div>
       <div className="p-4">
@@ -78,7 +78,7 @@ export default function ProductCard({ product }) {
           <span className="text-muted-foreground text-sm font-primary">({product.reviewCount})</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xl font-bold text-blush font-secondary">${product.price.toLocaleString()}</span>
+          <span className="text-xl font-bold text-graphite font-secondary">${product.price.toLocaleString()}</span>
           {product.oldPrice && (
             <del className="text-gray-400 text-base font-primary">${product.oldPrice.toLocaleString()}</del>
           )}
