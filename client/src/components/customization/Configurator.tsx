@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Step1Setting from './Step1_Setting';
 import Step2Metal from './Step2_Metal';
 import Step3Diamond from './Step3_Diamond';
@@ -7,8 +7,16 @@ import Button from '../common/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../services/api';
 import ThreeJSViewer from './ThreeJSViewer';
+import type { SavedDesign } from '../../pages/Dashboard';
+
+type NewDesign = Omit<SavedDesign, '_id' | 'createdAt'>;
 
 const Configurator: React.FC = () => {
+  const testRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    console.log('[Configurator] testRef.current:', testRef.current);
+  }, []);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedSetting, setSelectedSetting] = useState<string>('');
   const [selectedMetal, setSelectedMetal] = useState<string>('');
@@ -52,19 +60,13 @@ const Configurator: React.FC = () => {
     setSaveMessage('');
     
     try {
-      const design = {
+      const design: NewDesign = {
         name: `Custom ${selectedSetting || 'Ring'} - ${new Date().toLocaleDateString()}`,
         designData: {
           setting: selectedSetting,
           metal: selectedMetal,
           diamondShape: selectedDiamondShape,
-          engraving: engravingText,
-          specifications: {
-            metalType: selectedMetal,
-            diamondShape: selectedDiamondShape,
-            settingStyle: selectedSetting,
-            customText: engravingText
-          }
+          engraving: engravingText
         }
       };
 

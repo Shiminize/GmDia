@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductCard from '../ProductCard';
 import api from '../../services/api';
 
-interface Product {
+export interface Product {
   _id: string;
   name: string;
   price: number;
@@ -73,8 +73,8 @@ const ProductList: React.FC<ProductListProps> = ({
       console.log('Fetching products...');
       try {
         setLoading(true);
-        const data = await api.get('/products');
-        console.log('Products fetched successfully:', data);
+        const data = await api.products.getAll();
+        console.log('Products fetched from API:', data);
         setProducts(data);
         setError('');
       } catch (error) {
@@ -90,71 +90,80 @@ const ProductList: React.FC<ProductListProps> = ({
   }, []);
 
   const processedProducts = React.useMemo(() => {
-    // Apply filters to the original products array
-    let filteredRawProducts = products;
+    try {
+      // Apply filters to the original products array
+      let filteredRawProducts = products;
 
-    if (metalFilter !== 'All') {
-      const normalizedMetalFilter = metalFilter.toLowerCase().replace(/ /g, '-');
-      filteredRawProducts = filteredRawProducts.filter(product => 
-        product.metalOptions.includes(normalizedMetalFilter)
-      );
-    }
-
-    if (shapeFilter !== 'All') {
-      const normalizedShapeFilter = shapeFilter.toLowerCase().replace(/ /g, '-');
-      filteredRawProducts = filteredRawProducts.filter(product => 
-        product.diamondShapeOptions.includes(normalizedShapeFilter)
-      );
-    }
-
-    // Convert backend data to match frontend expectations
-    let ringImageIdx = 0;
-    let genericImageIdx = 0;
-    const mappedProducts = filteredRawProducts.map(product => {
-      let imageUrl = product.imageUrl;
-      if (product.category === 'rings') {
-        imageUrl = ringImages[ringImageIdx % ringImages.length];
-        ringImageIdx++;
-      } else if (imageUrl.includes('via.placeholder.com')) {
-        imageUrl = genericPlaceholderImages[genericImageIdx % genericPlaceholderImages.length];
-        genericImageIdx++;
+      if (metalFilter !== 'All') {
+        const normalizedMetalFilter = metalFilter.toLowerCase().replace(/ /g, '-');
+        filteredRawProducts = filteredRawProducts.filter(product => 
+          product.metalOptions.includes(normalizedMetalFilter)
+        );
       }
-      return {
-        id: product._id,
-        name: product.name,
-        price: product.price,
-        imageUrl,
-        description: product.description,
-        metal: product.metalOptions[0] || 'Yellow Gold',
-        shape: product.diamondShapeOptions[0] || 'Round',
-        brand: 'Facet & Co.',
-        inStock: true,
-        stockCount: Math.floor(Math.random() * 10) + 1, // Simulate stock count
-      };
-    });
 
-    // Apply sorting to the processed products
-    mappedProducts.sort((a, b) => {
-      switch (sortBy) {
-        case 'price-low':
-          return a.price - b.price;
-        case 'price-high':
-          return b.price - a.price;
-        case 'name-asc':
-          return a.name.localeCompare(b.name);
-        case 'name-desc':
-          return b.name.localeCompare(a.name);
-        case 'newest':
-          // Simulate newest products (in real app, would sort by creation date)
-          return Math.random() - 0.5;
-        case 'featured':
-        default:
-          // Simulate featured products (in real app, would sort by featured flag)
-          return Math.random() - 0.5;
+      if (shapeFilter !== 'All') {
+        const normalizedShapeFilter = shapeFilter.toLowerCase().replace(/ /g, '-');
+        filteredRawProducts = filteredRawProducts.filter(product => 
+          product.diamondShapeOptions.includes(normalizedShapeFilter)
+        );
       }
-    });
 
-    return mappedProducts;
+      // Convert backend data to match frontend expectations
+      let ringImageIdx = 0;
+      let genericImageIdx = 0;
+      const mappedProducts = filteredRawProducts.map(product => {
+        if (!product || !product._id || !product.name) {
+          console.error('Invalid product object:', product);
+          return null;
+        }
+        let imageUrl = product.imageUrl || '';
+        if (product.category === 'rings') {
+          imageUrl = ringImages[ringImageIdx % ringImages.length];
+          ringImageIdx++;
+        } else if (imageUrl.includes('via.placeholder.com')) {
+          imageUrl = genericPlaceholderImages[genericImageIdx % genericPlaceholderImages.length];
+          genericImageIdx++;
+        }
+        return {
+          id: product._id,
+          name: product.name,
+          price: product.price,
+          imageUrl,
+          description: product.description,
+          metal: product.metalOptions[0] || 'Yellow Gold',
+          shape: product.diamondShapeOptions[0] || 'Round',
+          brand: 'Facet & Co.',
+          inStock: true,
+          stockCount: Math.floor(Math.random() * 10) + 1, // Simulate stock count
+        };
+      }).filter((p): p is NonNullable<typeof p> => p !== null);
+
+      // Apply sorting to the processed products
+      mappedProducts.sort((a, b) => {
+        if (!a || !b) return 0;
+        switch (sortBy) {
+          case 'price-low':
+            return a.price - b.price;
+          case 'price-high':
+            return b.price - a.price;
+          case 'name-asc':
+            return a.name.localeCompare(b.name);
+          case 'name-desc':
+            return b.name.localeCompare(a.name);
+          case 'newest':
+            return Math.random() - 0.5;
+          case 'featured':
+          default:
+            return Math.random() - 0.5;
+        }
+      });
+
+      return mappedProducts;
+    } catch (err) {
+      console.error('Error processing products:', err);
+      setError('Error processing products. See console for details.');
+      return [];
+    }
   }, [products, metalFilter, shapeFilter, sortBy]);
 
   // Update product count

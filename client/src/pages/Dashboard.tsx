@@ -8,7 +8,7 @@ import MetricCard from '../components/dashboard/MetricCard';
 import OrderTable from '../components/dashboard/OrderTable';
 import { StatusType } from '../components/dashboard/StatusBadge';
 
-interface SavedDesign {
+export interface SavedDesign {
   _id: string;
   name: string;
   designData: {
