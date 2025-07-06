@@ -129,7 +129,7 @@ const ThreeJSViewer: React.FC = () => {
       
       // Set loading timeout using ref
       loadingTimeoutRef.current = setTimeout(() => {
-        if (loading) {
+        if (!modelRef.current) {
           setError('Model loading timed out. Please refresh the page.');
           setLoading(false);
           console.error('[ThreeJSViewer] Model loading timed out');
