@@ -7,16 +7,20 @@ import { formatPrice } from '../../utils/formatters';
 const CartSlider: React.FC = () => {
   const { cartItems, cartTotal, toggleCartSlider, isCartOpen, removeFromCart, updateQuantity } = useCart();
 
-  if (!isCartOpen) return null;
-
   return (
-    <div
-      className="fixed inset-0 bg-graphite/50 backdrop-blur-sm z-50 transition-opacity duration-300"
-      onClick={toggleCartSlider}
-    >
+    <>
+      {/* Backdrop */}
+      {isCartOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300"
+          onClick={toggleCartSlider}
+        />
+      )}
+      
+      {/* Cart Panel */}
       <div
         className={`fixed top-0 right-0 w-[85%] max-w-[400px] h-full bg-white transform transition-transform 
-          duration-300 ease-in-out ${isCartOpen ? 'translate-x-0' : 'translate-x-full'} overflow-y-auto safe-bottom`}
+          duration-300 ease-in-out z-50 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'} overflow-y-auto safe-bottom`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="sticky top-0 flex items-center justify-between p-4 sm:p-6 border-b border-champagne/30 
@@ -100,7 +104,7 @@ const CartSlider: React.FC = () => {
           </>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -457,7 +457,7 @@ const HomePage: React.FC = () => {
                   <img
                     src="/Luxurious.png"
                     alt="Elegant woman wearing luxurious diamond jewelry"
-                    className="w-full h-auto object-cover aspect-[4/5] sm:aspect-[3/4]"
+                    className="w-full h-auto object-cover aspect-square sm:aspect-square"
                   />
                   {/* Subtle overlay for text readability */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
@@ -704,11 +704,11 @@ const HomePage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1">
-              <div className="relative">
+              <div className="relative aspect-square w-full">
                 <img
                   src="/expert.png"
                   alt="Jewelry expert"
-                  className="rounded-lg shadow-xl w-full h-full object-cover"
+                  className="rounded-lg shadow-xl w-full h-full object-cover aspect-square"
                 />
                 <div className="absolute -bottom-6 -right-6 bg-white rounded-lg p-4 shadow-lg">
                   <div className="flex items-center gap-2">

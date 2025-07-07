@@ -187,10 +187,14 @@ const Header: React.FC = () => {
             {/* Logo - Left Side */}
             <div className="flex-shrink-0">
               <Link to="/" className="flex items-center">
-                <img 
-                  src="/Logo.png" 
-                  alt="Facet & Co." 
-                  className="h-8 w-auto object-contain"
+                <div
+                  className="bg-no-repeat bg-center bg-contain"
+                  style={{
+                    backgroundImage: 'url(/Logo.png)',
+                    width: '120px', // Enlarged for desktop
+                    height: '64px', // Enlarged for desktop
+                  }}
+                  aria-label="Facet & Co."
                 />
               </Link>
             </div>
@@ -239,7 +243,7 @@ const Header: React.FC = () => {
                     isActivePath('/customize') ? 'text-black' : 'text-gray-700 hover:text-black'
                   }`}
                 >
-                  Journal
+                  Customize
                 </Link>
               </div>
             </nav>
