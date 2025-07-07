@@ -178,146 +178,145 @@ const Header: React.FC = () => {
   return (
     <>
       <header 
-        className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-champagne/30 safe-top
-          ${isScrolled ? 'shadow-sm' : ''}`}
+        className={`sticky top-0 z-50 bg-white border-b border-gray-200 safe-top
+          ${isScrolled ? '' : ''}`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+          <div className="flex items-center justify-between h-16">
             
-            {/* Logo */}
-            <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="touch-target flex items-center justify-center">
+            {/* Logo - Left Side */}
+            <div className="flex-shrink-0">
+              <Link to="/" className="flex items-center">
                 <img 
                   src="/Logo.png" 
-                  alt="Facet & Co. Logo" 
-                  className="w-48 h-48 sm:w-12 sm:h-12 object-contain bg-transparent shadow-none border-none transition-transform duration-300"
-                  style={{ background: 'none' }}
+                  alt="Facet & Co." 
+                  className="h-8 w-auto object-contain"
                 />
               </Link>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center justify-center flex-1 max-w-2xl mx-auto">
-              <div className="flex items-center space-x-12">
-                {navigationItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`header-nav-link text-lg ${
-                      location.pathname === item.path ? 'active' : ''
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+            {/* Desktop Navigation - Center */}
+            <nav className="hidden md:flex items-center justify-center flex-1">
+              <div className="flex items-center space-x-8">
+                <Link
+                  to="/about"
+                  className={`text-sm font-normal tracking-wide transition-colors duration-200 ${
+                    isActivePath('/about') ? 'text-black' : 'text-gray-700 hover:text-black'
+                  }`}
+                >
+                  About
+                </Link>
+                <div className="relative group">
+                  <button className="text-sm font-normal tracking-wide text-gray-700 hover:text-black transition-colors duration-200">
+                    Brands
+                  </button>
+                  {/* Brands dropdown can be added here if needed */}
+                </div>
+                <div className="relative group">
+                  <button className="text-sm font-normal tracking-wide text-gray-700 hover:text-black transition-colors duration-200">
+                    Products
+                  </button>
+                  {/* Products dropdown */}
+                  <div className="absolute left-0 top-full mt-1 w-48 bg-white border border-gray-200 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <Link to="/products" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">All</Link>
+                    <Link to="/products?category=rings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Rings</Link>
+                    <Link to="/products?category=necklaces" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Necklaces</Link>
+                    <Link to="/products?category=earrings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Earrings</Link>
+                    <Link to="/products?category=bracelets" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Bracelets</Link>
+                  </div>
+                </div>
+                <Link
+                  to="/education"
+                  className={`text-sm font-normal tracking-wide transition-colors duration-200 ${
+                    isActivePath('/education') ? 'text-black' : 'text-gray-700 hover:text-black'
+                  }`}
+                >
+                  News
+                </Link>
+                <Link
+                  to="/customize"
+                  className={`text-sm font-normal tracking-wide transition-colors duration-200 ${
+                    isActivePath('/customize') ? 'text-black' : 'text-gray-700 hover:text-black'
+                  }`}
+                >
+                  Journal
+                </Link>
               </div>
             </nav>
 
-            {/* Desktop Actions */}
-            <div className="hidden lg:flex items-center space-x-6">
-              {user ? (
-                <div className="relative group">
-                  <button className="flex items-center space-x-2 text-graphite hover:text-blush transition-colors duration-300">
-                    <User size={20} />
-                    <span className="font-medium">{user.name}</span>
-                  </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 opacity-0 invisible
-                    group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right">
-                    <Link
-                      to="/dashboard"
-                      className="block px-4 py-2 text-sm text-graphite hover:bg-blush/5 hover:text-blush transition-colors"
-                    >
-                      Dashboard
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm text-graphite hover:bg-blush/5 hover:text-blush transition-colors"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-4">
-                  <Link
-                    to="/login"
-                    className="text-graphite hover:text-blush transition-colors duration-300"
-                  >
-                    Sign In
-                  </Link>
-                  <Link
-                    to="/register"
-                    className="px-4 py-2 bg-secondary text-secondary-foreground rounded-full hover:bg-secondary/90 transition-colors duration-300"
-                  >
-                    Create Account
-                  </Link>
-                </div>
-              )}
+            {/* Desktop Actions - Right Side */}
+            <div className="hidden md:flex items-center space-x-4">
+              {/* Currency/Language Selector */}
+              <div className="relative group">
+                <button className="text-sm font-normal text-gray-700 hover:text-black transition-colors duration-200">
+                  USD | $
+                </button>
+              </div>
 
               {/* Search */}
               <div className="relative" ref={searchRef}>
                 <button
                   onClick={toggleSearchOverlay}
-                  className="p-2 text-graphite hover:text-blush hover:bg-blush/10 rounded-lg transition-all duration-300"
+                  className="p-1 text-gray-700 hover:text-black transition-colors duration-200"
                   aria-label="Search"
                 >
-                  <Search size={20} />
+                  <Search size={18} />
                 </button>
                 
                 {isSearchOverlayOpen && (
-                  <div className="absolute right-0 top-12 w-80 bg-white rounded-lg shadow-luxury border border-champagne/30 p-4 z-50">
+                  <div className="absolute right-0 top-full mt-2 w-80 bg-white border border-gray-200 shadow-lg p-4 z-50">
                     <input
                       type="text"
-                      placeholder="Search jewelry..."
+                      placeholder="Search..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full px-4 py-2 border border-champagne rounded-lg focus:outline-none focus:ring-2 focus:ring-blush/20 focus:border-blush"
+                      className="w-full px-3 py-2 border border-gray-300 text-sm focus:outline-none focus:border-black"
                       autoFocus
                     />
                   </div>
                 )}
               </div>
 
-              {/* Profile */}
+              {/* Profile/Account */}
               <div className="relative" ref={profileRef}>
                 <button
                   onClick={toggleProfileDropdown}
-                  className="p-2 text-graphite hover:text-blush hover:bg-blush/10 rounded-lg transition-all duration-300"
-                  aria-label="Profile"
+                  className="p-1 text-gray-700 hover:text-black transition-colors duration-200"
+                  aria-label="My account"
                 >
-                  <User size={20} />
+                  <User size={18} />
                 </button>
                 
                 {isProfileDropdownOpen && (
-                  <div className="absolute right-0 top-12 w-48 bg-white rounded-lg shadow-luxury border border-champagne/30 py-2 z-50">
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 shadow-lg py-1 z-50">
                     {user ? (
                       <>
                         <Link
                           to="/dashboard"
-                          className="block px-4 py-2 text-sm text-graphite hover:bg-blush/5 hover:text-blush transition-colors duration-300"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                         >
                           Dashboard
                         </Link>
                         <button
                           onClick={handleLogout}
-                          className="block w-full text-left px-4 py-2 text-sm text-graphite hover:bg-blush/5 hover:text-blush transition-colors duration-300"
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                         >
-                          Logout
+                          Sign out
                         </button>
                       </>
                     ) : (
                       <>
                         <Link
                           to="/login"
-                          className="block px-4 py-2 text-sm text-graphite hover:bg-blush/5 hover:text-blush transition-colors duration-300"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                         >
-                          Login
+                          Sign in
                         </Link>
                         <Link
                           to="/register"
-                          className="block px-4 py-2 text-sm text-graphite hover:bg-blush/5 hover:text-blush transition-colors duration-300"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                         >
-                          Register
+                          Create account
                         </Link>
                       </>
                     )}
@@ -328,207 +327,131 @@ const Header: React.FC = () => {
               {/* Cart */}
               <button
                 onClick={toggleCartSlider}
-                className="relative p-2 text-graphite hover:text-blush hover:bg-blush/10 rounded-lg 
-                  transition-all duration-300 touch-target"
+                className="relative p-1 text-gray-700 hover:text-black transition-colors duration-200"
                 aria-label="Cart"
               >
-                <ShoppingCart size={20} />
+                <ShoppingCart size={18} />
                 {cartItems.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-secondary text-secondary-foreground text-xs font-semibold 
-                    w-5 h-5 rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-black text-white text-xs font-medium 
+                    w-4 h-4 rounded-full flex items-center justify-center">
                     {cartItems.length}
                   </span>
                 )}
               </button>
             </div>
 
-            {/* Mobile Actions */}
-            <div className="flex lg:hidden items-center space-x-3">
+            {/* Mobile Menu Button */}
+            <div className="flex md:hidden items-center space-x-3">
               <button
                 onClick={toggleCartSlider}
-                className="relative p-2 text-graphite hover:text-blush hover:bg-blush/10 rounded-lg 
-                  transition-all duration-300 touch-target"
+                className="relative p-1 text-gray-700"
                 aria-label="Cart"
               >
                 <ShoppingCart size={20} />
                 {cartItems.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-secondary text-secondary-foreground text-xs font-semibold 
-                    w-5 h-5 rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-black text-white text-xs font-medium 
+                    w-4 h-4 rounded-full flex items-center justify-center">
                     {cartItems.length}
                   </span>
                 )}
               </button>
-
-              {/* Mobile Menu Button */}
+              
               <button
                 onClick={toggleMobileMenu}
-                className="p-2 text-graphite hover:text-blush hover:bg-blush/10 rounded-lg 
-                  transition-all duration-300 touch-target relative"
-                aria-label="Toggle mobile menu"
+                className="p-1 text-gray-700 hover:text-black transition-colors duration-200"
+                aria-label="Menu"
               >
-                <div className="relative">
-                  <Menu 
-                    size={24} 
-                    className={`transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0 rotate-90 scale-75' : 'opacity-100 rotate-0 scale-100'}`}
-                  />
-                  <X 
-                    size={24} 
-                    className={`absolute inset-0 transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-75'}`}
-                  />
-                </div>
+                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Navigation Overlay */}
+      {/* Mobile Navigation Overlay */}
+      {isMobileMenuOpen && (
         <div
-          className={`mobile-menu-nuclear-overlay transition-all duration-300 ${
-            isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-          }`}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 999999,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            backdropFilter: 'blur(4px)',
-            WebkitBackdropFilter: 'blur(4px)',
-            isolation: 'isolate',
-            transform: 'translateZ(0)'
-          }}
+          className="fixed inset-0 z-50 bg-black bg-opacity-50"
           onClick={closeMobileMenu}
         >
           {/* Mobile Menu Panel */}
           <div
-            className={`mobile-menu-nuclear-panel ${isMobileMenuOpen ? 'open' : ''}`}
-            style={{
-              position: 'fixed',
-              top: 0,
-              right: 0,
-              width: '100%',
-              maxWidth: '24rem',
-              height: '100vh',
-              background: 'white',
-              zIndex: 9999999,
-              transform: isMobileMenuOpen ? 'translate3d(0, 0, 0)' : 'translate3d(100%, 0, 0)',
-              transition: 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-              overflowY: 'auto',
-              willChange: 'transform',
-              isolation: 'isolate',
-              contain: 'layout style paint',
-              backfaceVisibility: 'hidden',
-              WebkitOverflowScrolling: 'touch',
-
-            }}
+            className="fixed top-0 right-0 w-full max-w-sm h-full bg-white shadow-lg transform transition-transform duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Menu Header */}
-            <div className="sticky top-0 flex items-center justify-between p-6 border-b border-champagne/20 
-              bg-white/95 backdrop-blur-sm">
-              <Link 
-                to="/" 
-                className="flex items-center space-x-3 touch-target" 
-                onClick={closeMobileMenu}
-              >
+            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+              <Link to="/" onClick={closeMobileMenu}>
                 <img 
                   src="/Logo.png" 
-                  alt="Facet & Co. Logo" 
-                  className="w-12 h-12 object-contain bg-transparent shadow-none border-none"
-                  style={{ background: 'none' }}
+                  alt="Facet & Co." 
+                  className="h-6 w-auto object-contain"
                 />
               </Link>
               <button
                 onClick={closeMobileMenu}
-                className="p-2 text-graphite hover:text-blush rounded-lg touch-target transition-colors duration-200"
+                className="p-1 text-gray-700"
                 aria-label="Close menu"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
             </div>
 
             {/* Mobile Menu Content */}
-            <div className="px-6 py-8">
+            <div className="p-4">
               {/* Main Navigation */}
-              <nav className="space-y-1 mb-8">
-                <h3 className="text-xs font-semibold text-graphite/60 uppercase tracking-wider mb-4">
-                  Navigation
-                </h3>
-                {navigationItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    onClick={closeMobileMenu}
-                    className={`block py-3 px-4 text-lg font-medium rounded-lg transition-all duration-200
-                      ${isActivePath(item.path) 
-                        ? 'bg-secondary/10 text-secondary border-l-4 border-secondary' 
-                        : 'text-graphite hover:bg-champagne/50 hover:text-blush'
-                      }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+              <nav className="space-y-1 mb-6">
+                <Link
+                  to="/about"
+                  onClick={closeMobileMenu}
+                  className={`block py-3 text-sm font-normal tracking-wide transition-colors duration-200 ${
+                    isActivePath('/about') ? 'text-black' : 'text-gray-700'
+                  }`}
+                >
+                  About
+                </Link>
+                <button className="block py-3 text-sm font-normal tracking-wide text-gray-700 w-full text-left">
+                  Brands
+                </button>
+                <button className="block py-3 text-sm font-normal tracking-wide text-gray-700 w-full text-left">
+                  Products
+                </button>
+                <Link
+                  to="/education"
+                  onClick={closeMobileMenu}
+                  className={`block py-3 text-sm font-normal tracking-wide transition-colors duration-200 ${
+                    isActivePath('/education') ? 'text-black' : 'text-gray-700'
+                  }`}
+                >
+                  News
+                </Link>
+                <Link
+                  to="/customize"
+                  onClick={closeMobileMenu}
+                  className={`block py-3 text-sm font-normal tracking-wide transition-colors duration-200 ${
+                    isActivePath('/customize') ? 'text-black' : 'text-gray-700'
+                  }`}
+                >
+                  Journal
+                </Link>
               </nav>
 
-              {/* Quick Actions */}
-              <div className="space-y-3 mb-8">
-                <h3 className="text-xs font-semibold text-graphite/60 uppercase tracking-wider mb-4">
-                  Quick Actions
-                </h3>
-                <Link
-                  to="/quiz"
-                  onClick={closeMobileMenu}
-                  className="block w-full bg-gradient-to-r from-secondary to-accent text-white text-center 
-                    py-4 px-6 rounded-lg font-medium transition-all duration-300 hover:shadow-lg 
-                    active:transform active:scale-95"
-                >
-                  Take Ring Quiz
-                </Link>
-                <Link
-                  to="/contact"
-                  onClick={closeMobileMenu}
-                  className="block w-full border-2 border-secondary text-secondary text-center 
-                    py-4 px-6 rounded-lg font-medium transition-all duration-300 hover:bg-secondary 
-                    hover:text-white active:transform active:scale-95"
-                >
-                  Contact Expert
-                </Link>
-              </div>
-
               {/* Account Section */}
-              <div className="space-y-3 border-t border-champagne/30 pt-8">
-                <h3 className="text-xs font-semibold text-graphite/60 uppercase tracking-wider mb-4">
-                  Account
-                </h3>
+              <div className="border-t border-gray-200 pt-4">
                 {user ? (
                   <>
-                    <div className="flex items-center space-x-3 p-4 bg-champagne/30 rounded-lg mb-4">
-                      <div className="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
-                        <User size={20} className="text-white" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-graphite">{user.name}</p>
-                        <p className="text-sm text-graphite/60">{user.email}</p>
-                      </div>
-                    </div>
                     <Link
                       to="/dashboard"
                       onClick={closeMobileMenu}
-                      className="flex items-center space-x-3 py-3 px-4 text-graphite hover:bg-champagne/50 
-                        rounded-lg transition-colors duration-200"
+                      className="block py-3 text-sm text-gray-700"
                     >
-                      <User size={20} className="text-blush" />
-                      <span className="font-medium">Dashboard</span>
+                      Dashboard
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="flex items-center space-x-3 w-full py-3 px-4 text-graphite hover:bg-champagne/50 
-                        rounded-lg transition-colors duration-200 text-left"
+                      className="block w-full text-left py-3 text-sm text-gray-700"
                     >
-                      <LogOut size={20} className="text-blush" />
-                      <span className="font-medium">Sign Out</span>
+                      Sign out
                     </button>
                   </>
                 ) : (
@@ -536,48 +459,24 @@ const Header: React.FC = () => {
                     <Link
                       to="/login"
                       onClick={closeMobileMenu}
-                      className="flex items-center space-x-3 py-3 px-4 text-graphite hover:bg-champagne/50 
-                        rounded-lg transition-colors duration-200"
+                      className="block py-3 text-sm text-gray-700"
                     >
-                      <LogIn size={20} className="text-blush" />
-                      <span className="font-medium">Sign In</span>
+                      Sign in
                     </Link>
                     <Link
                       to="/register"
                       onClick={closeMobileMenu}
-                      className="flex items-center space-x-3 py-3 px-4 text-graphite hover:bg-champagne/50 
-                        rounded-lg transition-colors duration-200"
+                      className="block py-3 text-sm text-gray-700"
                     >
-                      <UserPlus size={20} className="text-blush" />
-                      <span className="font-medium">Create Account</span>
+                      Create account
                     </Link>
                   </>
                 )}
               </div>
-
-              {/* Support Section */}
-              <div className="mt-8 p-4 bg-gradient-to-br from-champagne/20 to-blush/10 rounded-lg">
-                <h4 className="font-medium text-graphite mb-2">Need Help?</h4>
-                <p className="text-sm text-graphite/70 mb-3">
-                  Chat with our jewelry experts for personalized assistance.
-                </p>
-                <button
-                  onClick={() => {
-                    closeMobileMenu();
-                    // Add chat functionality here
-                  }}
-                  className="flex items-center justify-center space-x-2 w-full bg-primary text-white 
-                    py-3 px-4 rounded-lg font-medium transition-all duration-300 hover:bg-primary/90 
-                    active:transform active:scale-95"
-                >
-                  <MessageCircle size={18} />
-                  <span>Start Chat</span>
-                </button>
-              </div>
             </div>
           </div>
         </div>
-      </header>
+      )}
     </>
   );
 };
