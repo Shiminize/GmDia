@@ -8,7 +8,8 @@ import {
   Sparkles,
   CheckCircle,
   ArrowRight,
-  Star
+  Star,
+  Heart
 } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 
@@ -377,55 +378,112 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Quiz Preview Section */}
-      <section className="py-8 sm:py-12 lg:py-20 bg-ivory">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12">
-            <div className="flex-1 max-w-xl">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite mb-3 sm:mb-4 lg:mb-6">
+      <section className="py-12 sm:py-16 lg:py-24 bg-ivory">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
+            {/* Content Side - Mobile First */}
+            <div className="flex-1 max-w-2xl text-center lg:text-left order-2 lg:order-1">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-graphite mb-4 sm:mb-6 lg:mb-8 font-primary leading-tight">
                 Find Your Dream Ring in Minutes
               </h2>
-              <p className="text-sm sm:text-base lg:text-lg text-graphite/70 mb-4 sm:mb-6 lg:mb-8">
+              <p className="text-base sm:text-lg lg:text-xl text-graphite/70 mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
                 Take a moment to reflect on what truly speaks to you. Our thoughtful quiz guides you through discovering your perfect ring, just like you.
               </p>
+              
+              {/* Mobile-optimized CTA */}
               <button
                 onClick={handleQuizStart}
-                className="w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-6 lg:px-8 py-3 lg:py-4 bg-secondary text-secondary-foreground 
-                  text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-full shadow-md hover:bg-secondary/90 hover:-translate-y-0.5 
-                  hover:shadow-lg transition-all duration-300"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 lg:px-10 py-4 lg:py-5 
+                  bg-secondary text-secondary-foreground text-sm sm:text-base font-semibold uppercase tracking-wider 
+                  rounded-full shadow-lg hover:bg-secondary/90 hover:-translate-y-1 hover:shadow-xl 
+                  transition-all duration-300 min-w-[200px]"
               >
                 Start Ring Finder Quiz
-                <ArrowRight className="ml-2" size={14} />
+                <ArrowRight className="ml-2 sm:ml-3" size={16} />
               </button>
-            </div>
-            <div className="flex-1 relative w-full max-w-sm sm:max-w-md lg:max-w-none order-first lg:order-last">
-              {/* Main contemplative image */}
-              <div className="relative">
-                <img
-                  src="/Quiz_photo.png"
-                  alt="Thoughtful woman contemplating her perfect ring choice"
-                  className="w-full rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl"
-                />
-                {/* Elegant overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-xl sm:rounded-2xl"></div>
-                
-                {/* Floating quiz preview card - mobile optimized */}
-                <div className="absolute -bottom-3 -left-3 sm:-bottom-6 sm:-left-6 bg-card/95 rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-lg border border-border">
-                  <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
-                    <Sparkles className="text-secondary" size={12} />
-                    <span className="text-xs sm:text-sm font-semibold text-foreground">Personalized Match</span>
+              
+              {/* Trust indicators - Mobile optimized */}
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-8 mt-6 sm:mt-8">
+                <div className="flex items-center gap-2">
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star key={star} size={16} className="text-secondary fill-current" />
+                    ))}
                   </div>
-                  <p className="text-xs text-muted-foreground">Based on your unique style</p>
+                  <span className="text-sm text-graphite/70 font-medium">5.0 Rating</span>
                 </div>
-                
-                {/* Success stats card - mobile optimized */}
-                <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 bg-card/95 rounded-lg p-2 sm:p-3 shadow-lg border border-border">
-                  <div className="flex items-center gap-1 sm:gap-2 mb-1">
-                    <Star className="text-secondary" size={12} />
-                    <span className="text-xs sm:text-sm font-semibold text-foreground">96% Match Rate</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground">10,000+ happy couples</p>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="text-secondary" size={16} />
+                  <span className="text-sm text-graphite/70 font-medium">10,000+ Happy Couples</span>
                 </div>
               </div>
+            </div>
+            
+            {/* Image Side - Mobile First */}
+            <div className="flex-1 relative w-full max-w-lg sm:max-w-xl lg:max-w-none order-1 lg:order-2">
+              <div className="relative">
+                {/* Main luxurious image */}
+                <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
+                  <img
+                    src="/Luxurious.png"
+                    alt="Elegant woman wearing luxurious diamond jewelry"
+                    className="w-full h-auto object-cover aspect-[4/5] sm:aspect-[3/4]"
+                  />
+                  {/* Subtle overlay for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
+                </div>
+                
+                {/* Floating quiz preview card - Enhanced for mobile */}
+                <div className="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 lg:-bottom-8 lg:-left-8 
+                  bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-6 
+                  shadow-xl border border-champagne/20 max-w-[200px] sm:max-w-none">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-secondary/10 flex items-center justify-center">
+                      <Sparkles className="text-secondary" size={12} />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-graphite">Personalized Match</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-graphite/70">Based on your unique style</p>
+                </div>
+                
+                {/* Success stats card - Enhanced for mobile */}
+                <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 lg:-top-6 lg:-right-6 
+                  bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 lg:p-5 
+                  shadow-xl border border-champagne/20">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-secondary/10 flex items-center justify-center">
+                      <Star className="text-secondary" size={12} />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-graphite">96% Match Rate</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-graphite/70 whitespace-nowrap">Perfect ring found</p>
+                </div>
+                
+                {/* Floating elements for visual interest */}
+                <div className="absolute top-1/4 -right-2 sm:-right-4 w-8 h-8 sm:w-12 sm:h-12 
+                  bg-gradient-to-br from-secondary/20 to-blush/20 rounded-full blur-sm animate-pulse"></div>
+                <div className="absolute bottom-1/3 -left-2 sm:-left-4 w-6 h-6 sm:w-10 sm:h-10 
+                  bg-gradient-to-br from-blush/20 to-champagne/20 rounded-full blur-sm animate-pulse delay-1000"></div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Additional mobile-optimized content */}
+          <div className="mt-12 sm:mt-16 lg:mt-20 text-center">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
+              {[
+                { icon: MessageCircle, title: "2-Minute Quiz", description: "Quick & personalized" },
+                { icon: Heart, title: "Perfect Match", description: "Tailored to your style" },
+                { icon: Sparkles, title: "Expert Guidance", description: "Professional recommendations" }
+              ].map((feature, index) => (
+                <div key={index} className="flex flex-col items-center text-center p-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-3 sm:mb-4">
+                    <feature.icon className="text-secondary" size={20} />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-semibold text-graphite mb-2">{feature.title}</h3>
+                  <p className="text-sm sm:text-base text-graphite/70">{feature.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
