@@ -130,6 +130,8 @@ const HomePage: React.FC = () => {
   const [retryCount, setRetryCount] = useState(0);
   const maxRetries = 3;
   const diamondRef = useRef<HTMLDivElement>(null);
+  const featuredProductsRef = useRef<HTMLDivElement>(null);
+  const [featuredProductsVisible, setFeaturedProductsVisible] = useState(false);
 
   // Auto-rotate testimonials
   useEffect(() => {
@@ -162,6 +164,34 @@ const HomePage: React.FC = () => {
     return () => {
       if (localDiamondRef) {
         observer.unobserve(localDiamondRef);
+      }
+    };
+  }, []);
+
+  // Intersection Observer for Featured Products Animation
+  useEffect(() => {
+    const localFeaturedProductsRef = featuredProductsRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setFeaturedProductsVisible(true);
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: '50px' // Start animation 50px before entering viewport
+      }
+    );
+
+    if (localFeaturedProductsRef) {
+      observer.observe(localFeaturedProductsRef);
+    }
+
+    return () => {
+      if (localFeaturedProductsRef) {
+        observer.unobserve(localFeaturedProductsRef);
       }
     };
   }, []);
@@ -492,28 +522,29 @@ const HomePage: React.FC = () => {
       {/* Featured Designs Section */}
       <section className="py-8 sm:py-12 lg:py-20 bg-champagne">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-6 sm:mb-8 lg:mb-12">
+          <div className="text-center mb-8 sm:mb-10 lg:mb-12">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite mb-2 sm:mb-3 lg:mb-4">Featured Designs</h2>
             <p className="text-sm sm:text-base lg:text-lg text-graphite/70">Discover our most loved and newest creations</p>
           </div>
 
-          <div className="flex justify-start gap-2 sm:gap-3 lg:gap-4 mb-6 sm:mb-8 lg:mb-12 overflow-x-auto pb-2 sm:pb-4 lg:pb-0 
-            scrollbar-thin scrollbar-thumb-blush/20 scrollbar-track-transparent">
-            {['All', 'Bestsellers', 'New Arrivals', 'Solitaire', 'Halo'].map((filter, index) => (
-              <button
-                key={index}
-                className={`px-3 sm:px-4 lg:px-6 py-2 text-xs sm:text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap ${
-                  index === 0 ? 'bg-secondary text-secondary-foreground' : 'bg-white/80 text-foreground hover:bg-secondary/10'
+          <div 
+            ref={featuredProductsRef}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
+          >
+            {featuredProducts.map((product, index) => (
+              <div
+                key={product.id}
+                className={`transform transition-all duration-700 ease-out ${
+                  featuredProductsVisible 
+                    ? 'translate-y-0 opacity-100' 
+                    : 'translate-y-8 sm:translate-y-12 opacity-0'
                 }`}
+                style={{
+                  transitionDelay: `${index * 150}ms` // Staggered animation
+                }}
               >
-                {filter}
-              </button>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+                <ProductCard product={product} />
+              </div>
             ))}
           </div>
 

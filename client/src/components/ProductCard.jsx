@@ -34,7 +34,7 @@ export default function ProductCard({ product }) {
   return (
     <Link
       to={`/products/${product.id}`}
-      className="block group rounded-xl overflow-hidden shadow-luxury bg-card hover:shadow-xl transition-all duration-300 relative product-card"
+      className="block group rounded-xl overflow-hidden shadow-luxury bg-champagne hover:shadow-xl transition-all duration-300 relative product-card"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
