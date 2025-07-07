@@ -413,11 +413,12 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
             {/* Content Side - Mobile First */}
             <div className="flex-1 max-w-2xl text-center lg:text-left order-2 lg:order-1">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-graphite mb-4 sm:mb-6 lg:mb-8 font-primary leading-tight">
+              <h2 className="text-h1 font-bold text-graphite mb-4 sm:mb-6 lg:mb-8 font-primary leading-tight">
                 Find Your Dream Ring in Minutes
               </h2>
-              <p className="text-base sm:text-lg lg:text-xl text-graphite/70 mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
-                Take a moment to reflect on what truly speaks to you. Our thoughtful quiz guides you through discovering your perfect ring, just like you.
+              <p className="text-body-lg text-graphite/70 mb-6 sm:mb-8 lg:mb-10 leading-relaxed font-secondary">
+                Take our personalized quiz to discover ring styles that match your unique preferences, 
+                lifestyle, and budget. Get expert recommendations in just 2 minutes.
               </p>
               
               {/* Mobile-optimized CTA */}
@@ -510,8 +511,8 @@ const HomePage: React.FC = () => {
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-3 sm:mb-4">
                     <feature.icon className="text-secondary" size={20} />
                   </div>
-                  <h3 className="text-base sm:text-lg font-semibold text-graphite mb-2">{feature.title}</h3>
-                  <p className="text-sm sm:text-base text-graphite/70">{feature.description}</p>
+                  <h3 className="text-h6 font-semibold text-graphite mb-2 font-primary">{feature.title}</h3>
+                  <p className="text-body-sm text-graphite/70 font-secondary">{feature.description}</p>
                 </div>
               ))}
             </div>
@@ -523,8 +524,10 @@ const HomePage: React.FC = () => {
       <section className="py-8 sm:py-12 lg:py-20 bg-champagne">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10 lg:mb-12">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite mb-2 sm:mb-3 lg:mb-4">Featured Designs</h2>
-            <p className="text-sm sm:text-base lg:text-lg text-graphite/70">Discover our most loved and newest creations</p>
+            <h2 className="text-h1 font-bold text-graphite text-center mb-8 sm:mb-10 lg:mb-12 font-primary">
+              Featured Designs
+            </h2>
+            <p className="text-body-lg text-graphite/70">Discover our most loved and newest creations</p>
           </div>
 
           <div 
@@ -576,7 +579,7 @@ const HomePage: React.FC = () => {
               </div>
             </div>
             <div className="flex-1 max-w-xl">
-              <h2 className="text-4xl font-bold text-graphite mb-6">
+              <h2 className="text-h1 font-bold text-graphite mb-6 font-primary">
                 The Future of Fine Jewelry
               </h2>
               <div className="space-y-6">
@@ -719,11 +722,12 @@ const HomePage: React.FC = () => {
               </div>
             </div>
             <div className="flex-1 max-w-xl">
-              <h2 className="text-4xl font-bold text-graphite mb-6">
-                Expert Guidance at Your Fingertips
+              <h2 className="text-h1 font-bold text-graphite mb-6 font-primary">
+                Expert Guidance, Always Available
               </h2>
-              <p className="text-lg text-graphite/70 mb-8">
-                Our jewelry specialists are here to help you make the perfect choice.
+              <p className="text-body-lg text-graphite/80 mb-6 sm:mb-8 leading-relaxed font-secondary">
+                Connect with our certified gemologists and jewelry experts for personalized advice. 
+                From diamond education to custom design consultations, we're here to guide your journey.
               </p>
               <div className="grid grid-cols-2 gap-6 mb-8">
                 {[
@@ -755,10 +759,10 @@ const HomePage: React.FC = () => {
       <section className="py-12 sm:py-20 bg-champagne">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-graphite mb-3 sm:mb-4">
+            <h2 className="text-h2 font-bold text-graphite mb-3 sm:mb-4 font-primary">
               Stay Updated with GmDia
             </h2>
-            <p className="text-base sm:text-lg text-graphite/70 mb-6 sm:mb-8">
+            <p className="text-body-lg text-graphite/70 mb-6 sm:mb-8 font-secondary">
               Subscribe to receive exclusive offers, new design launches, and expert jewelry tips.
             </p>
             <form className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8">

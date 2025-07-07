@@ -56,7 +56,7 @@ export default function ProductCard({ product }) {
           />
         )}
         {product.isBestseller && (
-          <span className="absolute top-3 left-3 bg-champagne text-graphite text-xs font-bold px-3 py-1 rounded-full shadow-sm tracking-wide font-secondary">
+          <span className="absolute top-3 left-3 bg-champagne text-graphite text-caption font-bold px-3 py-1 rounded-full shadow-sm tracking-wide font-secondary">
             Bestseller
           </span>
         )}
@@ -69,18 +69,18 @@ export default function ProductCard({ product }) {
         </button>
       </div>
       <div className="p-4">
-        <h3 className="text-lg font-secondary font-semibold mb-1 line-clamp-2 text-graphite">{product.name}</h3>
+        <h3 className="text-h6 font-primary font-semibold mb-1 line-clamp-2 text-graphite">{product.name}</h3>
         <div className="flex items-center gap-2 mb-2">
-          <span className="flex items-center font-secondary text-champagne font-bold">
+          <span className="flex items-center font-secondary text-body-sm text-champagne font-bold">
             {product.rating}
             <Star className="ml-1 text-champagne" size={16} fill="currentColor" />
           </span>
-          <span className="text-muted-foreground text-sm font-primary">({product.reviewCount})</span>
+          <span className="text-muted-foreground text-body-sm font-secondary">({product.reviewCount})</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-xl font-bold text-graphite font-secondary">${product.price.toLocaleString()}</span>
+          <span className="text-h5 font-bold text-graphite font-primary">${product.price.toLocaleString()}</span>
           {product.oldPrice && (
-            <del className="text-gray-400 text-base font-primary">${product.oldPrice.toLocaleString()}</del>
+            <del className="text-gray-400 text-body-sm font-secondary">${product.oldPrice.toLocaleString()}</del>
           )}
         </div>
       </div>

@@ -6,8 +6,22 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'primary': ['Georgia', 'Times New Roman', 'serif'],
+        'primary': ['Playfair Display', 'Georgia', 'Times New Roman', 'serif'],
         'secondary': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+      },
+      fontSize: {
+        // Custom typography scale for luxury brand
+        'display': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }], // 64px
+        'h1': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }], // 48px
+        'h2': ['2.25rem', { lineHeight: '1.3', letterSpacing: '-0.005em' }], // 36px 
+        'h3': ['1.875rem', { lineHeight: '1.3' }], // 30px
+        'h4': ['1.5rem', { lineHeight: '1.4' }], // 24px
+        'h5': ['1.25rem', { lineHeight: '1.5' }], // 20px
+        'h6': ['1.125rem', { lineHeight: '1.5' }], // 18px
+        'body-lg': ['1.125rem', { lineHeight: '1.7' }], // 18px
+        'body': ['1rem', { lineHeight: '1.6' }], // 16px
+        'body-sm': ['0.875rem', { lineHeight: '1.6' }], // 14px
+        'caption': ['0.75rem', { lineHeight: '1.5' }], // 12px
       },
       colors: {
         // Modern HSL-based color system

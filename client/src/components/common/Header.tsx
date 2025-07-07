@@ -204,20 +204,20 @@ const Header: React.FC = () => {
               <div className="flex items-center space-x-8">
                 <Link
                   to="/about"
-                  className={`text-sm font-normal tracking-wide transition-colors duration-200 ${
+                  className={`text-body-sm font-normal tracking-wide transition-colors duration-200 font-secondary ${
                     isActivePath('/about') ? 'text-black' : 'text-gray-700 hover:text-black'
                   }`}
                 >
                   About
                 </Link>
                 <div className="relative group">
-                  <button className="text-sm font-normal tracking-wide text-gray-700 hover:text-black transition-colors duration-200">
+                  <button className="text-body-sm font-normal tracking-wide text-gray-700 hover:text-black transition-colors duration-200 font-secondary">
                     Brands
                   </button>
                   {/* Brands dropdown can be added here if needed */}
                 </div>
                 <div className="relative group">
-                  <button className="text-sm font-normal tracking-wide text-gray-700 hover:text-black transition-colors duration-200">
+                  <button className="text-body-sm font-normal tracking-wide text-gray-700 hover:text-black transition-colors duration-200 font-secondary">
                     Products
                   </button>
                   {/* Products dropdown */}
@@ -231,7 +231,7 @@ const Header: React.FC = () => {
                 </div>
                 <Link
                   to="/education"
-                  className={`text-sm font-normal tracking-wide transition-colors duration-200 ${
+                  className={`text-body-sm font-normal tracking-wide transition-colors duration-200 font-secondary ${
                     isActivePath('/education') ? 'text-black' : 'text-gray-700 hover:text-black'
                   }`}
                 >
@@ -239,7 +239,7 @@ const Header: React.FC = () => {
                 </Link>
                 <Link
                   to="/customize"
-                  className={`text-sm font-normal tracking-wide transition-colors duration-200 ${
+                  className={`text-body-sm font-normal tracking-wide transition-colors duration-200 font-secondary ${
                     isActivePath('/customize') ? 'text-black' : 'text-gray-700 hover:text-black'
                   }`}
                 >
@@ -408,7 +408,7 @@ const Header: React.FC = () => {
                 <Link
                   to="/about"
                   onClick={closeMobileMenu}
-                  className={`block py-3 text-sm font-normal tracking-wide transition-colors duration-200 ${
+                  className={`block py-3 text-sm font-normal tracking-wide transition-colors duration-200 font-secondary ${
                     isActivePath('/about') ? 'text-black' : 'text-gray-700'
                   }`}
                 >
@@ -423,7 +423,7 @@ const Header: React.FC = () => {
                 <Link
                   to="/education"
                   onClick={closeMobileMenu}
-                  className={`block py-3 text-sm font-normal tracking-wide transition-colors duration-200 ${
+                  className={`block py-3 text-sm font-normal tracking-wide transition-colors duration-200 font-secondary ${
                     isActivePath('/education') ? 'text-black' : 'text-gray-700'
                   }`}
                 >
@@ -432,7 +432,7 @@ const Header: React.FC = () => {
                 <Link
                   to="/customize"
                   onClick={closeMobileMenu}
-                  className={`block py-3 text-sm font-normal tracking-wide transition-colors duration-200 ${
+                  className={`block py-3 text-sm font-normal tracking-wide transition-colors duration-200 font-secondary ${
                     isActivePath('/customize') ? 'text-black' : 'text-gray-700'
                   }`}
                 >
