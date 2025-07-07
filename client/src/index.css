@@ -167,23 +167,6 @@
   p {
     @apply text-body font-secondary;
   }
-
-  /* Typography utility classes */
-  .text-display {
-    @apply text-display font-primary font-bold;
-  }
-
-  .text-body-lg {
-    @apply text-body-lg font-secondary;
-  }
-
-  .text-body-sm {
-    @apply text-body-sm font-secondary;
-  }
-
-  .text-caption {
-    @apply text-caption font-secondary;
-  }
 }
 
 @layer components {
