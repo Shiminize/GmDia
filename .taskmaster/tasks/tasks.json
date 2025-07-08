@@ -20,7 +20,9 @@
           "description": "Create mobile-first CSS foundation with proper breakpoints, typography scales, and spacing systems",
           "status": "pending",
           "priority": "high",
-          "dependencies": [1],
+          "dependencies": [
+            1
+          ],
           "details": "Establish mobile-first CSS architecture with breakpoints at 320px, 375px, 414px, 768px+. Create responsive typography scale, consistent spacing system using CSS custom properties, and mobile-optimized color palette with proper contrast ratios.",
           "testStrategy": "Validate breakpoints work correctly, test typography legibility on mobile devices, and verify color contrast meets WCAG AA standards."
         },
@@ -30,7 +32,9 @@
           "description": "Redesign header and navigation components for mobile-first experience with touch-friendly interactions",
           "status": "pending",
           "priority": "high",
-          "dependencies": [2],
+          "dependencies": [
+            2
+          ],
           "details": "Implement hamburger menu for mobile, ensure touch targets are minimum 44px, optimize search bar for mobile input, improve cart and profile icons visibility and usability on mobile screens.",
           "testStrategy": "Test navigation usability on mobile devices, verify touch targets meet accessibility guidelines, and ensure smooth menu animations."
         },
@@ -40,7 +44,10 @@
           "description": "Optimize homepage layout, hero sections, and content hierarchy for mobile-first user experience",
           "status": "pending",
           "priority": "high",
-          "dependencies": [2, 3],
+          "dependencies": [
+            2,
+            3
+          ],
           "details": "Redesign hero banners for mobile viewport, optimize image loading and sizing, improve text readability and hierarchy, ensure CTAs are prominently placed and touch-friendly, optimize content sections for vertical mobile scrolling.",
           "testStrategy": "Test homepage loading performance on mobile networks, verify readability and user flow from top to bottom, and validate CTA effectiveness."
         },
@@ -50,7 +57,10 @@
           "description": "Redesign product grid, filters, and sorting for optimal mobile browsing experience",
           "status": "pending",
           "priority": "high",
-          "dependencies": [2, 3],
+          "dependencies": [
+            2,
+            3
+          ],
           "details": "Implement mobile-optimized product grid (1-2 columns), redesign filter interface as mobile-friendly drawer or accordion, optimize product card design for thumb navigation, ensure price and key info are easily readable.",
           "testStrategy": "Test product browsing flow on mobile, verify filter usability, and ensure product information is clearly visible and accessible."
         },
@@ -60,7 +70,9 @@
           "description": "Optimize product detail layout, image galleries, and customization options for mobile interaction",
           "status": "pending",
           "priority": "high",
-          "dependencies": [2],
+          "dependencies": [
+            2
+          ],
           "details": "Implement mobile-optimized image gallery with touch gestures, redesign product information layout for mobile reading, optimize customization interface for touch interaction, ensure add-to-cart and customization CTAs are prominent and accessible.",
           "testStrategy": "Test image gallery gestures, verify product information readability, and validate customization flow on mobile devices."
         },
@@ -70,7 +82,10 @@
           "description": "Redesign the jewelry customization flow for seamless mobile experience",
           "status": "pending",
           "priority": "high",
-          "dependencies": [2, 6],
+          "dependencies": [
+            2,
+            6
+          ],
           "details": "Implement mobile-first step-by-step customization flow, optimize 3D viewer for mobile interaction, ensure dropdown menus and option selectors work well with touch input, provide clear visual feedback for selections.",
           "testStrategy": "Test complete customization flow on mobile, verify 3D viewer performance and usability, and ensure all customization options are easily accessible."
         },
@@ -80,7 +95,9 @@
           "description": "Optimize cart interface and checkout process for mobile conversion optimization",
           "status": "pending",
           "priority": "high",
-          "dependencies": [2],
+          "dependencies": [
+            2
+          ],
           "details": "Redesign cart interface for mobile with clear item management, optimize checkout form for mobile input with proper keyboard types, implement guest checkout flow, ensure secure payment interface is mobile-friendly.",
           "testStrategy": "Test complete purchase flow on mobile, verify form usability and input validation, and ensure payment process is smooth and secure."
         },
@@ -90,7 +107,10 @@
           "description": "Optimize user account interface, order history, and profile management for mobile users",
           "status": "pending",
           "priority": "medium",
-          "dependencies": [2, 3],
+          "dependencies": [
+            2,
+            3
+          ],
           "details": "Redesign dashboard layout for mobile screens, optimize order history table for mobile viewing, ensure profile settings are easily editable on mobile, implement mobile-friendly navigation between account sections.",
           "testStrategy": "Test account management flow on mobile, verify data presentation clarity, and ensure all account functions are accessible via touch."
         },
@@ -100,7 +120,9 @@
           "description": "Implement mobile-optimized typography system with proper sizing, spacing, and contrast",
           "status": "pending",
           "priority": "high",
-          "dependencies": [2],
+          "dependencies": [
+            2
+          ],
           "details": "Establish mobile typography scale with minimum 16px base font size, optimize line height and letter spacing for mobile reading, ensure sufficient color contrast for all text elements, implement responsive typography that scales appropriately.",
           "testStrategy": "Test text readability across different mobile devices and lighting conditions, verify contrast ratios meet accessibility standards."
         },
@@ -110,7 +132,9 @@
           "description": "Ensure all buttons, links, and interactive elements meet mobile touch target requirements",
           "status": "pending",
           "priority": "high",
-          "dependencies": [2],
+          "dependencies": [
+            2
+          ],
           "details": "Audit all interactive elements to ensure minimum 44px touch targets, optimize button sizing and spacing, implement appropriate touch feedback, ensure hover states translate well to touch interfaces.",
           "testStrategy": "Test interaction reliability on various mobile devices, verify touch target accessibility, and ensure no accidental activations occur."
         },
@@ -120,7 +144,9 @@
           "description": "Implement performance optimizations specifically for mobile networks and devices",
           "status": "pending",
           "priority": "medium",
-          "dependencies": [2],
+          "dependencies": [
+            2
+          ],
           "details": "Optimize images for mobile with responsive images and lazy loading, implement critical CSS inlining, minimize JavaScript bundles, add service worker for offline functionality, optimize font loading strategy.",
           "testStrategy": "Test loading performance on slow mobile networks, measure Core Web Vitals on mobile, and verify offline functionality works correctly."
         },
@@ -130,7 +156,10 @@
           "description": "Ensure mobile interface meets accessibility standards and supports assistive technologies",
           "status": "pending",
           "priority": "medium",
-          "dependencies": [10, 11],
+          "dependencies": [
+            10,
+            11
+          ],
           "details": "Implement proper ARIA labels for mobile interactions, ensure keyboard navigation works with mobile screen readers, optimize focus management for mobile, add skip links and landmarks for mobile navigation.",
           "testStrategy": "Test with mobile screen readers (VoiceOver, TalkBack), verify keyboard navigation, and validate against WCAG 2.1 AA standards."
         },
@@ -140,7 +169,9 @@
           "description": "Add mobile-specific functionality like PWA capabilities, touch gestures, and mobile payment options",
           "status": "pending",
           "priority": "low",
-          "dependencies": [12],
+          "dependencies": [
+            12
+          ],
           "details": "Implement Progressive Web App features (service worker, manifest), add touch gesture support where appropriate, integrate mobile payment options (Apple Pay, Google Pay), implement mobile-specific sharing capabilities.",
           "testStrategy": "Test PWA installation and offline functionality, verify mobile payment integration, and ensure gesture recognition works consistently."
         },
@@ -150,7 +181,10 @@
           "description": "Perform comprehensive mobile user testing and implement final optimizations",
           "status": "pending",
           "priority": "medium",
-          "dependencies": [13, 14],
+          "dependencies": [
+            13,
+            14
+          ],
           "details": "Conduct usability testing with real mobile users, A/B test key mobile interactions, analyze mobile analytics and user behavior, implement final optimizations based on testing results.",
           "testStrategy": "Gather user feedback on mobile experience, measure conversion improvements, and validate all optimization goals have been met."
         }
@@ -163,5 +197,51 @@
   },
   "global": {
     "defaultTag": "master"
+  },
+  "debug-threejs": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Fix JSX compilation errors",
+        "description": "Resolve 'jsxDEV' not found in 'react/jsx-dev-runtime' errors preventing proper compilation",
+        "details": "These errors appear to be related to React development mode configuration and may require webpack or build configuration adjustments.",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Fix Three.js lighting issues",
+        "description": "Resolve dark lighting in the 3D jewelry viewer making it hard to see the models",
+        "details": "The Three.js viewer is functional but the lighting is too dark. Need to analyze and enhance the lighting setup with proper ambient, directional, and potentially point lights.",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Test and validate fixes",
+        "description": "Thoroughly test all fixes to ensure Three.js viewer works correctly with proper lighting",
+        "details": "Test the customization page, verify 3D model visibility, check lighting from different angles, test on both desktop and mobile, and ensure no regression in other functionality.",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          2
+        ],
+        "priority": "medium",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-07-06T03:16:38.064Z",
+      "updated": "2025-07-06T04:00:43.830Z",
+      "description": "Debug Three.js lighting issues and JSX compilation errors"
+    }
   }
-} 
+}

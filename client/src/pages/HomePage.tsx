@@ -413,12 +413,11 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
             {/* Content Side - Mobile First */}
             <div className="flex-1 max-w-2xl text-center lg:text-left order-2 lg:order-1">
-              <h2 className="text-h1 font-bold text-graphite mb-4 sm:mb-6 lg:mb-8 font-primary leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-graphite mb-4 sm:mb-6 lg:mb-8 font-primary leading-tight">
                 Find Your Dream Ring in Minutes
               </h2>
-              <p className="text-body-lg text-graphite/70 mb-6 sm:mb-8 lg:mb-10 leading-relaxed font-secondary">
-                Take our personalized quiz to discover ring styles that match your unique preferences, 
-                lifestyle, and budget. Get expert recommendations in just 2 minutes.
+              <p className="text-base sm:text-lg lg:text-xl text-graphite/70 mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
+                Take a moment to reflect on what truly speaks to you. Our thoughtful quiz guides you through discovering your perfect ring, just like you.
               </p>
               
               {/* Mobile-optimized CTA */}
@@ -511,8 +510,8 @@ const HomePage: React.FC = () => {
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-3 sm:mb-4">
                     <feature.icon className="text-secondary" size={20} />
                   </div>
-                  <h3 className="text-h6 font-semibold text-graphite mb-2 font-primary">{feature.title}</h3>
-                  <p className="text-body-sm text-graphite/70 font-secondary">{feature.description}</p>
+                  <h3 className="text-base sm:text-lg font-semibold text-graphite mb-2">{feature.title}</h3>
+                  <p className="text-sm sm:text-base text-graphite/70">{feature.description}</p>
                 </div>
               ))}
             </div>
@@ -524,10 +523,8 @@ const HomePage: React.FC = () => {
       <section className="py-8 sm:py-12 lg:py-20 bg-champagne">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10 lg:mb-12">
-            <h2 className="text-h1 font-bold text-graphite text-center mb-8 sm:mb-10 lg:mb-12 font-primary">
-              Featured Designs
-            </h2>
-            <p className="text-body-lg text-graphite/70">Discover our most loved and newest creations</p>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite mb-2 sm:mb-3 lg:mb-4">Featured Designs</h2>
+            <p className="text-sm sm:text-base lg:text-lg text-graphite/70">Discover our most loved and newest creations</p>
           </div>
 
           <div 
@@ -565,59 +562,44 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Lab Diamonds Section */}
-      <section className="py-20 bg-ivory overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="flex-1">
-              <div ref={diamondRef} className="relative w-full aspect-square">
-                <img
-                  src="/lab-diamond.jpg"
-                  alt="Lab-grown diamond"
-                  className="rounded-lg shadow-xl"
-                />
-              </div>
+      {/* Shop By Shape Section (replaces The Future of Fine Jewelry) */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
+            {/* Text Side */}
+            <div className="flex-1 max-w-xs md:max-w-sm text-center md:text-left mb-6 md:mb-0">
+              <h2 className="font-primary text-graphite text-3xl sm:text-4xl font-bold mb-4 tracking-tight leading-tight">Shop by Shape</h2>
+              <p className="font-secondary text-graphite/70 text-base sm:text-lg leading-relaxed">
+                Begin searching for your perfect ring by starting with the perfect shape
+              </p>
             </div>
-            <div className="flex-1 max-w-xl">
-              <h2 className="text-h1 font-bold text-graphite mb-6 font-primary">
-                The Future of Fine Jewelry
-              </h2>
-              <div className="space-y-6">
-                {[
-                  {
-                    icon: Sparkles,
-                    title: "Identical Brilliance",
-                    text: "Lab-grown diamonds possess the same physical and optical properties as mined diamonds."
-                  },
-                  {
-                    icon: CheckCircle,
-                    title: "Eco-Friendly Choice",
-                    text: "Sustainable production with minimal environmental impact."
-                  },
-                  {
-                    icon: CheckCircle,
-                    title: "Ethical Sourcing",
-                    text: "100% conflict-free with transparent origin and manufacturing process."
-                  }
-                ].map((benefit, index) => (
-                  <div key={index} className="flex gap-4">
-                    <div className="w-12 h-12 rounded-full bg-champagne flex items-center justify-center flex-shrink-0">
-                      <benefit.icon size={24} className="text-blush" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-graphite mb-2">{benefit.title}</h4>
-                      <p className="text-graphite/70">{benefit.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <Link
-                to="/education"
-                className="inline-flex items-center mt-8 text-blush hover:text-lavender transition-colors duration-300"
-              >
-                Learn more about lab-grown diamonds
-                <ArrowRight className="ml-2" size={16} />
-              </Link>
+            {/* Shapes Side */}
+            <div className="flex-1 w-full flex flex-row md:flex-row justify-center md:justify-start gap-4 sm:gap-8 flex-wrap md:flex-nowrap overflow-x-auto">
+              {/* Shape: Round */}
+              <a href="/products?shape=Round" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
+                <img src="/Diamond Shapes/shop-by-round.jpg" alt="Round" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
+                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">ROUND</span>
+              </a>
+              {/* Shape: Princess */}
+              <a href="/products?shape=Princess" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
+                <img src="/Diamond Shapes/shop-by-princess.jpg" alt="Princess" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
+                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">PRINCESS</span>
+              </a>
+              {/* Shape: Cushion */}
+              <a href="/products?shape=Cushion" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
+                <img src="/Diamond Shapes/shop-by-cushion.jpg" alt="Cushion" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
+                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">CUSHION</span>
+              </a>
+              {/* Shape: Oval */}
+              <a href="/products?shape=Oval" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
+                <img src="/Diamond Shapes/shop-by-oval.jpg" alt="Oval" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
+                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">OVAL</span>
+              </a>
+              {/* Shape: Emerald */}
+              <a href="/products?shape=Emerald" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
+                <img src="/Diamond Shapes/shop-by-emerald.jpg" alt="Emerald" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
+                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">EMERALD</span>
+              </a>
             </div>
           </div>
         </div>
@@ -679,7 +661,7 @@ const HomePage: React.FC = () => {
                 <button
                   key={index}
                   className={`w-2 h-2 rounded-full transition-all duration-300 
-                    ${index === currentTestimonial ? 'w-8 bg-blush' : 'bg-blush/30'}`}
+                    ${index === currentTestimonial ? 'w-8 bg-graphite' : 'bg-graphite/30'}`}
                   onClick={() => setCurrentTestimonial(index)}
                 />
               ))}
@@ -722,12 +704,11 @@ const HomePage: React.FC = () => {
               </div>
             </div>
             <div className="flex-1 max-w-xl">
-              <h2 className="text-h1 font-bold text-graphite mb-6 font-primary">
-                Expert Guidance, Always Available
+              <h2 className="text-4xl font-bold text-graphite mb-6">
+                Expert Guidance at Your Fingertips
               </h2>
-              <p className="text-body-lg text-graphite/80 mb-6 sm:mb-8 leading-relaxed font-secondary">
-                Connect with our certified gemologists and jewelry experts for personalized advice. 
-                From diamond education to custom design consultations, we're here to guide your journey.
+              <p className="text-lg text-graphite/70 mb-8">
+                Our jewelry specialists are here to help you make the perfect choice.
               </p>
               <div className="grid grid-cols-2 gap-6 mb-8">
                 {[
@@ -759,10 +740,10 @@ const HomePage: React.FC = () => {
       <section className="py-12 sm:py-20 bg-champagne">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-h2 font-bold text-graphite mb-3 sm:mb-4 font-primary">
+            <h2 className="text-3xl sm:text-4xl font-bold text-graphite mb-3 sm:mb-4">
               Stay Updated with GmDia
             </h2>
-            <p className="text-body-lg text-graphite/70 mb-6 sm:mb-8 font-secondary">
+            <p className="text-base sm:text-lg text-graphite/70 mb-6 sm:mb-8">
               Subscribe to receive exclusive offers, new design launches, and expert jewelry tips.
             </p>
             <form className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8">

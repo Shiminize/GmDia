@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Step1Setting from './Step1_Setting';
 import Step2Metal from './Step2_Metal';
 import Step3Diamond from './Step3_Diamond';
 import Step4Personalization from './Step4_Personalization';
-import Button from '../common/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../services/api';
 import ThreeJSViewer from './ThreeJSViewer';
@@ -105,12 +105,12 @@ const Configurator: React.FC = () => {
             <p className="text-lg text-graphite mb-4">
               Sign in to save your custom designs and access them anytime.
             </p>
-            <Button 
-              variant="primary"
-              href="/login"
+            <Link 
+              to="/login"
+              className="btn-primary inline-flex items-center justify-center"
             >
               Sign In
-            </Button>
+            </Link>
           </div>
         )}
 
