@@ -27,6 +27,8 @@ import ShineYourMomentEvent from './pages/ShineYourMomentEvent';
 import TopBanner from './components/common/TopBanner';
 
 import RingQuizPage from './pages/RingQuizPage';
+import { StagewiseToolbar } from '@stagewise/toolbar-react';
+import ReactPlugin from '@stagewise-plugins/react';
 
 interface ChatMessage {
   id: number;
@@ -203,6 +205,7 @@ function App() {
 
   return (
     <Router>
+      <StagewiseToolbar config={{ plugins: [ReactPlugin] }} />
       <div className="App">
         <TopBanner />
         <Header />

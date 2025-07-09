@@ -249,7 +249,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
           <button
             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
             disabled={currentPage === 1}
-            className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium text-graphite bg-white \
+            className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium text-primary bg-white \
               rounded-lg border border-champagne disabled:opacity-50 disabled:cursor-not-allowed \
               hover:bg-champagne/10 transition-colors duration-200 min-h-[36px]"
           >
@@ -262,7 +262,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
           <button
             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
             disabled={currentPage === totalPages}
-            className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium text-graphite bg-white \
+            className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium text-primary bg-white \
               rounded-lg border border-champagne disabled:opacity-50 disabled:cursor-not-allowed \
               hover:bg-champagne/10 transition-colors duration-200 min-h-[36px]"
           >

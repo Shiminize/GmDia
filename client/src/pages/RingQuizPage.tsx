@@ -402,8 +402,8 @@ const RingQuizPage: React.FC = () => {
               disabled={currentStep === 1}
               className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
                 currentStep === 1
-                  ? 'bg-champagne/50 text-graphite/50 cursor-not-allowed'
-                  : 'bg-champagne text-graphite hover:bg-champagne/90 hover:-translate-y-0.5'
+                  ? 'bg-champagne/50 text-muted-foreground cursor-not-allowed'
+                  : 'btn-secondary'
               }`}
             >
               <ChevronLeft className="w-4 h-4" />
@@ -416,8 +416,8 @@ const RingQuizPage: React.FC = () => {
                 disabled={!isStepComplete()}
                 className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
                   isStepComplete()
-                    ? 'bg-graphite text-ivory hover:bg-graphite/90 hover:-translate-y-0.5'
-                    : 'bg-graphite/50 text-ivory/50 cursor-not-allowed'
+                    ? 'btn-primary'
+                    : 'bg-primary/50 text-primary-foreground/50 cursor-not-allowed'
                 }`}
               >
                 Next

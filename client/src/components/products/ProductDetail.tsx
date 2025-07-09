@@ -318,14 +318,14 @@ const ProductDetail: React.FC = () => {
               <div className="flex gap-4">
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 bg-graphite text-white py-4 px-6 rounded-xl font-medium hover:bg-graphite/90 transition-all duration-200 flex items-center justify-center gap-2"
+                  className="flex-1 btn-primary flex items-center justify-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8.5" />
                   </svg>
                   Add to Cart • {formatPrice(product.price * quantity)}
                 </button>
-                <button className="px-6 py-4 rounded-xl border border-champagne text-graphite hover:bg-champagne/10 transition-all duration-200 flex items-center justify-center">
+                <button className="px-6 py-4 rounded-xl border border-champagne text-secondary hover:bg-champagne/10 transition-all duration-200 flex items-center justify-center">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
@@ -334,7 +334,7 @@ const ProductDetail: React.FC = () => {
               
               <Link
                 to="/configurator"
-                className="block w-full bg-white border border-champagne text-graphite py-4 px-6 rounded-xl font-medium hover:bg-champagne/10 transition-all duration-200 text-center"
+                className="block w-full btn-secondary text-center"
               >
                 Customize This Design
               </Link>

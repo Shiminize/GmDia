@@ -12,7 +12,7 @@ const CartSlider: React.FC = () => {
       {/* Backdrop */}
       {isCartOpen && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-primary/50 backdrop-blur-sm z-40 transition-opacity duration-300"
           onClick={toggleCartSlider}
         />
       )}
@@ -31,15 +31,15 @@ const CartSlider: React.FC = () => {
             className="p-2 hover:bg-blush/5 rounded-full transition-colors duration-300"
             aria-label="Close cart"
           >
-            <X size={24} className="text-graphite" />
+            <X size={24} className="text-primary" />
           </button>
         </div>
 
         {cartItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-[50vh] p-6 text-center">
             <ShoppingCart size={48} className="text-champagne mb-4" />
-            <p className="text-lg text-graphite mb-2">Your cart is empty</p>
-            <p className="text-sm text-graphite/60 mb-6">Add some beautiful pieces to get started</p>
+            <p className="text-lg text-primary mb-2">Your cart is empty</p>
+            <p className="text-sm text-muted-foreground/60 mb-6">Add some beautiful pieces to get started</p>
             <Link
               to="/products"
               className="px-6 py-3 bg-secondary text-secondary-foreground rounded-full hover:bg-secondary/90 transition-colors duration-300"
@@ -59,19 +59,19 @@ const CartSlider: React.FC = () => {
                     className="w-20 h-20 object-cover rounded-md"
                   />
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium text-graphite truncate">{item.name}</h3>
-                    <p className="text-sm text-graphite/60 mt-1">{formatPrice(item.price)}</p>
+                    <h3 className="text-sm font-medium text-primary truncate">{item.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{formatPrice(item.price)}</p>
                     <div className="flex items-center space-x-2 mt-2">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="p-1 text-graphite hover:text-blush transition-colors duration-300"
+                        className="p-1 text-primary hover:text-blush transition-colors duration-300"
                       >
                         -
                       </button>
-                      <span className="text-sm text-graphite">{item.quantity}</span>
+                      <span className="text-sm text-primary">{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="p-1 text-graphite hover:text-blush transition-colors duration-300"
+                        className="p-1 text-primary hover:text-blush transition-colors duration-300"
                       >
                         +
                       </button>
@@ -79,7 +79,7 @@ const CartSlider: React.FC = () => {
                   </div>
                   <button
                     onClick={() => removeFromCart(item.id)}
-                    className="p-2 text-graphite/60 hover:text-blush transition-colors duration-300"
+                    className="p-2 text-muted-foreground hover:text-blush transition-colors duration-300"
                     aria-label="Remove item"
                   >
                     <X size={20} />
@@ -89,8 +89,8 @@ const CartSlider: React.FC = () => {
             </div>
             <div className="sticky bottom-0 p-4 sm:p-6 bg-white border-t border-champagne/30 safe-bottom">
               <div className="flex justify-between items-center mb-4">
-                <span className="text-sm font-medium text-graphite">Total</span>
-                <span className="text-lg font-bold text-graphite">{formatPrice(cartTotal)}</span>
+                <span className="text-sm font-medium text-primary">Total</span>
+                <span className="text-lg font-bold text-primary">{formatPrice(cartTotal)}</span>
               </div>
               <Link
                 to="/checkout"

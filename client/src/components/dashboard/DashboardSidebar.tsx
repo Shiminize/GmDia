@@ -124,7 +124,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ user }) => {
               {item.path ? (
                 <Link
                   to={item.path}
-                  className={`flex items-center px-4 py-3 rounded-lg text-graphite font-medium transition-all 
+                  className={`flex items-center px-4 py-3 rounded-lg text-primary font-medium transition-all 
                     duration-300 hover:bg-champagne hover:translate-x-1 
                     ${isActive(item.id) ? 'bg-champagne translate-x-1' : ''}`}
                   onClick={() => handleNavClick(item)}
@@ -134,7 +134,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ user }) => {
                 </Link>
               ) : (
                 <button
-                  className={`flex items-center w-full px-4 py-3 rounded-lg text-graphite font-medium 
+                  className={`flex items-center w-full px-4 py-3 rounded-lg text-primary font-medium 
                     transition-all duration-300 hover:bg-champagne hover:translate-x-1 text-left
                     ${isActive(item.id) ? 'bg-champagne translate-x-1' : ''}`}
                   onClick={() => handleNavClick(item)}
