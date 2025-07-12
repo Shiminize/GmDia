@@ -14,7 +14,7 @@ const Step2_Metal: React.FC<Step2_MetalProps> = ({ onSelectMetal, selectedMetal 
       id: 'platinum',
       name: 'Platinum',
       karat: '950',
-      color: '#E5E4E2',
+      color: 'var(--champagne-light)',
       description: 'The most precious of all metals, platinum is known for its purity, rarity, and strength. Its naturally white color will never fade or change.',
       benefits: [
         'Extremely durable and naturally hypoallergenic',
@@ -27,7 +27,7 @@ const Step2_Metal: React.FC<Step2_MetalProps> = ({ onSelectMetal, selectedMetal 
       id: 'white-gold',
       name: 'White Gold',
       karat: '18K',
-      color: '#F4F7F8',
+      color: 'var(--card)',
       description: 'A modern classic, 18K white gold is an alloy of pure gold and white metals like palladium, creating a bright white color.',
       benefits: [
         'More affordable than platinum',
@@ -40,7 +40,7 @@ const Step2_Metal: React.FC<Step2_MetalProps> = ({ onSelectMetal, selectedMetal 
       id: 'yellow-gold',
       name: 'Yellow Gold',
       karat: '18K',
-      color: '#FFD700',
+      color: 'var(--champagne-dark)',
       description: 'Traditional and timeless, 18K yellow gold offers the purest gold color while maintaining excellent durability.',
       benefits: [
         'Traditional and timeless appearance',
@@ -53,7 +53,7 @@ const Step2_Metal: React.FC<Step2_MetalProps> = ({ onSelectMetal, selectedMetal 
       id: 'rose-gold',
       name: 'Rose Gold',
       karat: '18K',
-      color: '#B76E79',
+      color: 'var(--blush-dark)',
       description: 'Romantic and modern, rose gold gets its warm pink hue from copper added to pure gold.',
       benefits: [
         'Unique and romantic appearance',
@@ -103,7 +103,7 @@ const Step2_Metal: React.FC<Step2_MetalProps> = ({ onSelectMetal, selectedMetal 
               </div>
             </div>
             {showInfo === metal.id && (
-              <div className="absolute left-0 right-0 top-full mt-2 bg-white border border-champagne rounded-lg p-4 shadow-lg z-10 animate-fade-in">
+              <div className="absolute left-0 right-0 top-0 -translate-y-full mt-0 bg-white border border-champagne rounded-lg p-4 shadow-lg z-[9999] pointer-events-none animate-fade-in">
                 <p className="text-sm text-graphite mb-3">{metal.description}</p>
                 <ul className="space-y-2">
                   {metal.benefits.map((benefit, index) => (

@@ -12,6 +12,10 @@ import {
   Heart
 } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
+import TestimonialCard, { Testimonial } from '../components/TestimonialCard';
+
+
+import '../animations.css';
 
 // Sample product data for featured designs
 const featuredProducts = [
@@ -93,36 +97,81 @@ const featuredProducts = [
 ];
 
 // Sample testimonials
-const testimonials = [
+
+
+const testimonials: Testimonial[] = [
   {
-    id: 1,
-    name: "Sarah M.",
-    location: "New York",
-    rating: 5,
-    text: "The most beautiful ring I've ever seen. The lab-grown diamond sparkles just as brilliantly as any mined diamond, and I love knowing it's ethically sourced.",
-    image: "/testimonial-1.jpg"
+    name: 'Stewart P',
+    verified: true,
+    text: 'I had a great experience with Friendly Diamonds while shopping for an engagement ring. The prices were very reasonable, and the quality of...',
+    source: 'Knot',
+    date: 'Jun 8th, 2025',
   },
   {
-    id: 2,
-    name: "Michael R.",
-    location: "California",
-    rating: 5,
-    text: "Exceptional quality and service. The customization process was seamless, and the final result exceeded all expectations.",
-    image: "/testimonial-2.jpg"
+    name: 'Francis Brenet Nicco',
+    verified: true,
+    text: 'This is my first lab grown diamond ring, and I was unsure where to purchase it. However, Friendly Diamonds proved to be the perfect...',
+    source: 'Weddingwire',
+    date: 'May 1st, 2025',
   },
   {
-    id: 3,
-    name: "Emma L.",
-    location: "London",
-    rating: 5,
-    text: "I couldn't be happier with my engagement ring. The expert guidance made all the difference in finding the perfect design.",
-    image: "/testimonial-3.jpg"
-  }
+    name: 'Gary',
+    verified: true,
+    text: 'The staff at Friendly Diamonds was very courteous and helpful in my purchase of my engagement ring. They assisted me through each',
+    source: 'Trustpilot',
+    date: 'April 28th, 2025',
+  },
+  {
+    name: 'Jessie',
+    verified: true,
+    text: 'This is the second ring I have ordered from MoissaniteCo and the whole experience has been great. The ring I received already is absolutely gorgeous and well made.',
+    source: 'Google',
+    date: 'April 30th, 2025',
+  },
+  {
+    name: 'Sam',
+    verified: true,
+    text: 'I asked them to do some custom work - exchanging a stone for a larger one and then using the existing to place into a new design. They were helpful and easy to work with!',
+    source: '99CONSUMER',
+    date: 'March 13th, 2025',
+  },
 ];
 
 const HomePage: React.FC = () => {
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
+  const [animationClass, setAnimationClass] = useState('');
+
+  const [rotationDirection, setRotationDirection] = useState<'left' | 'right'>('right'); // New state for rotation direction
+
+  // Effect to handle testimonial rotation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonialIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+      setAnimationClass('rotate-out'); // Trigger rotation animation
+      setTimeout(() => {
+        setAnimationClass('rotate-in'); // Reset animation class after rotation
+      }, 500); // Duration of rotate-out animation
+    }, 5000); // Change testimonial every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Effect to determine animation based on screen size and set rotation direction
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) { // Tailwind's 'lg' breakpoint
+        setRotationDirection('right'); // Desktop: rotate right
+      } else {
+        setRotationDirection('left'); // Mobile: rotate left (or keep as is for now)
+      }
+    };
+
+    handleResize(); // Set initial rotation direction
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -132,15 +181,6 @@ const HomePage: React.FC = () => {
   const diamondRef = useRef<HTMLDivElement>(null);
   const featuredProductsRef = useRef<HTMLDivElement>(null);
   const [featuredProductsVisible, setFeaturedProductsVisible] = useState(false);
-
-  // Auto-rotate testimonials
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    
-    return () => clearInterval(interval);
-  }, []);
 
   // Intersection Observer for Diamond Animation
   useEffect(() => {
@@ -314,7 +354,7 @@ const HomePage: React.FC = () => {
   }, [isLoading, retryCount, handleVideoError, handleVideoLoaded]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-champagne">
+    <div className="min-h-screen flex flex-col bg-secondary">
       {/* Hero Section - Cinematic with Video */}
       <section className="hero-section-isolated relative h-[100vh] w-full flex items-center justify-center overflow-hidden">
         <div className="video-container-isolated absolute inset-0 w-full h-full">
@@ -334,8 +374,8 @@ const HomePage: React.FC = () => {
               {isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/20">
                   <div className="flex flex-col items-center gap-4">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
-                    <p className="text-body-sm text-charcoal">Loading video...</p>
+                    <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-white"></div>
+                    <p className="text-body-sm text-muted-foreground">Loading video...</p>
                   </div>
                 </div>
               )}
@@ -367,30 +407,26 @@ const HomePage: React.FC = () => {
 
         {/* Centered Content Overlay */}
         <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
-          <div className="bg-ivory/95 p-6 sm:p-8 rounded-lg shadow-2xl border border-border animate-fadeIn text-left max-w-md w-[90vw] pointer-events-auto">
-            <h1 className="font-primary text-graphite text-5xl md:text-6xl font-bold text-left leading-tight tracking-tight mb-4">
+          <div className="bg-card/95 p-6 sm:p-8 rounded-lg shadow-2xl border border-border animate-fadeIn text-left max-w-md w-[90vw] pointer-events-auto">
+            <h1 className="text-luxury-hero text-left mb-4">
               Ethical Brilliance,<br />
               Timeless Design
             </h1>
-            <p className="font-secondary text-graphite/80 text-lg md:text-xl mt-editorial-md text-left leading-relaxed mb-6">
+            <p className="text-body-primary text-left mb-6">
               Discover our collection of lab-grown diamonds, crafted with precision and care for
               the modern conscious consumer.
             </p>
             <div className="flex flex-col gap-3">
               <button 
                 onClick={handleQuizStart}
-                className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground text-sm font-semibold 
-                  uppercase tracking-wider rounded-full shadow-md hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg 
-                  transition-all duration-300 w-full"
+                className="btn-primary w-full flex items-center justify-center gap-x-2"
               >
                 Find Your Perfect Ring
                 <ChevronRight className="ml-2" size={16} />
               </button>
               <button 
                 onClick={handleChatExpert}
-                className="inline-flex items-center justify-center px-6 py-3 bg-white text-graphite text-sm font-semibold 
-                  uppercase tracking-wider rounded-full border border-blush/30 hover:bg-accent/10 hover:text-accent 
-                  hover:border-accent transition-all duration-300 w-full"
+                className="btn-secondary w-full flex items-center justify-center gap-x-2"
               >
                 <MessageCircle className="mr-2" size={16} />
                 Design Your Own
@@ -408,43 +444,43 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Quiz Preview Section */}
-      <section className="py-12 sm:py-16 lg:py-24 bg-ivory">
+      <section className="py-12 sm:py-16 lg:py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
             {/* Content Side - Mobile First */}
             <div className="flex-1 max-w-2xl text-center lg:text-left order-2 lg:order-1">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-graphite mb-4 sm:mb-6 lg:mb-8 font-primary leading-tight">
+              <h2 className="text-luxury-headline mb-4 sm:mb-6 lg:mb-8">
                 Find Your Dream Ring in Minutes
               </h2>
-              <p className="text-base sm:text-lg lg:text-xl text-graphite/70 mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
+              <p className="text-body-primary mb-6 sm:mb-8 lg:mb-10">
                 Take a moment to reflect on what truly speaks to you. Our thoughtful quiz guides you through discovering your perfect ring, just like you.
               </p>
               
               {/* Mobile-optimized CTA */}
               <button
                 onClick={handleQuizStart}
-                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 lg:px-10 py-4 lg:py-5 
-                  bg-secondary text-secondary-foreground text-sm sm:text-base font-semibold uppercase tracking-wider 
-                  rounded-full shadow-lg hover:bg-secondary/90 hover:-translate-y-1 hover:shadow-xl 
-                  transition-all duration-300 min-w-[200px]"
+                className="btn-secondary w-full sm:w-auto min-w-[200px]"
               >
                 Start Ring Finder Quiz
                 <ArrowRight className="ml-2 sm:ml-3" size={16} />
               </button>
               
               {/* Trust indicators - Mobile optimized */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-8 mt-6 sm:mt-8">
+              <div
+                className="flex !flex-row !flex-wrap min-w-0 w-full items-center justify-center lg:justify-start gap-4 sm:gap-8 mt-6 sm:mt-8"
+                style={{ flexDirection: 'row', flexWrap: 'wrap' }}
+              >
                 <div className="flex items-center gap-2">
                   <div className="flex">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} size={16} className="text-secondary fill-current" />
+                      <Star key={star} size={16} className="text-accent-foreground fill-current" />
                     ))}
                   </div>
-                  <span className="text-sm text-graphite/70 font-medium">5.0 Rating</span>
+                  <span className="text-body-secondary font-medium">5.0 Rating</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Sparkles className="text-secondary" size={16} />
-                  <span className="text-sm text-graphite/70 font-medium">10,000+ Happy Couples</span>
+                  <Sparkles className="text-accent-foreground" size={16} />
+                  <span className="text-body-secondary font-medium">10,000+ Happy Couples</span>
                 </div>
               </div>
             </div>
@@ -471,9 +507,9 @@ const HomePage: React.FC = () => {
                     <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-secondary/10 flex items-center justify-center">
                       <Sparkles className="text-secondary" size={12} />
                     </div>
-                    <span className="text-xs sm:text-sm font-semibold text-graphite">Personalized Match</span>
+                    <span className="text-caption font-semibold">Personalized Match</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-graphite/70">Based on your unique style</p>
+                  <p className="text-caption">Based on your unique style</p>
                 </div>
                 
                 {/* Success stats card - Enhanced for mobile */}
@@ -484,9 +520,9 @@ const HomePage: React.FC = () => {
                     <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-secondary/10 flex items-center justify-center">
                       <Star className="text-secondary" size={12} />
                     </div>
-                    <span className="text-xs sm:text-sm font-semibold text-graphite">96% Match Rate</span>
+                    <span className="text-caption font-semibold">96% Match Rate</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-graphite/70 whitespace-nowrap">Perfect ring found</p>
+                  <p className="text-caption whitespace-nowrap">Perfect ring found</p>
                 </div>
                 
                 {/* Floating elements for visual interest */}
@@ -508,10 +544,10 @@ const HomePage: React.FC = () => {
               ].map((feature, index) => (
                 <div key={index} className="flex flex-col items-center text-center p-4">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-3 sm:mb-4">
-                    <feature.icon className="text-secondary" size={20} />
+                    <feature.icon className="text-secondary-foreground" size={20} />
                   </div>
-                  <h3 className="text-base sm:text-lg font-semibold text-graphite mb-2">{feature.title}</h3>
-                  <p className="text-sm sm:text-base text-graphite/70">{feature.description}</p>
+                  <h3 className="text-card-title mb-2">{feature.title}</h3>
+                  <p className="text-body-secondary">{feature.description}</p>
                 </div>
               ))}
             </div>
@@ -520,11 +556,11 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Featured Designs Section */}
-      <section className="py-8 sm:py-12 lg:py-20 bg-champagne">
+      <section className="py-8 sm:py-12 lg:py-20 bg-secondary">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10 lg:mb-12">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-graphite mb-2 sm:mb-3 lg:mb-4">Featured Designs</h2>
-            <p className="text-sm sm:text-base lg:text-lg text-graphite/70">Discover our most loved and newest creations</p>
+            <h2 className="text-luxury-subheadline mb-2 sm:mb-3 lg:mb-4">Featured Designs</h2>
+            <p className="text-body-primary">Discover our most loved and newest creations</p>
           </div>
 
           <div 
@@ -543,7 +579,11 @@ const HomePage: React.FC = () => {
                   transitionDelay: `${index * 150}ms` // Staggered animation
                 }}
               >
-                <ProductCard product={product} />
+                <ProductCard 
+                  product={product} 
+                  onAddToWishlist={() => {}}
+                  onQuickView={() => {}}
+                />
               </div>
             ))}
           </div>
@@ -551,11 +591,11 @@ const HomePage: React.FC = () => {
           <div className="text-center mt-8 sm:mt-12">
             <Link
               to="/products"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 border border-primary text-foreground
-                text-sm font-semibold uppercase tracking-wider rounded-full hover:bg-primary hover:text-primary-foreground
-                transition-all duration-300 w-full sm:w-auto"
+              className="btn-outline w-full sm:w-auto uppercase font-semibold tracking-wide flex items-center justify-center"
+              role="button"
+              tabIndex={0}
             >
-              View All Designs
+              VIEW ALL DESIGNS
               <ArrowRight className="ml-2" size={16} />
             </Link>
           </div>
@@ -568,8 +608,8 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
             {/* Text Side */}
             <div className="flex-1 max-w-xs md:max-w-sm text-center md:text-left mb-6 md:mb-0">
-              <h2 className="font-primary text-graphite text-3xl sm:text-4xl font-bold mb-4 tracking-tight leading-tight">Shop by Shape</h2>
-              <p className="font-secondary text-graphite/70 text-base sm:text-lg leading-relaxed">
+              <h2 className="text-luxury-subheadline mb-4">Shop by Shape</h2>
+              <p className="text-body-primary">
                 Begin searching for your perfect ring by starting with the perfect shape
               </p>
             </div>
@@ -578,114 +618,53 @@ const HomePage: React.FC = () => {
               {/* Shape: Round */}
               <a href="/products?shape=Round" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
                 <img src="/Diamond Shapes/shop-by-round.jpg" alt="Round" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
-                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">ROUND</span>
+                <span className="mt-2 text-label tracking-widest group-hover:text-accent transition-colors">ROUND</span>
               </a>
               {/* Shape: Princess */}
               <a href="/products?shape=Princess" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
                 <img src="/Diamond Shapes/shop-by-princess.jpg" alt="Princess" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
-                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">PRINCESS</span>
+                <span className="mt-2 text-label tracking-widest group-hover:text-accent transition-colors">PRINCESS</span>
               </a>
               {/* Shape: Cushion */}
               <a href="/products?shape=Cushion" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
                 <img src="/Diamond Shapes/shop-by-cushion.jpg" alt="Cushion" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
-                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">CUSHION</span>
+                <span className="mt-2 text-label tracking-widest group-hover:text-accent transition-colors">CUSHION</span>
               </a>
               {/* Shape: Oval */}
               <a href="/products?shape=Oval" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
                 <img src="/Diamond Shapes/shop-by-oval.jpg" alt="Oval" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
-                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">OVAL</span>
+                <span className="mt-2 text-label tracking-widest group-hover:text-accent transition-colors">OVAL</span>
               </a>
               {/* Shape: Emerald */}
               <a href="/products?shape=Emerald" className="group flex flex-col items-center w-24 sm:w-28 md:w-32">
                 <img src="/Diamond Shapes/shop-by-emerald.jpg" alt="Emerald" className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105" />
-                <span className="mt-2 font-primary text-graphite text-sm sm:text-base tracking-wide group-hover:text-secondary transition-colors">EMERALD</span>
+                <span className="mt-2 text-label tracking-widest group-hover:text-accent transition-colors">EMERALD</span>
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-champagne">
+      {/* Testimonials Section - Redesigned */}
+      <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-1 mb-4">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star key={star} size={24} className="text-blush fill-current" />
-              ))}
-            </div>
-            <p className="text-xl font-semibold text-graphite">
-              Trusted by 10,000+ happy customers
-            </p>
-          </div>
-
-          <div className="relative">
-            <div className="overflow-hidden">
-              <div className="flex transition-transform duration-500"
-                style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}>
-                {testimonials.map((testimonial, index) => (
-                  <div
-                    key={testimonial.id}
-                    className="w-full flex-shrink-0 px-4"
-                  >
-                    <div className="bg-white rounded-lg p-8 shadow-lg">
-                      <div className="flex items-center gap-1 mb-4">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star key={star} size={16} className="text-blush fill-current" />
-                        ))}
-                      </div>
-                      <p className="text-lg text-graphite/80 mb-6">
-                        "{testimonial.text}"
-                      </p>
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full overflow-hidden">
-                          <img
-                            src={testimonial.image}
-                            alt={testimonial.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <p className="font-semibold text-graphite">{testimonial.name}</p>
-                          <p className="text-sm text-graphite/60">{testimonial.location}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex justify-center gap-2 mt-8">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 
-                    ${index === currentTestimonial ? 'w-8 bg-graphite' : 'bg-graphite/30'}`}
-                  onClick={() => setCurrentTestimonial(index)}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
-            {[
-              { number: "10K+", label: "Happy Customers" },
-              { number: "100%", label: "Satisfaction Rate" },
-              { number: "30+", label: "Design Options" },
-              { number: "24/7", label: "Expert Support" }
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <p className="text-3xl font-bold text-graphite mb-2">{stat.number}</p>
-                <p className="text-sm text-graphite/70">{stat.label}</p>
-              </div>
-            ))}
+          <h2 className="text-luxury-headline text-center mb-12">What 1000+ Reviews Say About Us</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+            {Array.from({ length: 3 }).map((_, offset) => {
+              const testimonialIndex = (currentTestimonialIndex + offset) % testimonials.length;
+              const testimonial = testimonials[testimonialIndex];
+              return (
+                <div key={testimonial.name + testimonialIndex} className={`testimonial-card-rotate ${animationClass} ${rotationDirection}`}>
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Live Support Section */}
-      <section className="py-20 bg-ivory">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1">
@@ -695,19 +674,19 @@ const HomePage: React.FC = () => {
                   alt="Jewelry expert"
                   className="rounded-lg shadow-xl w-full h-full object-cover aspect-square"
                 />
-                <div className="absolute -bottom-6 -right-6 bg-white rounded-lg p-4 shadow-lg">
+                <div className="absolute -bottom-6 -right-6 bg-card rounded-lg p-4 shadow-lg">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                    <span className="text-sm font-semibold text-graphite">Online Now</span>
+                    <div className="w-2 h-2 rounded-full bg-success animate-pulse"></div>
+                    <span className="text-sm font-semibold text-foreground">Online Now</span>
                   </div>
                 </div>
               </div>
             </div>
             <div className="flex-1 max-w-xl">
-              <h2 className="text-4xl font-bold text-graphite mb-6">
+              <h2 className="text-luxury-subheadline mb-6">
                 Expert Guidance at Your Fingertips
               </h2>
-              <p className="text-lg text-graphite/70 mb-8">
+              <p className="text-body-primary mb-8">
                 Our jewelry specialists are here to help you make the perfect choice.
               </p>
               <div className="grid grid-cols-2 gap-6 mb-8">
@@ -717,16 +696,14 @@ const HomePage: React.FC = () => {
                   { icon: CheckCircle, text: "Quality Assurance" }
                 ].map((feature, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <feature.icon size={20} className="text-blush" />
-                    <span className="text-sm font-medium text-graphite">{feature.text}</span>
+                    <feature.icon size={20} className="text-accent-foreground" />
+                    <span className="text-label">{feature.text}</span>
                   </div>
                 ))}
               </div>
               <button
                 onClick={handleChatExpert}
-                className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground
-                  text-sm font-semibold uppercase tracking-wider rounded-full shadow-md
-                  hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300"
+                className="btn-primary"
               >
                 Chat with Expert Now
                 <MessageCircle className="ml-2" size={16} />
@@ -737,26 +714,25 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-12 sm:py-20 bg-champagne">
+      <section className="py-12 sm:py-20 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-graphite mb-3 sm:mb-4">
-              Stay Updated with GmDia
+            <h2 className="text-luxury-subheadline mb-3 sm:mb-4">
+              Stay Updated with Facet & Co.
             </h2>
-            <p className="text-base sm:text-lg text-graphite/70 mb-6 sm:mb-8">
+            <p className="text-body-primary mb-6 sm:mb-8">
               Subscribe to receive exclusive offers, new design launches, and expert jewelry tips.
             </p>
             <form className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 sm:px-6 py-3 sm:py-4 rounded-full border border-blush/30 focus:outline-none
-                  focus:ring-2 focus:ring-blush focus:border-transparent text-base"
+                className="flex-1 px-4 sm:px-6 py-3 sm:py-4 rounded-full border border-accent/30 focus:outline-none
+                  focus:ring-2 focus:ring-accent focus:border-transparent text-base bg-card text-foreground"
               />
               <button
                 type="submit"
-                className="px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground text-sm font-semibold uppercase
-                  tracking-wider rounded-full hover:bg-secondary transition-colors duration-300 w-full sm:w-auto"
+                className="btn-primary w-full sm:w-auto"
               >
                 Subscribe
               </button>
@@ -766,9 +742,9 @@ const HomePage: React.FC = () => {
                 { icon: CheckCircle, text: "No Spam" },
                 { icon: CheckCircle, text: "Exclusive Benefits" }
               ].map((item, index) => (
-                <div key={index} className="flex items-center gap-2 text-graphite/60">
+                <div key={index} className="flex items-center gap-2 text-muted-foreground">
                   <item.icon size={16} />
-                  <span className="text-sm">{item.text}</span>
+                  <span className="text-caption">{item.text}</span>
                 </div>
               ))}
             </div>
