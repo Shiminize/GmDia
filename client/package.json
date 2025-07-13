@@ -13,8 +13,6 @@
     "@types/axios": "^0.9.36",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.126",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
     "@types/three": "^0.178.0",
     "axios": "^1.10.0",
     "babel-jest": "^27.4.2",
@@ -102,8 +100,10 @@
     ]
   },
   "devDependencies": {
-    "@stagewise-plugins/react": "^0.5.0",
-    "@stagewise/toolbar-react": "^0.5.0",
+    "@stagewise-plugins/react": "^0.5.2",
+    "@stagewise/toolbar-react": "^0.5.2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17"
