@@ -3,65 +3,75 @@
 @tailwind utilities;
 
 @layer base {
-  /* CSS Custom Properties for backwards compatibility */
+  /* CSS Custom Properties - "Soft Precision" Color Palette */
   :root {
     /* Primary Color Palette - Light Mode */
-    --background: 360 100% 98%;
-    --foreground: 200 15% 8%;
+    --background: 0 0% 98%; /* Ivory soft */
+    --foreground: 0 0% 10.2%; /* Graphite */
 
-    --card: 360 100% 100%;
-    --card-foreground: 200 15% 8%;
+    --card: 0 0% 100%; /* Ivory white */
+    --card-foreground: 0 0% 10.2%; /* Graphite */
 
-    --popover: 360 100% 100%;
-    --popover-foreground: 200 15% 8%;
+    --popover: 0 0% 100%; /* Ivory white */
+    --popover-foreground: 0 0% 10.2%; /* Graphite */
 
-    --primary: 200 15% 8%;
-    --primary-light: 200 15% 20%;
-    --primary-dark: 200 15% 5%;
-    --primary-foreground: 360 100% 98%;
+    --primary: 0 0% 10.2%; /* Graphite */
+    --primary-light: 0 0% 16.5%; /* Graphite light */
+    --primary-dark: 0 0% 5.9%; /* Graphite dark */
+    --primary-foreground: 0 0% 100%; /* Ivory white */
 
-    --secondary: 278 35% 78%;
-    --secondary-light: 278 35% 85%;
-    --secondary-dark: 278 35% 65%;
-    --secondary-foreground: 200 15% 8%;
+    --secondary: 32 23% 90.4%; /* Champagne */
+    --secondary-light: 32 23% 94%; /* Champagne light */
+    --secondary-dark: 32 23% 86%; /* Champagne dark */
+    --secondary-foreground: 0 0% 10.2%; /* Graphite */
 
-    --muted: 200 5% 96%;
-    --muted-light: 200 5% 98%;
-    --muted-dark: 200 5% 90%;
-    --muted-foreground: 200 8% 46%;
+    --muted: 144 20% 87.8%; /* Sage */
+    --muted-light: 144 20% 91%; /* Sage light */
+    --muted-dark: 144 20% 84%; /* Sage dark */
+    --muted-foreground: 0 0% 10.2%; /* Graphite */
 
-    --accent: 340 82% 52%;
-    --accent-light: 340 82% 65%;
-    --accent-dark: 340 82% 45%;
-    --accent-foreground: 360 100% 98%;
+    --accent: 352 43% 90.2%; /* Blush */
+    --accent-light: 352 43% 93%; /* Blush light */
+    --accent-dark: 352 43% 86.5%; /* Blush dark */
+    --accent-foreground: 0 0% 10.2%; /* Graphite */
 
-    --destructive: 0 84% 60%;
-    --destructive-light: 0 84% 70%;
-    --destructive-dark: 0 84% 50%;
-    --destructive-foreground: 360 100% 98%;
+    --destructive: 352 43% 75%; /* Deeper blush for destructive actions */
+    --destructive-light: 352 43% 85%;
+    --destructive-dark: 352 43% 65%;
+    --destructive-foreground: 0 0% 100%; /* Ivory white */
 
-    --border: 200 20% 82%;
-    --input: 200 20% 82%;
-    --ring: 278 35% 78%;
+    --border: 32 23% 86%; /* Champagne dark for borders */
+    --input: 32 23% 86%; /* Champagne dark for inputs */
+    --ring: 278 35% 68%; /* Lavender for focus rings */
 
     --radius: 0.5rem;
 
-    /* Legacy color variables for backward compatibility */
-    --ivory-white: #fbf9f7;
-    --ivory-light: #fcfcfa;
-    --graphite-black: #1a1a1a;
-    --graphite-light: #2a2a2a;
-    --champagne-beige: #f5f5f5;
-    --champagne-light: #fafafa;
-    --muted-blush: #fbeaece6;
-    --blush-light: #fbeaece6;
-    --pale-sage: #858585;
-    --sage-light: #909090;
-    --digital-lavender: #787878;
-    --lavender-light: #858585;
-    --deep-navy: #181818;
-    --warm-gray: #858585;
-    --error-color: #606060;
+    /* "Soft Precision" color variables */
+    --ivory-white: #FFFFFF;
+    --ivory-soft: #F9F9F9;
+    --ivory-muted: #F5F5F5;
+    --graphite-black: #1A1A1A;
+    --graphite-light: #2A2A2A;
+    --graphite-dark: #0F0F0F;
+    --champagne-beige: #EFE7DD;
+    --champagne-light: #F5F0E8;
+    --champagne-dark: #E6DDD1;
+    --muted-blush: #F5DADF;
+    --blush-light: #F9E8EB;
+    --blush-dark: #F0CAD1;
+    --pale-sage: #DCEDE4;
+    --sage-light: #E6F2EA;
+    --sage-dark: #D0E7D8;
+    --digital-lavender: #CDB4DB;
+    --lavender-light: #D8C4E2;
+    --lavender-dark: #C1A3D3;
+    
+    /* Functional colors */
+    --success-color: #DCEDE4; /* Sage for success */
+    --warning-color: #EFE7DD; /* Champagne for warnings */
+    --error-color: #F0CAD1; /* Blush dark for errors */
+    --link-color: #C1A3D3; /* Lavender dark for links */
+    --link-hover-color: #D0E7D8; /* Sage dark for link hover */
     
     /* Spacing */
     --space-1: 0.25rem;
@@ -72,11 +82,46 @@
     --space-6: 1.5rem;
     --space-8: 2rem;
     
-    /* Typography */
-    --font-primary: 'Lato', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-secondary: 'Playfair Display', serif;
-    --text-base: 1rem;
-    --text-lg: 1.125rem;
+    /* Typography - Luxury Minimalist System */
+    /* Font Families */
+    --font-heading: 'Playfair Display', Georgia, serif; /* H1, H2 - Luxury serif */
+    --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* Body text */
+    --font-accent: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; /* Buttons, CTAs */
+    
+    /* Font Sizes - Mobile-first approach */
+    --text-xs: 0.75rem;     /* 12px - Small labels */
+    --text-sm: 0.875rem;    /* 14px - Button text, captions */
+    --text-base: 1rem;      /* 16px - Body text */
+    --text-lg: 1.125rem;    /* 18px - Large body text */
+    --text-xl: 1.25rem;     /* 20px - H4 */
+    --text-2xl: 1.5rem;     /* 24px - H3 mobile */
+    --text-3xl: 1.875rem;   /* 30px - H2 mobile */
+    --text-4xl: 2.25rem;    /* 36px - H1 mobile */
+    --text-5xl: 3rem;       /* 48px - H1 desktop */
+    --text-6xl: 3.75rem;    /* 60px - Hero titles */
+    
+    /* Font Weights */
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-black: 900;
+    
+    /* Line Heights */
+    --leading-tight: 1.2;   /* Headlines */
+    --leading-snug: 1.3;    /* Subheadings */
+    --leading-normal: 1.4;  /* Body text optimal */
+    --leading-relaxed: 1.6; /* Large body text */
+    --leading-loose: 1.8;   /* Special content */
+    
+    /* Letter Spacing */
+    --tracking-tighter: -0.05em;
+    --tracking-tight: -0.025em;
+    --tracking-normal: 0em;
+    --tracking-wide: 0.025em;
+    --tracking-wider: 0.05em;
+    --tracking-widest: 0.1em;
     
     /* Border Radius */
     --radius-small: 0.25rem;
@@ -85,26 +130,26 @@
     --radius-pill: 50px;
     
     /* Shadows */
-    --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 8px 15px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.04);
-    --shadow-heavy: 0 25px 50px rgba(0, 0, 0, 0.25);
+    --shadow-light: 0 1px 3px rgba(26, 26, 26, 0.1);
+    --shadow-medium: 0 8px 15px rgba(26, 26, 26, 0.08), 0 3px 6px rgba(26, 26, 26, 0.04);
+    --shadow-heavy: 0 25px 50px rgba(26, 26, 26, 0.25);
     
     /* Touch targets */
     --touch-target-min: 44px;
 
-    /* New color variables */
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    /* Chart colors using Soft Precision palette */
+    --chart-1: 352 43% 90.2%; /* Blush */
+    --chart-2: 144 20% 87.8%; /* Sage */
+    --chart-3: 278 35% 68%; /* Lavender */
+    --chart-4: 32 23% 90.4%; /* Champagne */
+    --chart-5: 0 0% 16.5%; /* Graphite light */
 
-    /* Custom color variables */
-    --graphite: 200 15% 8%;
-    --ivory: 60 29% 96%;
-    --champagne: 45 56% 88%;
-    --blush: 340 82% 52%;
-    --sage: 158 58% 39%;
+    /* Legacy support - mapped to new colors */
+    --graphite: 0 0% 10.2%; /* Graphite */
+    --ivory: 0 0% 98%; /* Ivory soft */
+    --champagne: 32 23% 90.4%; /* Champagne */
+    --blush: 352 43% 90.2%; /* Blush */
+    --sage: 144 20% 87.8%; /* Sage */
 
     /* Layout */
     --header-height: 4rem;
@@ -121,50 +166,56 @@
     --card-padding: 2rem;
 
     /* Effects */
-    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.04);
-    --shadow-luxury: 0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.06);
+    --shadow-soft: 0 4px 6px rgba(26, 26, 26, 0.02), 0 1px 3px rgba(26, 26, 26, 0.04);
+    --shadow-luxury: 0 20px 40px rgba(26, 26, 26, 0.1), 0 8px 24px rgba(26, 26, 26, 0.06);
     --backdrop-blur: blur(10px);
+
+    /* Button specific variables */
+    --btn-primary-bg: var(--graphite-black);
+    --btn-primary-text: var(--ivory-white);
+    --btn-primary-hover-opacity: 0.6;
+    --btn-primary-focus-ring: var(--ivory-white);
   }
 
-  /* Dark Mode Color Scheme */
+  /* Dark Mode Color Scheme - Adapted for Soft Precision */
   .dark {
-    --background: 200 15% 8%;
-    --foreground: 360 100% 98%;
+    --background: 0 0% 5.9%; /* Graphite dark */
+    --foreground: 0 0% 98%; /* Ivory soft */
 
-    --card: 200 15% 10%;
-    --card-foreground: 360 100% 98%;
+    --card: 0 0% 10.2%; /* Graphite */
+    --card-foreground: 0 0% 98%; /* Ivory soft */
 
-    --popover: 200 15% 10%;
-    --popover-foreground: 360 100% 98%;
+    --popover: 0 0% 10.2%; /* Graphite */
+    --popover-foreground: 0 0% 98%; /* Ivory soft */
 
-    --primary: 360 100% 98%;
-    --primary-light: 360 100% 95%;
-    --primary-dark: 360 100% 90%;
-    --primary-foreground: 200 15% 8%;
+    --primary: 0 0% 98%; /* Ivory soft */
+    --primary-light: 0 0% 100%; /* Ivory white */
+    --primary-dark: 0 0% 94%; /* Ivory muted */
+    --primary-foreground: 0 0% 10.2%; /* Graphite */
 
-    --secondary: 278 35% 65%;
-    --secondary-light: 278 35% 75%;
-    --secondary-dark: 278 35% 55%;
-    --secondary-foreground: 360 100% 98%;
+    --secondary: 32 23% 40%; /* Darker champagne for dark mode */
+    --secondary-light: 32 23% 50%;
+    --secondary-dark: 32 23% 30%;
+    --secondary-foreground: 0 0% 98%; /* Ivory soft */
 
-    --muted: 200 15% 15%;
-    --muted-light: 200 15% 20%;
-    --muted-dark: 200 15% 10%;
-    --muted-foreground: 200 8% 70%;
+    --muted: 144 20% 20%; /* Darker sage for dark mode */
+    --muted-light: 144 20% 30%;
+    --muted-dark: 144 20% 15%;
+    --muted-foreground: 0 0% 80%; /* Light gray */
 
-    --accent: 340 82% 60%;
-    --accent-light: 340 82% 70%;
-    --accent-dark: 340 82% 50%;
-    --accent-foreground: 360 100% 98%;
+    --accent: 352 43% 60%; /* Darker blush for dark mode */
+    --accent-light: 352 43% 70%;
+    --accent-dark: 352 43% 50%;
+    --accent-foreground: 0 0% 98%; /* Ivory soft */
 
-    --destructive: 0 84% 65%;
-    --destructive-light: 0 84% 75%;
-    --destructive-dark: 0 84% 55%;
-    --destructive-foreground: 360 100% 98%;
+    --destructive: 352 43% 65%; /* Destructive for dark mode */
+    --destructive-light: 352 43% 75%;
+    --destructive-dark: 352 43% 55%;
+    --destructive-foreground: 0 0% 98%; /* Ivory soft */
 
-    --border: 200 15% 20%;
-    --input: 200 15% 20%;
-    --ring: 278 35% 65%;
+    --border: 0 0% 16.5%; /* Graphite light for borders */
+    --input: 0 0% 16.5%; /* Graphite light for inputs */
+    --ring: 278 35% 68%; /* Lavender for focus rings */
 
     /* Update shadows for dark mode */
     --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -179,78 +230,323 @@
   }
   
   body {
-    @apply font-secondary text-base bg-background text-foreground overflow-x-hidden;
+    @apply font-body text-base leading-normal;
     text-rendering: optimizeLegibility;
-    font-family: var(--font-primary);
+    font-family: var(--font-body);
     background: hsl(var(--background));
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-secondary);
+  /* Luxury Typography - Soft Precision System */
+  h1, h2 {
+    font-family: var(--font-heading);
+    color: hsl(var(--foreground));
+    letter-spacing: var(--tracking-luxury);
+    text-wrap: balance;
+  }
+  
+  h3, h4, h5, h6 {
+    font-family: var(--font-body);
+    color: hsl(var(--foreground));
+    font-weight: var(--font-semibold);
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
+  }
+
+  /* H1: Hero and main headlines - Playfair Display Bold */
+  h1 {
+    @apply text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight;
+    font-weight: var(--font-bold);
+  }
+
+  /* H2: Sub-headlines, section titles - Playfair Display Regular */
+  h2 {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-normal leading-tight;
+    font-weight: var(--font-normal);
+  }
+
+  /* H3: Subsection titles - Inter Semibold */
+  h3 {
+    @apply text-2xl sm:text-3xl lg:text-4xl font-semibold leading-snug;
+  }
+
+  /* H4: Component titles - Inter Semibold */
+  h4 {
+    @apply text-xl sm:text-2xl lg:text-3xl font-semibold leading-snug;
+  }
+
+  /* H5: Small headings - Inter Medium */
+  h5 {
+    @apply text-lg sm:text-xl font-medium leading-snug;
+  }
+
+  /* H6: Micro headings - Inter Medium */
+  h6 {
+    @apply text-base sm:text-lg font-medium leading-snug;
+  }
+
+  /* Body text - Inter Regular with optimal readability */
+  p {
+    @apply text-base lg:text-lg leading-relaxed;
+    font-family: var(--font-body);
+    color: hsl(var(--foreground));
+  }
+
+  /* Large body text for important content */
+  .text-body-large {
+    @apply text-lg leading-relaxed;
+  }
+
+  /* Small body text for captions and details */
+  .text-body-small {
+    @apply text-sm leading-normal;
+    color: hsl(var(--muted-foreground));
+  }
+
+  h1 {
+    font-size: 2.8em;
     font-weight: 700;
     line-height: 1.2;
+    color: #333;
+    margin-bottom: 0.5em;
   }
-
-  /* Mobile-first responsive typography */
-  h1 {
-    @apply text-4xl sm:text-5xl lg:text-6xl;
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2.2em;
+    }
   }
-
   h2 {
-    @apply text-3xl sm:text-4xl lg:text-5xl;
+    font-size: 1.6em;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 0.5em;
+    margin-top: 0;
   }
-
-  h3 {
-    @apply text-2xl sm:text-3xl lg:text-4xl;
+  @media (max-width: 600px) {
+    h2 {
+      font-size: 1.3em;
+    }
   }
-
-  h4 {
-    @apply text-xl sm:text-2xl lg:text-3xl;
+  p, .text-body-primary {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #333;
+    font-weight: 400;
+    margin-bottom: 1.2em;
+  }
+  ul, ol {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #333;
+    font-weight: 400;
+    margin-bottom: 1.2em;
+    padding-left: 40px;
+    padding-right: 20px;
+  }
+  ul li, ol li {
+    margin-bottom: 10px;
+  }
+  section {
+    margin-bottom: 60px;
   }
 }
 
 @layer components {
-  /* Enhanced Button Styles with Accessibility */
+  /* Typography Utility Classes - Luxury Minimalist System */
+  .text-luxury-hero {
+    @apply font-heading text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-luxury;
+    color: hsl(var(--foreground));
+  }
+
+  .text-luxury-headline {
+    @apply font-heading text-4xl lg:text-5xl font-bold leading-tight tracking-luxury;
+    color: hsl(var(--foreground));
+  }
+
+  .text-luxury-subheadline {
+    @apply font-heading text-3xl lg:text-4xl font-normal leading-tight tracking-wide;
+    color: hsl(var(--foreground));
+  }
+
+  .text-section-title {
+    @apply font-body text-2xl lg:text-3xl font-semibold leading-snug tracking-tight;
+    color: hsl(var(--foreground));
+  }
+
+  .text-card-title {
+    @apply font-body text-xl lg:text-2xl font-semibold leading-snug;
+    color: hsl(var(--foreground));
+  }
+
+  .text-body-primary {
+    @apply font-body text-base lg:text-lg leading-relaxed tracking-normal;
+    color: hsl(var(--foreground));
+  }
+
+  .text-body-secondary {
+    @apply font-body text-sm lg:text-base leading-normal tracking-normal;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .text-button-primary {
+    @apply font-accent text-sm lg:text-base font-semibold leading-normal tracking-wide;
+  }
+
+  .text-button-secondary {
+    @apply font-accent text-xs lg:text-sm font-medium leading-normal tracking-wide;
+  }
+
+  .text-caption {
+    @apply font-body text-xs leading-normal tracking-normal;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .text-label {
+    @apply font-body text-sm font-medium leading-normal tracking-normal;
+    color: hsl(var(--foreground));
+  }
+
+  /* Link styles with luxury hover effects */
+  .link-primary {
+    @apply font-body text-base leading-normal tracking-normal transition-colors duration-300;
+    color: hsl(var(--link-color, 278 35% 68%)); /* Digital Lavender */
+  }
+
+  .link-primary:hover {
+    color: hsl(var(--link-hover-color, 144 20% 77%)); /* Pale Sage */
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
+
+  .link-secondary {
+    @apply font-body text-sm leading-normal tracking-normal transition-colors duration-300;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .link-secondary:hover {
+    color: hsl(var(--foreground));
+  }
+
+  /* Navigation link styles */
+  .nav-link {
+    @apply font-body font-medium tracking-normal transition-all duration-300;
+    color: hsl(var(--foreground));
+  }
+
+  .nav-link:hover {
+    color: hsl(var(--accent));
+    transform: translateY(-1px);
+  }
+
+  .nav-link.active {
+    color: hsl(var(--accent));
+    font-weight: var(--font-semibold);
+  }
+
+  /* Footer link styles */
+  .footer-link {
+    @apply font-body text-sm font-normal tracking-normal transition-colors duration-300;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .footer-link:hover {
+    color: hsl(var(--accent));
+  }
+
+  /* Special content styling */
+  .text-quote {
+    @apply font-heading text-lg lg:text-xl leading-relaxed tracking-wide italic;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .text-testimonial {
+    @apply font-body text-base lg:text-lg leading-relaxed tracking-normal;
+    color: hsl(var(--foreground));
+  }
+
+  .text-price {
+    @apply font-accent text-lg lg:text-xl font-semibold leading-tight tracking-normal;
+    color: hsl(var(--foreground));
+  }
+
+  /* Enhanced Button Styles with Luxury Typography */
   .btn-primary {
-    @apply w-full sm:w-auto bg-primary text-primary-foreground px-4 sm:px-6 py-3 rounded-lg font-medium 
-      transition-all duration-200 hover:bg-primary-dark focus:bg-primary-dark 
-      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 
-      active:transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
-      touch-target;
+    @apply w-full sm:w-auto px-6 sm:px-8 py-3 rounded-lg 
+      text-button-primary font-accent font-semibold tracking-wide uppercase
+      transition-all duration-300 active:transform active:scale-95 
+      disabled:opacity-50 disabled:cursor-not-allowed
+      touch-target hover:shadow-lg hover:-translate-y-0.5;
+    background-color: #1A1A1A !important;
+    color: white !important;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1A1A1A !important;
+    opacity: 0.6;
+  }
+
+  .btn-primary:focus {
+    outline: none;
+    @apply ring-2 ring-white ring-offset-2;
   }
   
   .btn-secondary {
-    @apply w-full sm:w-auto bg-secondary text-secondary-foreground px-4 sm:px-6 py-3 rounded-lg font-medium 
-      transition-all duration-200 hover:bg-secondary-dark focus:bg-secondary-dark 
+    @apply w-full sm:w-auto bg-secondary text-secondary-foreground px-6 sm:px-8 py-3 rounded-lg 
+      text-button-primary font-accent font-semibold tracking-wide uppercase
+      transition-all duration-300 hover:bg-secondary-dark focus:bg-secondary-dark 
       focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 
       active:transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
-      touch-target;
+      touch-target hover:shadow-lg hover:-translate-y-0.5;
   }
 
   .btn-muted {
-    @apply w-full sm:w-auto bg-muted text-muted-foreground px-4 sm:px-6 py-3 rounded-lg font-medium 
-      transition-all duration-200 hover:bg-muted-dark focus:bg-muted-dark 
+    @apply w-full sm:w-auto bg-muted text-muted-foreground px-6 sm:px-8 py-3 rounded-lg 
+      text-button-primary font-accent font-semibold tracking-wide uppercase
+      transition-all duration-300 hover:bg-muted-dark focus:bg-muted-dark 
       focus:outline-none focus:ring-2 focus:ring-muted focus:ring-offset-2 
       active:transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
-      touch-target;
+      touch-target hover:shadow-lg hover:-translate-y-0.5;
   }
 
   .btn-accent {
-    @apply w-full sm:w-auto bg-accent text-accent-foreground px-4 sm:px-6 py-3 rounded-lg font-medium 
-      transition-all duration-200 hover:bg-accent-dark focus:bg-accent-dark 
+    @apply w-full sm:w-auto bg-accent text-accent-foreground px-6 sm:px-8 py-3 rounded-lg 
+      text-button-primary font-accent font-semibold tracking-wide uppercase
+      transition-all duration-300 hover:bg-accent-dark focus:bg-accent-dark 
       focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 
       active:transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
-      touch-target;
+      touch-target hover:shadow-lg hover:-translate-y-0.5;
   }
 
   .btn-destructive {
-    @apply w-full sm:w-auto bg-destructive text-destructive-foreground px-4 sm:px-6 py-3 rounded-lg font-medium 
-      transition-all duration-200 hover:bg-destructive-dark focus:bg-destructive-dark 
+    @apply w-full sm:w-auto bg-destructive text-destructive-foreground px-6 sm:px-8 py-3 rounded-lg 
+      text-button-primary font-accent font-semibold tracking-wide uppercase
+      transition-all duration-300 hover:bg-destructive-dark focus:bg-destructive-dark 
       focus:outline-none focus:ring-2 focus:ring-destructive focus:ring-offset-2 
       active:transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
-      touch-target;
+      touch-target hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  /* Button variations with luxury typography */
+  .btn-outline {
+    @apply w-full sm:w-auto border-2 border-current px-6 sm:px-8 py-3 rounded-lg 
+      text-button-primary font-accent font-semibold tracking-wide uppercase
+      transition-all duration-300 hover:-translate-y-0.5 active:transform active:scale-95
+      hover:shadow-lg;
+  }
+
+  .btn-text {
+    @apply font-accent font-medium tracking-wide transition-colors duration-300
+      hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+
+  .btn-link {
+    @apply font-body font-medium tracking-normal transition-colors duration-300 underline
+      underline-offset-4 decoration-2 hover:text-accent focus:outline-none;
   }
   
   .input-field {
@@ -284,12 +580,14 @@
   }
 
   .header-nav-link {
-    @apply relative text-base font-medium tracking-wide transition-all duration-300 py-2 
-      text-foreground hover:text-secondary focus:outline-none focus:ring-2 focus:ring-ring rounded-lg;
+    @apply relative font-body font-medium tracking-normal transition-all duration-300 py-2 
+      text-foreground hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring rounded-lg;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
   }
 
   .header-nav-link::after {
-    @apply content-[''] absolute bottom-0 left-0 w-full h-0.5 bg-secondary transform scale-x-0 
+    @apply content-[''] absolute bottom-0 left-0 w-full h-0.5 bg-accent transform scale-x-0 
       transition-transform duration-300 rounded-full;
   }
 
@@ -298,10 +596,12 @@
     @apply scale-x-100;
   }
 
-  /* Mobile menu styles */
+  /* Mobile menu styles with luxury typography */
   .mobile-menu-link {
-    @apply block w-full py-3 px-4 text-base font-medium rounded-lg transition-colors duration-300
+    @apply block w-full py-3 px-4 font-body font-medium rounded-lg transition-colors duration-300
       focus:outline-none focus:ring-2 focus:ring-ring;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
   }
 
   .mobile-menu-link.active {
@@ -310,17 +610,22 @@
 
   /* Enhanced mobile menu styles */
   .mobile-menu-item {
-    @apply block w-full py-4 px-4 text-lg font-medium rounded-lg transition-all duration-200
-      text-graphite hover:bg-champagne/50 hover:text-blush active:bg-champagne/70
-      focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+    @apply block w-full py-4 px-4 font-body font-medium rounded-lg transition-all duration-200
+      text-foreground hover:bg-secondary/20 hover:text-accent active:bg-secondary/30
+      focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+    font-size: var(--text-lg);
+    line-height: var(--leading-normal);
   }
 
   .mobile-menu-item.active {
-    @apply bg-secondary/10 text-secondary border-l-4 border-secondary;
+    @apply bg-secondary/10 text-accent border-l-4 border-accent;
   }
 
   .mobile-menu-section-title {
-    @apply text-xs font-semibold text-graphite/60 uppercase tracking-wider mb-4;
+    @apply font-accent font-semibold uppercase tracking-widest mb-4;
+    font-size: var(--text-xs);
+    line-height: var(--leading-tight);
+    color: hsl(var(--muted-foreground));
   }
 
   .mobile-menu-overlay {
@@ -352,26 +657,30 @@
     @apply block text-sm font-medium text-foreground;
   }
 
-  /* Button variations */
-  .btn-outline {
-    @apply w-full sm:w-auto border-2 border-current px-4 sm:px-6 py-3 rounded-lg font-medium 
-      transition-all duration-300 hover:-translate-y-0.5 active:transform active:scale-95;
-  }
-
   .btn-icon {
     @apply inline-flex items-center justify-center p-2 rounded-full transition-colors duration-300
       hover:bg-secondary/10 focus:outline-none focus:ring-2 focus:ring-ring;
   }
 
-  /* Mobile-optimized button styles */
+  /* Mobile-optimized button styles with luxury typography */
   .btn-mobile {
-    @apply w-full py-4 px-6 rounded-lg font-medium text-center transition-all duration-300 
+    @apply w-full py-4 px-6 rounded-lg text-center transition-all duration-300 
+      font-accent font-semibold tracking-wide uppercase
       touch-manipulation active:transform active:scale-95 min-h-[48px];
   }
 
   .btn-mobile-primary {
-    @apply btn-mobile bg-gradient-to-r from-secondary to-accent text-white 
-      hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+    @apply btn-mobile;
+    background: #1A1A1A !important;
+    color: #FFFFFF !important;
+  }
+  .btn-mobile-primary:hover {
+    background: #1A1A1A !important;
+    opacity: 0.6;
+  }
+  .btn-mobile-primary:focus {
+    outline: none;
+    @apply ring-2 ring-white ring-offset-2;
   }
 
   .btn-mobile-secondary {
@@ -392,12 +701,25 @@
     @apply transition-all duration-300 ease-in-out;
   }
   
-  .font-primary {
-    font-family: var(--font-primary);
+    .font-heading {
+    font-family: var(--font-heading);
   }
-  
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .font-accent {
+    font-family: var(--font-accent);
+  }
+
+  /* Legacy support */
+  .font-primary {
+    font-family: var(--font-heading);
+  }
+
   .font-secondary {
-    font-family: var(--font-secondary);
+    font-family: var(--font-body);
   }
 
   .text-shadow-sm {

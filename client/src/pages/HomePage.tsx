@@ -9,7 +9,9 @@ import {
   CheckCircle,
   ArrowRight,
   Star,
-  Heart
+  Heart,
+  User,
+  ShoppingCart
 } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import TestimonialCard, { Testimonial } from '../components/TestimonialCard';
@@ -63,36 +65,6 @@ const featuredProducts = [
     stockCount: 1,
     isNew: false,
     isBestseller: true
-  },
-  {
-    id: 'f4',
-    name: 'Modern Minimalist',
-    price: 1800,
-    originalPrice: 2400,
-    imageUrl: '/Ring-4.png',
-    metal: 'Yellow Gold',
-    shape: 'Emerald',
-    carat: '1.2ct',
-    brand: 'Facet & Co.',
-    inStock: true,
-    stockCount: 5,
-    isNew: true,
-    isBestseller: false
-  },
-  {
-    id: 'f5',
-    name: 'Art Deco Inspired',
-    price: 3800,
-    originalPrice: 4600,
-    imageUrl: '/Ring-5.png',
-    metal: 'Platinum',
-    shape: 'Cushion',
-    carat: '1.8ct',
-    brand: 'Facet & Co.',
-    inStock: true,
-    stockCount: 2,
-    isNew: false,
-    isBestseller: true
   }
 ];
 
@@ -138,6 +110,13 @@ const testimonials: Testimonial[] = [
 ];
 
 const HomePage: React.FC = () => {
+  const { toggleCartSlider } = useCart();
+  const navigationItems = [
+    { name: 'About', path: '/about' },
+    { name: 'Shop', path: '/products' },
+    { name: 'News', path: '/education' },
+    { name: 'Customize', path: '/customize' },
+  ];
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState('');
 
@@ -357,6 +336,272 @@ const HomePage: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-secondary">
       {/* Hero Section - Cinematic with Video */}
       <section className="hero-section-isolated relative h-[100vh] w-full flex items-center justify-center overflow-hidden">
+        <header className="absolute top-0 left-0 right-0 z-40 py-4">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <Link to="/" className="text-2xl font-bold text-white">
+              Facet & Co.
+            </Link>
+            <nav className="hidden md:flex space-x-8">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="text-white hover:text-gray-200 transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+            <div className="hidden md:flex items-center space-x-4">
+                <Link to="/login" className="text-white"><User size={18} /></Link>
+                <button onClick={toggleCartSlider} className="text-white"><ShoppingCart size={18} /></button>
+            </div>
+            <button className="md:hidden text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
+            </button>
+          </div>
+        </header>
+        
+
+  // Effect to determine animation based on screen size and set rotation direction
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) { // Tailwind's 'lg' breakpoint
+        setRotationDirection('right'); // Desktop: rotate right
+      } else {
+        setRotationDirection('left'); // Mobile: rotate left (or keep as is for now)
+      }
+    };
+
+    handleResize(); // Set initial rotation direction
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoError, setVideoError] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [key, setKey] = useState(0);
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 3;
+  const diamondRef = useRef<HTMLDivElement>(null);
+  const featuredProductsRef = useRef<HTMLDivElement>(null);
+  const [featuredProductsVisible, setFeaturedProductsVisible] = useState(false);
+
+  // Intersection Observer for Diamond Animation
+  useEffect(() => {
+    const localDiamondRef = diamondRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // setIsDiamondVisible(entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the element is visible
+        rootMargin: '50px' // Start animation 50px before entering viewport
+      }
+    );
+
+    if (localDiamondRef) {
+      observer.observe(localDiamondRef);
+    }
+
+    return () => {
+      if (localDiamondRef) {
+        observer.unobserve(localDiamondRef);
+      }
+    };
+  }, []);
+
+  // Intersection Observer for Featured Products Animation
+  useEffect(() => {
+    const localFeaturedProductsRef = featuredProductsRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setFeaturedProductsVisible(true);
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: '50px' // Start animation 50px before entering viewport
+      }
+    );
+
+    if (localFeaturedProductsRef) {
+      observer.observe(localFeaturedProductsRef);
+    }
+
+    return () => {
+      if (localFeaturedProductsRef) {
+        observer.unobserve(localFeaturedProductsRef);
+      }
+    };
+  }, []);
+
+  const handleQuizStart = () => {
+    window.location.href = '/quiz';
+  };
+
+  const handleChatExpert = () => {
+    console.log('Opening expert chat...');
+  };
+
+  const handleVideoLoaded = useCallback(() => {
+    console.log('✅ Video loaded successfully');
+    setVideoLoaded(true);
+    setIsLoading(false);
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error('Failed to play video:', error);
+          if (error.name === 'NotAllowedError' && retryCount < maxRetries) {
+            console.log(`🔄 Retrying video play with muted state (attempt ${retryCount + 1} of ${maxRetries})...`);
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              videoRef.current.play().catch(e => {
+                console.error('Failed to play muted video:', e);
+                setVideoError(true);
+              });
+            }
+          } else {
+            setVideoError(true);
+          }
+        });
+      }
+    }
+  }, [retryCount, maxRetries]);
+
+  const handleVideoError = useCallback((error: any) => {
+    console.error('❌ Video error:', error);
+    if (retryCount < maxRetries) {
+      console.log(`🔄 Retrying video load (attempt ${retryCount + 1} of ${maxRetries})...`);
+      setKey(prev => prev + 1);
+      setRetryCount(prev => prev + 1);
+    } else {
+      console.log('❌ Max retry attempts reached, falling back to static image');
+      setVideoError(true);
+      setIsLoading(false);
+    }
+  }, [retryCount, maxRetries]);
+
+  // Debug video loading
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      const debugVideoState = () => {
+        console.log('Video state:', {
+          readyState: videoElement.readyState,
+          networkState: videoElement.networkState,
+          error: videoElement.error,
+          currentSrc: videoElement.currentSrc,
+          paused: videoElement.paused,
+          currentTime: videoElement.currentTime,
+          duration: videoElement.duration,
+          ended: videoElement.ended,
+          muted: videoElement.muted,
+          volume: videoElement.volume,
+        });
+      };
+
+      // Add event listeners
+      const eventHandlers = {
+        loadstart: () => {
+          console.log('🔄 Video load started');
+          setIsLoading(true);
+        },
+        loadedmetadata: () => console.log('📋 Video metadata loaded'),
+        loadeddata: () => handleVideoLoaded(),
+        canplay: () => console.log('▶️ Video can play'),
+        playing: () => console.log('🎬 Video started playing'),
+        pause: () => console.log('⏸️ Video paused'),
+        error: (e: Event) => {
+          const error = (e.target as HTMLVideoElement).error;
+          handleVideoError(error);
+        },
+        stalled: () => console.log('⚠️ Video stalled'),
+        waiting: () => console.log('⏳ Video buffering'),
+      };
+
+      // Add all event listeners
+      Object.entries(eventHandlers).forEach(([event, handler]) => {
+        videoElement.addEventListener(event, handler);
+      });
+
+      // Initial debug log
+      debugVideoState();
+
+      // Clean up event listeners
+      return () => {
+        Object.entries(eventHandlers).forEach(([event, handler]) => {
+          videoElement.removeEventListener(event, handler);
+        });
+      };
+    }
+  }, [key, retryCount, handleVideoError, handleVideoLoaded]);
+
+  useEffect(() => {
+    if (isLoading && retryCount < maxRetries) {
+      const timeout = setTimeout(() => {
+        console.log(`🔄 Forcing video remount (attempt ${retryCount + 1} of ${maxRetries})...`);
+        setKey(prev => prev + 1);
+        setRetryCount(prev => prev + 1);
+      }, 5000);
+      return () => clearTimeout(timeout);
+    } else if (retryCount >= maxRetries) {
+      console.log('❌ Max retry attempts reached, falling back to static image');
+      setVideoError(true);
+      setIsLoading(false);
+    }
+  }, [isLoading, retryCount, handleVideoError, handleVideoLoaded]);
+
+  import { Link } from 'react-router-dom';
+import { ChevronRight, MessageCircle, Star, User, ShoppingCart } from 'lucide-react';
+import { useCart } from '../contexts/CartContext';
+
+const HomePage: React.FC = () => {
+  const { toggleCartSlider } = useCart();
+  const navigationItems = [
+    { name: 'About', path: '/about' },
+    { name: 'Shop', path: '/products' },
+    { name: 'News', path: '/education' },
+    { name: 'Customize', path: '/customize' },
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col bg-secondary">
+      {/* Hero Section - Cinematic with Video */}
+      <section className="hero-section-isolated relative h-[100vh] w-full flex items-center justify-center overflow-hidden">
+        <header className="absolute top-0 left-0 right-0 z-40 py-4">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <Link to="/" className="text-2xl font-bold text-white">
+              Facet & Co.
+            </Link>
+            <nav className="hidden md:flex space-x-8">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="text-white hover:text-gray-200 transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+            <div className="hidden md:flex items-center space-x-4">
+                <Link to="/login" className="text-white"><User size={18} /></Link>
+                <button onClick={toggleCartSlider} className="text-white"><ShoppingCart size={18} /></button>
+            </div>
+            <button className="md:hidden text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
+            </button>
+          </div>
+        </header>
         <div className="video-container-isolated absolute inset-0 w-full h-full">
           {/* Background image that shows immediately - lowest layer */}
           <img 
@@ -691,13 +936,13 @@ const HomePage: React.FC = () => {
               </p>
               <div className="grid grid-cols-2 gap-6 mb-8">
                 {[
-                  { icon: MessageCircle, text: "24/7 Live Chat" },
-                  { icon: Hand, text: "Custom Design Help" },
-                  { icon: CheckCircle, text: "Quality Assurance" }
+                  { icon: MessageCircle, title: "2-Minute Quiz", description: "Quick & personalized" },
+                  { icon: Hand, title: "Custom Design Help" },
+                  { icon: CheckCircle, title: "Quality Assurance" }
                 ].map((feature, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <feature.icon size={20} className="text-accent-foreground" />
-                    <span className="text-label">{feature.text}</span>
+                    <span className="text-label">{feature.description}</span>
                   </div>
                 ))}
               </div>
@@ -756,4 +1001,3 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
-

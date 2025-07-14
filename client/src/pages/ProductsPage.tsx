@@ -84,16 +84,16 @@ const ProductsPage: React.FC = () => {
   const selectedSortLabel = sortOptions.find(option => option.value === sortBy)?.label;
 
   return (
-    <div className="min-h-screen bg-ivory">
-      <div className="sticky top-[60px] z-40 bg-ivory border-b border-champagne/30">
+    <div className="min-h-screen bg-background">
+      <div className="sticky top-[60px] z-40 bg-background border-b border-border">
         <div className="flex items-center justify-between p-4">
           <button 
             onClick={handleFilterToggle}
-            className="flex items-center gap-2 bg-white border border-lavender/30 rounded-full text-sm 
-              font-medium text-graphite px-4 py-2 min-h-[40px] shadow-sm hover:bg-lavender/5 
+            className="flex items-center gap-2 bg-card border border-accent/30 rounded-full 
+              text-button-secondary px-4 py-2 min-h-[40px] shadow-sm hover:bg-accent/5 
               active:scale-[0.97] transition-all duration-300"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-lavender">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-accent-foreground">
               <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
             </svg>
             Filters {hasActiveFilters && <span className="ml-1">({productCount})</span>}
@@ -102,8 +102,8 @@ const ProductsPage: React.FC = () => {
           <div className="relative">
             <button 
               onClick={toggleSortDropdown}
-              className="flex items-center gap-2 bg-white border border-lavender/30 rounded-full text-sm 
-                font-medium text-graphite px-4 py-2 min-h-[40px] shadow-sm hover:bg-lavender/5 
+              className="flex items-center gap-2 bg-card border border-accent/30 rounded-full 
+                text-button-secondary px-4 py-2 min-h-[40px] shadow-sm hover:bg-accent/5 
                 transition-all duration-300"
             >
               {selectedSortLabel}
@@ -119,13 +119,13 @@ const ProductsPage: React.FC = () => {
             </button>
 
             {isSortDropdownOpen && (
-              <ul className="absolute top-full right-0 mt-2 bg-white border border-lavender/10 rounded-xl 
+              <ul className="absolute top-full right-0 mt-2 bg-card border border-border rounded-xl 
                 shadow-lg min-w-[200px] py-3 z-50">
                 {sortOptions.map(option => (
                   <li 
                     key={option.value}
                     onClick={() => handleSortSelect(option.value)}
-                    className="px-4 py-2 text-sm text-graphite hover:bg-lavender/5 hover:text-lavender 
+                    className="px-4 py-2 text-body-secondary hover:bg-accent/5 hover:text-accent-foreground 
                       cursor-pointer transition-colors duration-200"
                   >
                     {option.label}
@@ -147,15 +147,15 @@ const ProductsPage: React.FC = () => {
 
       {/* Filter Drawer */}
       <div 
-        className={`fixed top-0 left-0 h-full w-[85%] max-w-[350px] bg-white z-[60] transform 
+        className={`fixed top-0 left-0 h-full w-[85%] max-w-[350px] bg-card z-[60] transform 
           ${isFilterDrawerOpen ? 'translate-x-0' : '-translate-x-full'} 
           transition-transform duration-300 flex flex-col`}
       >
-        <div className="flex items-center justify-between p-5 border-b border-champagne">
-          <h2 className="text-2xl font-normal text-graphite">Filters</h2>
+        <div className="flex items-center justify-between p-5 border-b border-border">
+          <h2 className="text-section-title">Filters</h2>
           <button 
             onClick={handleCloseDrawer}
-            className="p-2 text-graphite hover:bg-lavender/10 rounded-full transition-colors duration-300"
+            className="p-2 text-foreground hover:bg-accent/10 rounded-full transition-colors duration-300"
             aria-label="Close filters"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -167,7 +167,7 @@ const ProductsPage: React.FC = () => {
         <div className="flex-1 overflow-y-auto p-5 pb-24">
           {/* Metal Filter Section */}
           <div className="mb-6">
-            <h3 className="text-base font-medium text-graphite mb-4">Metal</h3>
+            <h3 className="text-label mb-4">Metal</h3>
             <div className="space-y-2">
               {['All', 'Yellow Gold', 'White Gold', 'Rose Gold', 'Platinum'].map((metal) => (
                 <label key={metal} className="flex items-center gap-3 cursor-pointer group">
@@ -177,10 +177,10 @@ const ProductsPage: React.FC = () => {
                     value={metal}
                     checked={tempMetalFilter === metal}
                     onChange={(e) => setTempMetalFilter(e.target.value)}
-                    className="w-5 h-5 border-2 border-lavender/30 rounded-full checked:bg-blush 
-                      checked:border-blush focus:ring-2 focus:ring-blush/20 transition-colors duration-200"
+                    className="w-5 h-5 border-2 border-accent/30 rounded-full checked:bg-accent 
+                      checked:border-accent focus:ring-2 focus:ring-accent/20 transition-colors duration-200"
                   />
-                  <span className="text-sm text-graphite group-hover:text-blush transition-colors duration-200">
+                  <span className="text-body-secondary group-hover:text-accent-foreground transition-colors duration-200">
                     {metal}
                   </span>
                 </label>
@@ -190,7 +190,7 @@ const ProductsPage: React.FC = () => {
 
           {/* Shape Filter Section */}
           <div className="mb-6">
-            <h3 className="text-base font-medium text-graphite mb-4">Diamond Shape</h3>
+            <h3 className="text-label mb-4">Diamond Shape</h3>
             <div className="space-y-2">
               {['All', 'Round', 'Oval', 'Princess', 'Emerald', 'Pear', 'Cushion', 'Marquise'].map((shape) => (
                 <label key={shape} className="flex items-center gap-3 cursor-pointer group">
@@ -200,10 +200,10 @@ const ProductsPage: React.FC = () => {
                     value={shape}
                     checked={tempShapeFilter === shape}
                     onChange={(e) => setTempShapeFilter(e.target.value)}
-                    className="w-5 h-5 border-2 border-lavender/30 rounded-full checked:bg-blush 
-                      checked:border-blush focus:ring-2 focus:ring-blush/20 transition-colors duration-200"
+                    className="w-5 h-5 border-2 border-accent/30 rounded-full checked:bg-accent 
+                      checked:border-accent focus:ring-2 focus:ring-accent/20 transition-colors duration-200"
                   />
-                  <span className="text-sm text-graphite group-hover:text-blush transition-colors duration-200">
+                  <span className="text-body-secondary group-hover:text-accent-foreground transition-colors duration-200">
                     {shape}
                   </span>
                 </label>
@@ -212,13 +212,12 @@ const ProductsPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-5 bg-white border-t border-champagne">
+        <div className="absolute bottom-0 left-0 right-0 p-5 bg-card border-t border-border">
           <div className="flex gap-3">
             {hasActiveFilters && (
               <button 
                 onClick={handleClearFilters}
-                className="flex-1 px-6 py-3 text-sm font-medium text-graphite border border-lavender/30 
-                  rounded-full hover:bg-lavender/5 transition-all duration-300"
+                className="btn-outline flex-1"
               >
                 Clear All
               </button>
@@ -226,8 +225,7 @@ const ProductsPage: React.FC = () => {
             <button 
               onClick={handleApplyFilters}
               disabled={!hasFilterChanges}
-                              className="flex-1 px-6 py-3 text-sm font-medium text-primary-foreground bg-primary rounded-full 
-                hover:bg-blush disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+              className="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Apply Filters {productCount > 0 && `(${productCount})`}
             </button>

@@ -1,89 +1,88 @@
-import React, { useRef } from 'react';
+import React from 'react';
+import { Star, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Heart, Star } from 'lucide-react';
 
-/**
- * ProductCard component for high-converting e-commerce category pages
- * @param {Object} props
- * @param {Object} props.product - Product data
- */
-export default function ProductCard({ product }) {
-  const videoRef = useRef(null);
-
-  // Prevent navigation when clicking wishlist
-  const handleWishlistClick = (e) => {
+const ProductCard = ({ product, onAddToWishlist = () => {}, onQuickView = () => {}, className = '' }) => {
+  console.log('ProductCard product:', product); // Debug log
+  const handleHeartClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // TODO: Implement wishlist logic (API call, toast, etc)
+    if (onAddToWishlist) {
+      onAddToWishlist(product);
+    }
   };
 
-  // Handle hover to play/pause video
-  const handleMouseEnter = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play();
+  const handleQuickView = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onQuickView) {
+      onQuickView(product);
     }
   };
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
+
+  const formatPrice = (price) => {
+    return price ? price.toLocaleString() : '0';
   };
+
+  // Fallback for image source
+  const imageSrc = (product.images && product.images[0]) || product.imageUrl;
 
   return (
-    <Link
+    <Link 
       to={`/products/${product.id}`}
-      className="block group rounded-xl overflow-hidden shadow-luxury bg-champagne hover:shadow-xl transition-all duration-300 relative product-card"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className={`block group ${className}`}
     >
-      <div className="relative aspect-square overflow-hidden">
-        <img
-          src={product.imageUrl}
-          alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-        {product.videoUrl && (
-          <video
-            ref={videoRef}
-            src={product.videoUrl}
-            className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
-        )}
-        {product.isBestseller && (
-          <span className="absolute top-3 left-3 bg-champagne text-graphite text-xs font-bold px-3 py-1 rounded-full shadow-sm tracking-wide font-secondary">
-            Bestseller
-          </span>
-        )}
-        <button
-          className="absolute top-3 right-3 bg-white/80 rounded-full p-2 hover:bg-champagne transition-colors z-10 btn-icon"
-          onClick={handleWishlistClick}
-          aria-label="Add to wishlist"
-        >
-          <Heart size={20} className="text-champagne" fill="none" />
-        </button>
-      </div>
-      <div className="p-4">
-        <h3 className="text-lg font-secondary font-semibold mb-1 line-clamp-2 text-graphite">{product.name}</h3>
-        <div className="flex items-center gap-2 mb-2">
-          <span className="flex items-center font-secondary text-champagne font-bold">
-            {product.rating}
-            <Star className="ml-1 text-champagne" size={16} fill="currentColor" />
-          </span>
-          <span className="text-muted-foreground text-sm font-primary">({product.reviewCount})</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xl font-bold text-graphite font-secondary">${product.price.toLocaleString()}</span>
-          {product.oldPrice && (
-            <del className="text-gray-400 text-base font-primary">${product.oldPrice.toLocaleString()}</del>
+      <div 
+        className="block group rounded-xl overflow-hidden shadow-luxury bg-card hover:shadow-xl transition-all duration-300 relative product-card"
+      >
+        {/* Product Image */}
+        <div className="aspect-square bg-secondary/30 relative overflow-hidden">
+          {imageSrc ? (
+            <img 
+              src={imageSrc} 
+              alt={product.name}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          ) : (
+            <div className="w-full h-full bg-secondary/50 flex items-center justify-center">
+              <span className="text-muted-foreground text-sm">No Image</span>
+            </div>
           )}
+          
+          {/* Promotion badge */}
+          {product.promotion && (
+            <span className="absolute top-3 left-3 bg-secondary text-foreground px-3 py-1 rounded-full shadow-sm text-caption font-semibold">
+              {product.promotion}
+            </span>
+          )}
+          
+          {/* Wishlist button */}
+          <button 
+            onClick={handleHeartClick}
+            className="absolute top-3 right-3 bg-white/80 rounded-full p-2 hover:bg-secondary transition-colors z-10 btn-icon"
+            aria-label="Add to wishlist"
+          >
+            <Heart size={20} className="text-accent-foreground" fill="none" />
+          </button>
+        </div>
+        
+        {/* Product Info */}
+        <div className="p-4 bg-card">
+          <h3 className="text-[20px] font-semibold text-gray-900 leading-tight mb-1 line-clamp-2">{product.name}</h3>
+          <div className="flex items-center mb-2">
+            <span className="flex items-center text-label font-semibold">
+              {product.rating || '5.0'}
+              <Star className="ml-1 text-accent-foreground" size={16} fill="currentColor" />
+            </span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-price">${formatPrice(product.price)}</span>
+          </div>
         </div>
       </div>
     </Link>
   );
-} 
+};
+
+export default ProductCard; 

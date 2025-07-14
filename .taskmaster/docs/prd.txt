@@ -1,85 +1,60 @@
-# GmDia UI Bug Fix & Tailwind CSS Optimization PRD
+# Color Palette Standardization Project - "Soft Precision" Design System
 
 ## Project Overview
-Fix critical CSS import errors and conduct comprehensive UI optimization for the GmDia luxury jewelry e-commerce website. The application is currently broken due to missing CSS file imports and needs a complete Tailwind CSS implementation review and optimization.
+Standardize the Facet & Co. website color palette to implement the "Soft Precision" design system, eliminating all duplicated, conflicting, or outdated color configurations across the codebase.
 
-## Current Critical Issues
+## Current State Analysis
+The project currently has multiple color systems:
+- Legacy fixed color values (text-charcoal, text-graphite, bg-ivory, etc.)
+- Modern HSL-based semantic colors with light/dark mode
+- Inconsistent usage across components
+- Duplicated color definitions in multiple files
 
-### 1. Missing CSS File Imports (Priority: Critical)
-- `./src/index.tsx` references deleted `./assets/styles/index.css`
-- `./src/pages/SizingGuide.tsx` references deleted `../assets/styles/index.css`
-- These imports prevent the application from compiling
+## Target Color Palette - "Soft Precision"
 
-### 2. UI Layout Inconsistencies (Priority: High)
-- Navigation layout issues potentially still present
-- Component styling conflicts between legacy CSS and Tailwind
-- Responsive design inconsistencies across components
+### Primary Palette
+- Ivory White: #FFFFFF or #F9F9F9 (clean canvas, minimalist elegance)
+- Graphite Black: #1A1A1A (high contrast, modern luxury)  
+- Champagne Beige: #EFE7DD (soft sophistication, neutral warmth)
 
-### 3. Tailwind CSS Integration (Priority: High)
-- Ensure all components use Tailwind classes consistently
-- Verify custom color palette implementation
-- Optimize utility class usage for performance
+### Accent Colors (Gen Z Appeal)
+- Muted Blush: #F5DADF (emotional subtlety, romantic energy)
+- Pale Sage: #DCEDE4 (fresh, ethical, nature-evoking)
+- Digital Lavender: #CDB4DB (trend-forward, calming tech tone)
+
+### Functional Colors
+- Highlight (CTA buttons): Soft Black or Blush on Ivory
+- Link Hover: Lavender or Sage
+- Success/Progress indicators: Sage Green
 
 ## Technical Requirements
 
-### Technology Stack
-- React 18+ with TypeScript
-- Tailwind CSS v4.1.11 (current implementation)
-- React Router for navigation
-- Luxury jewelry brand aesthetic with colors:
-  - Ivory White (#FFFFFF)
-  - Graphite Black (#1A1A1A) 
-  - Champagne Beige (#EFE7DD)
-  - Muted Blush (#F5DADF)
-  - Pale Sage (#DCEDE4)
-  - Digital Lavender (#CDB4DB)
+### Configuration Updates
+1. Update Tailwind config with new color definitions
+2. Update CSS custom properties in index.css
+3. Remove all legacy color utilities and classes
+4. Implement semantic color mapping
 
-### Component Architecture
-- Fully responsive mobile-first design
-- Reusable component library with Tailwind
-- Consistent typography (Georgia primary, Inter secondary)
-- Luxury brand animations and interactions
+### Component Updates
+1. Update all components to use new color classes
+2. Ensure consistent usage across all pages
+3. Update typography colors to match new palette
+4. Verify accessibility contrast ratios
 
-## Deliverables
-
-1. **Critical Bug Fixes**
-   - Remove all broken CSS imports
-   - Ensure application compiles successfully
-   - Verify development server runs without errors
-
-2. **Component Audit & Optimization**
-   - Review all React components for Tailwind compliance
-   - Standardize component styling patterns
-   - Optimize responsive design implementation
-
-3. **UI/UX Enhancement**
-   - Ensure luxury brand aesthetic consistency
-   - Optimize navigation and layout structure
-   - Implement proper spacing and typography hierarchy
-
-4. **Quality Assurance**
-   - TypeScript compilation verification
-   - Cross-browser compatibility testing
-   - Performance optimization review
-
-5. **Code Organization**
-   - Clean up unused files and imports
-   - Standardize component structure
-   - Document styling patterns for maintainability
+### File Structure
+- Primary config: `client/tailwind.config.js`
+- CSS variables: `client/src/index.css`
+- Component files: All `.tsx` files in `client/src/`
 
 ## Success Criteria
-- Application compiles without errors
-- All components render correctly with Tailwind styling
-- Navigation and layouts display properly across all screen sizes
-- Development server runs successfully
-- No TypeScript compilation errors
-- Luxury brand aesthetic maintained throughout
+- Single source of truth for color definitions
+- All components use standardized color classes
+- No duplicate or conflicting color configurations
+- Maintains accessibility standards
+- Consistent visual appearance across all pages
 
-## Timeline
-Immediate completion required - this is blocking all development work.
-
-## Notes
-- Maintain existing functionality while fixing styling issues
-- Preserve luxury jewelry brand identity and user experience
-- Focus on code maintainability and scalability
-- Ensure mobile-first responsive design principles 
+## Implementation Priority
+1. High: Core configuration files (Tailwind, CSS)
+2. High: Common components (Header, Footer, Button)
+3. Medium: Page-specific components
+4. Low: Cleanup and optimization 

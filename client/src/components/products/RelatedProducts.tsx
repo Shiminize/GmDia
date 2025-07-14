@@ -92,6 +92,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ currentProductId }) =
                 name: product.name,
                 price: product.price,
                 imageUrl: product.imageUrl,
+                images: [product.imageUrl], // Ensure images array is present
                 metal: product.metalOptions[0] || 'yellow-gold',
                 shape: product.diamondShapeOptions[0] || 'round',
                 description: product.description,

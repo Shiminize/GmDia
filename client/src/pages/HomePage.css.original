@@ -52,15 +52,16 @@
 .cta-button {
   padding: 1rem 2rem;
   font-size: 1rem;
-  background-color: transparent;
-  color: var(--ivory-white);
-  border: 1px solid var(--ivory-white); /* Thinner border */
+  background-color: #1A1A1A !important;
+  color: #FFFFFF !important;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  letter-spacing: 1px; /* Added letter-spacing */
+  transition: background-color 0.3s, color 0.3s, opacity 0.3s;
+  letter-spacing: 1px;
 }
 
 .cta-button:hover {
-  background-color: var(--ivory-white);
-  color: var(--graphite-black);
+  background-color: #1A1A1A !important;
+  color: #FFFFFF !important;
+  opacity: 0.6;
 }

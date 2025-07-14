@@ -38,26 +38,26 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-ivory to-champagne p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-12 w-full max-w-md border border-champagne">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-secondary p-4">
+      <div className="bg-card rounded-2xl shadow-2xl p-12 w-full max-w-md border border-border">
         {/* Header */}
         <div className="text-left mb-10">
-          <h1 className="text-4xl font-light text-graphite mb-2 font-primary bg-gradient-to-r from-lavender to-graphite bg-clip-text text-transparent">
+          <h1 className="text-luxury-headline mb-2 bg-gradient-to-r from-accent-foreground to-foreground bg-clip-text text-transparent">
             Welcome Back
           </h1>
-          <p className="text-graphite/70 text-lg leading-relaxed font-secondary">
-                            Sign in to your Facet & Co. account to continue your jewelry journey.
+          <p className="text-body-primary">
+            Sign in to your Facet & Co. account to continue your jewelry journey.
           </p>
         </div>
 
         {/* Demo Credentials Info */}
         <div className="bg-gradient-to-br from-secondary to-primary text-primary-foreground p-6 rounded-lg mb-8 text-left">
-          <h3 className="mb-4 text-lg font-primary">
+          <h3 className="mb-4 text-card-title">
             Demo Login Credentials
           </h3>
-          <div className="font-secondary leading-relaxed">
+          <div className="text-body-primary">
             <p className="mb-2">
-                              <strong>Email:</strong> admin@facetandco.com
+              <strong>Email:</strong> admin@facetandco.com
             </p>
             <p className="mb-2">
               <strong>Password:</strong> admin123
@@ -71,14 +71,14 @@ const Login: React.FC = () => {
                 password: 'admin123'
               });
             }}
-                            className="bg-primary-foreground/20 border border-primary-foreground/30 text-primary-foreground px-4 py-2 rounded text-sm cursor-pointer mt-2 transition-all duration-200 hover:bg-primary-foreground/30"
+            className="bg-primary-foreground/20 border border-primary-foreground/30 text-primary-foreground px-4 py-2 rounded text-button-secondary cursor-pointer mt-2 transition-all duration-200 hover:bg-primary-foreground/30"
           >
             Auto-fill credentials
           </button>
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-8 text-left border border-red-200">
+          <div className="bg-destructive/10 text-destructive p-4 rounded-lg mb-8 text-left border border-destructive/20">
             {error}
           </div>
         )}
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
           <div>
             <label 
               htmlFor="email"
-              className="text-body-sm text-charcoal"
+              className="block mb-2 text-label"
             >
               Email Address
             </label>
@@ -99,7 +99,7 @@ const Login: React.FC = () => {
               onChange={handleChange}
               required
               disabled={loading}
-              className="w-full p-4 border border-champagne rounded-lg text-base font-secondary bg-white text-graphite transition-all duration-300 focus:outline-none focus:border-lavender focus:ring-2 focus:ring-lavender/20 disabled:opacity-50"
+              className="w-full p-4 border border-border rounded-lg text-body-primary bg-input transition-all duration-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
               placeholder="Enter your email"
             />
           </div>
@@ -107,7 +107,7 @@ const Login: React.FC = () => {
           <div>
             <label 
               htmlFor="password"
-              className="block mb-2 font-medium text-graphite text-sm font-secondary"
+              className="block mb-2 text-label"
             >
               Password
             </label>
@@ -119,7 +119,7 @@ const Login: React.FC = () => {
               onChange={handleChange}
               required
               disabled={loading}
-              className="w-full p-4 border border-champagne rounded-lg text-base font-secondary bg-white text-graphite transition-all duration-300 focus:outline-none focus:border-lavender focus:ring-2 focus:ring-lavender/20 disabled:opacity-50"
+              className="w-full p-4 border border-border rounded-lg text-body-primary bg-input transition-all duration-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
               placeholder="Enter your password"
             />
           </div>
@@ -127,22 +127,22 @@ const Login: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full p-4 rounded-lg font-semibold text-base transition-all duration-300 ${
+            className={`w-full p-4 rounded-lg text-button-primary transition-all duration-300 ${
               loading 
-                ? 'bg-gray-400 cursor-not-allowed' 
+                ? 'bg-muted cursor-not-allowed' 
                 : 'bg-secondary hover:bg-secondary/90 hover:transform hover:-translate-y-0.5 hover:shadow-lg'
-            } text-secondary-foreground font-secondary`}
+            } text-secondary-foreground`}
           >
             {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
 
         <div className="mt-8 text-left">
-          <p className="text-graphite/70 font-secondary">
+          <p className="text-body-secondary">
             Don't have an account? {' '}
             <Link 
               to="/register" 
-              className="text-lavender hover:text-lavender/80 font-medium transition-colors duration-200"
+              className="text-link-primary hover:text-link-primary-hover transition-colors duration-200"
             >
               Sign up here
             </Link>
@@ -152,7 +152,7 @@ const Login: React.FC = () => {
         <div className="mt-6 text-left">
           <Link 
             to="/" 
-            className="text-graphite/60 hover:text-graphite text-sm font-secondary transition-colors duration-200"
+            className="text-link-secondary hover:text-link-secondary-hover transition-colors duration-200"
           >
             ← Back to Home
           </Link>

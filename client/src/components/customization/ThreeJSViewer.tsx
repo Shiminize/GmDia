@@ -333,17 +333,17 @@ const ThreeJSViewer: React.FC = () => {
       <div 
         ref={containerRef}
         data-testid="threejs-container"
-        className="w-full h-full bg-gradient-to-br from-gray-50 to-white rounded-lg overflow-hidden"
+        className="w-full h-full rounded-lg overflow-hidden"
         style={{ minHeight: '400px' }}
       ></div>
       {loading && (
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.8)', zIndex: 2 }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--card)', zIndex: 2 }}>
           <div className="w-12 h-12 border-2 border-lavender/30 border-t-lavender rounded-full animate-spin mb-4"></div>
           <p className="text-graphite font-medium">Loading 3D Model<br /><span className="text-xs text-warm-gray">Please wait while we prepare your jewelry preview...</span></p>
         </div>
       )}
       {error && (
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.8)', zIndex: 2 }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--card)', zIndex: 2 }}>
           <div className="w-12 h-12 border-2 border-blush/30 border-t-blush rounded-full animate-spin mb-4"></div>
           <p className="text-blush font-medium">{error}</p>
         </div>

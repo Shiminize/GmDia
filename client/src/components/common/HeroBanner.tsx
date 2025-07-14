@@ -25,10 +25,10 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
   if (!isActive) return null;
 
   const bannerStyle = {
-    background: backgroundImage ? `url(${backgroundImage})` : backgroundColor,
+    background: backgroundImage ? `url(${backgroundImage})` : 'var(--primary)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    color: textColor
+    color: 'var(--ivory-white)',
   };
 
   return (

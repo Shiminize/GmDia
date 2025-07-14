@@ -13,6 +13,7 @@ interface Product {
   originalPrice?: number;
   inStock?: boolean;
   stockCount?: number;
+  images?: string[]; // Added images property
 }
 
 interface ProductCarouselProps {
@@ -28,7 +29,10 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({ title, products }) =>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {products.map(product => (
             <div key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard product={{
+                ...product,
+                images: product.images || [product.imageUrl] // Ensure images array is present
+              }} />
             </div>
           ))}
         </div>

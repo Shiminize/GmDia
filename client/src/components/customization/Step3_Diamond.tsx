@@ -13,52 +13,27 @@ const Step3_Diamond: React.FC<Step3_DiamondProps> = ({ onSelectDiamondShape, sel
     {
       id: 'round',
       name: 'Round',
-      icon: (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="25" cy="25" r="20" stroke="currentColor" strokeWidth="2" />
-          <path d="M25 5L45 25L25 45L5 25L25 5Z" stroke="currentColor" strokeWidth="2" />
-        </svg>
-      )
+      image: '/Diamond Shapes/shop-by-round.jpg'
     },
     {
       id: 'princess',
       name: 'Princess',
-      icon: (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="15" width="20" height="20" stroke="currentColor" strokeWidth="2" transform="rotate(45 25 25)" />
-          <path d="M25 5L45 25L25 45L5 25L25 5Z" stroke="currentColor" strokeWidth="2" />
-        </svg>
-      )
+      image: '/Diamond Shapes/shop-by-princess.jpg'
     },
     {
       id: 'emerald',
       name: 'Emerald',
-      icon: (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="15" y="10" width="20" height="30" stroke="currentColor" strokeWidth="2" />
-          <path d="M15 15L35 15M15 35L35 35" stroke="currentColor" strokeWidth="2" />
-        </svg>
-      )
+      image: '/Diamond Shapes/shop-by-emerald.jpg'
     },
     {
       id: 'oval',
       name: 'Oval',
-      icon: (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="25" cy="25" rx="15" ry="20" stroke="currentColor" strokeWidth="2" />
-          <path d="M25 5C35 5 40 15 40 25C40 35 35 45 25 45C15 45 10 35 10 25C10 15 15 5 25 5Z" stroke="currentColor" strokeWidth="2" />
-        </svg>
-      )
+      image: '/Diamond Shapes/shop-by-oval.jpg'
     },
     {
       id: 'pear',
       name: 'Pear',
-      icon: (
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M25 5C35 5 40 15 40 25C40 35 35 45 25 45C15 45 10 35 10 25C10 15 15 5 25 5Z" stroke="currentColor" strokeWidth="2" />
-          <path d="M25 5L25 45" stroke="currentColor" strokeWidth="2" />
-        </svg>
-      )
+      image: '/Diamond Shapes/shop-by-cushion.png'
     }
   ];
 
@@ -70,17 +45,16 @@ const Step3_Diamond: React.FC<Step3_DiamondProps> = ({ onSelectDiamondShape, sel
         {diamondShapes.map((shape) => (
           <div
             key={shape.id}
-            className={`bg-white border rounded-lg p-6 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-lavender text-center
+            className={`bg-white border rounded-lg p-6 cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-lavender flex flex-col items-center
               ${selectedDiamondShape === shape.id 
                 ? 'bg-gradient-to-br from-lavender/10 to-white border-lavender shadow-md' 
                 : 'border-champagne'}`}
             onClick={() => onSelectDiamondShape && onSelectDiamondShape(shape.id)}
           >
-            <div className="w-20 h-20 mx-auto mb-4 transition-transform duration-300 group-hover:scale-110" 
-              style={{ color: selectedDiamondShape === shape.id ? 'var(--digital-lavender)' : 'var(--graphite-black)' }}>
-              {shape.icon}
+            <div className="w-20 h-20 flex items-center justify-center mb-2">
+              <img src={shape.image} alt={shape.name} className="w-16 h-16 object-contain" />
             </div>
-            <h4 className="font-primary text-lg font-normal text-graphite">{shape.name}</h4>
+            <h4 className="font-primary text-lg font-normal text-graphite text-center mt-1">{shape.name}</h4>
           </div>
         ))}
       </div>

@@ -23,13 +23,13 @@
   
   /* Styling that matches luxury brand */
   padding: 1rem 1.5rem !important;
-  background: linear-gradient(135deg, #1A1A1A 0%, #2C3E50 100%) !important;
-  color: #FFFFFF !important;
+  background: var(--graphite-black) !important;
+  color: var(--ivory-white) !important;
   border: none !important;
   border-radius: 50px !important;
   
   /* Typography */
-  font-family: Georgia, 'Times New Roman', serif !important;
+  font-family: var(--font-heading) !important;
   font-size: 1rem !important;
   font-weight: 500 !important;
   letter-spacing: 0.025em !important;
@@ -43,11 +43,13 @@
 }
 
 .live-chat-button:hover {
+  background: var(--graphite-black) !important;
+  color: var(--ivory-white) !important;
+  opacity: 0.6;
   transform: translateY(-2px) !important;
   box-shadow: 
     0 8px 25px rgba(26, 26, 26, 0.25),
     0 4px 15px rgba(26, 26, 26, 0.15) !important;
-  background: linear-gradient(135deg, #2C3E50 0%, #1A1A1A 100%) !important;
 }
 
 .live-chat-button:active {
@@ -56,10 +58,10 @@
 
 /* Chat Window Styling */
 .chat-window {
-  font-family: Georgia, 'Times New Roman', serif !important;
+  font-family: var(--font-body) !important;
   background: rgba(255, 255, 255, 0.98) !important;
   backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(239, 231, 221, 0.5) !important;
+  border: 1px solid var(--champagne-beige, #EFE7DD) !important;
   box-shadow: 
     0 25px 50px rgba(0, 0, 0, 0.15),
     0 15px 35px rgba(0, 0, 0, 0.1) !important;
@@ -67,8 +69,8 @@
 }
 
 .chat-window h3 {
-  font-family: Georgia, 'Times New Roman', serif !important;
-  color: #1A1A1A !important;
+  font-family: var(--font-heading) !important;
+  color: var(--graphite-black) !important;
   font-weight: 400 !important;
 }
 

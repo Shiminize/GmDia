@@ -51,27 +51,27 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-ivory to-champagne py-20">
+    <div className="min-h-screen bg-gradient-to-br from-background to-secondary py-20">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-light text-graphite mb-4 font-primary tracking-tight">
-                            Join Facet & Co.
+          <h1 className="text-luxury-hero mb-4">
+            Join Facet & Co.
           </h1>
-          <p className="text-lg text-graphite/90 leading-relaxed max-w-xl mx-auto font-secondary">
+          <p className="text-body-primary max-w-xl mx-auto">
             Create your account and start designing your perfect piece of jewelry.
           </p>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-sm border border-champagne/30">
+        <div className="bg-card/95 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-sm border border-border">
           {error && (
-            <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-8 text-center border border-red-200">
+            <div className="bg-destructive/10 text-destructive p-4 rounded-lg mb-8 text-center border border-destructive/20">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="text-body-sm text-charcoal">
+              <label htmlFor="name" className="block mb-2 text-label">
                 Full Name
               </label>
               <input
@@ -82,13 +82,13 @@ const Register: React.FC = () => {
                 onChange={handleChange}
                 required
                 disabled={loading}
-                className="w-full px-4 py-3 border-2 border-champagne rounded-lg bg-white text-graphite font-secondary text-base transition-all duration-300 focus:outline-none focus:border-lavender focus:ring-2 focus:ring-lavender/20 disabled:opacity-50"
+                className="w-full px-4 py-3 border-2 border-border rounded-lg bg-input text-body-primary transition-all duration-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
                 placeholder="Enter your full name"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-graphite mb-2 uppercase tracking-wide font-secondary">
+              <label htmlFor="email" className="block mb-2 text-label">
                 Email Address
               </label>
               <input
@@ -99,13 +99,13 @@ const Register: React.FC = () => {
                 onChange={handleChange}
                 required
                 disabled={loading}
-                className="w-full px-4 py-3 border-2 border-champagne rounded-lg bg-white text-graphite font-secondary text-base transition-all duration-300 focus:outline-none focus:border-lavender focus:ring-2 focus:ring-lavender/20 disabled:opacity-50"
+                className="w-full px-4 py-3 border-2 border-border rounded-lg bg-input text-body-primary transition-all duration-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
                 placeholder="Enter your email address"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-graphite mb-2 uppercase tracking-wide font-secondary">
+              <label htmlFor="password" className="block mb-2 text-label">
                 Password
               </label>
               <input
@@ -117,13 +117,13 @@ const Register: React.FC = () => {
                 required
                 disabled={loading}
                 minLength={6}
-                className="w-full px-4 py-3 border-2 border-champagne rounded-lg bg-white text-graphite font-secondary text-base transition-all duration-300 focus:outline-none focus:border-lavender focus:ring-2 focus:ring-lavender/20 disabled:opacity-50"
+                className="w-full px-4 py-3 border-2 border-border rounded-lg bg-input text-body-primary transition-all duration-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
                 placeholder="Enter your password (minimum 6 characters)"
               />
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-graphite mb-2 uppercase tracking-wide font-secondary">
+              <label htmlFor="confirmPassword" className="block mb-2 text-label">
                 Confirm Password
               </label>
               <input
@@ -135,7 +135,7 @@ const Register: React.FC = () => {
                 required
                 disabled={loading}
                 minLength={6}
-                className="w-full px-4 py-3 border-2 border-champagne rounded-lg bg-white text-graphite font-secondary text-base transition-all duration-300 focus:outline-none focus:border-lavender focus:ring-2 focus:ring-lavender/20 disabled:opacity-50"
+                className="w-full px-4 py-3 border-2 border-border rounded-lg bg-input text-body-primary transition-all duration-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
                 placeholder="Confirm your password"
               />
             </div>
@@ -144,9 +144,9 @@ const Register: React.FC = () => {
               <button 
                 type="submit" 
                 disabled={loading}
-                className={`px-8 py-3 rounded-full font-secondary font-semibold text-base uppercase tracking-wide transition-all duration-300 ${
+                className={`px-8 py-3 rounded-full text-button-primary transition-all duration-300 ${
                   loading 
-                    ? 'bg-gray-400 cursor-not-allowed text-secondary-foreground' 
+                    ? 'bg-muted cursor-not-allowed text-muted-foreground' 
                     : 'bg-secondary text-secondary-foreground hover:bg-secondary/90 hover:transform hover:-translate-y-0.5 hover:shadow-lg'
                 } focus:outline-none focus:ring-2 focus:ring-secondary/50`}
               >
@@ -155,12 +155,12 @@ const Register: React.FC = () => {
             </div>
           </form>
 
-          <div className="text-center mt-8 pt-6 border-t border-champagne">
-            <p className="text-graphite/70 font-secondary">
+          <div className="text-center mt-8 pt-6 border-t border-border">
+            <p className="text-body-secondary">
               Already have an account? {' '}
               <Link 
                 to="/login" 
-                className="text-lavender hover:text-lavender/80 font-medium transition-colors duration-200"
+                className="text-link-primary hover:text-link-primary-hover transition-colors duration-200"
               >
                 Sign in here
               </Link>
@@ -170,7 +170,7 @@ const Register: React.FC = () => {
           <div className="text-center mt-4">
             <Link 
               to="/" 
-              className="text-graphite/60 hover:text-graphite text-sm font-secondary transition-colors duration-200"
+              className="text-link-secondary hover:text-link-secondary-hover transition-colors duration-200"
             >
               ← Back to Home
             </Link>

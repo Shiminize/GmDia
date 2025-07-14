@@ -129,6 +129,7 @@ const ProductList: React.FC<ProductListProps> = ({
           name: product.name,
           price: product.price,
           imageUrl,
+          images: [imageUrl], // Ensure images array is present
           description: product.description,
           metal: product.metalOptions[0] || 'Yellow Gold',
           shape: product.diamondShapeOptions[0] || 'Round',
